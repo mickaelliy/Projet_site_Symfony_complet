@@ -1,0 +1,27 @@
+{# src/Mickweb/EcommerceBundle/Resources/views/Advert/modifier.html.twig #}
+
+
+{% extends "MickwebEcommerceBundle::layout.html.twig" %}
+
+{% block title %}
+    Modifier un produit - {{ parent() }}
+{% endblock %}
+
+{% block MickwebEcommerce_body %}
+
+  <h2>Modifier un produit</h2>
+
+  {{ include("MickwebEcommerceBundle:Product:form.html.twig") }}
+
+  <p>
+    Attention : ce produit existe déjà, merci de na pas changer l'esprit général de la description actuelle.
+  </p>
+
+  <p>
+    <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Retour à la liste
+    </a>
+  </p>
+
+{% endblock %}

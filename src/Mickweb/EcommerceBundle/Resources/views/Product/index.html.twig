@@ -1,0 +1,27 @@
+{# src/Mickweb/EcommerceBundle/Resources/views/Product/index.html.twig #}
+
+{% extends "MickwebEcommerceBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block MickwebEcommerce_body %}
+
+  <h2>Liste des produits</h2>
+
+  <ul>
+    {% for product in listProducts %}
+      <li>
+        <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
+          {{ product.title }}
+        </a>
+        ajouté par {{ product.author }},
+        le {{ product.date|date('d/m/Y') }}
+      </li>
+    {% else %} 
+      <li>Aucun produit disponible</li> 
+    {% endfor %}
+  </ul>
+
+{% endblock %}

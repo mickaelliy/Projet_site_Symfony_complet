@@ -1,0 +1,43 @@
+mickweb_ecommerce_homepage:
+    path:     /{page}
+    defaults:
+        _controller: MickwebEcommerceBundle:Product:index
+        page:        1
+    requirements:
+        page: \d*
+
+mickweb_ecommerce_fiche_produit:
+    path:     /fiche_produit/{id}
+    defaults: 
+        _controller: MickwebEcommerceBundle:Product:ficheProduit
+    requirements:
+        id: \d+
+
+mickweb_ecommerce_ajout:
+    path:     /ajout
+    defaults: 
+        _controller: MickwebEcommerceBundle:Product:ajout   
+
+mickweb_ecommerce_modifier:
+    path:     /modifier/{id}
+    defaults: 
+        _controller: MickwebEcommerceBundle:Product:modifier
+    requirements:
+        id: \d+
+
+mickweb_ecommerce_supprimer:
+    path:     /supprimer/{id}
+    defaults: 
+        _controller: MickwebEcommerceBundle:Product:supprimer
+    requirements:
+        id: \d+
+
+
+mickweb_ecommerce_view_slug:
+    path:      /{year}/{slug}.{format}
+    defaults:
+        _controller: MickwebEcommerceBundle:Product:viewSlug
+        format: html
+    requirements:
+        year: \d{4}
+        format: html|xml

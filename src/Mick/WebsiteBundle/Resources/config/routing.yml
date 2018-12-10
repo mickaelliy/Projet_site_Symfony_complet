@@ -1,0 +1,7 @@
+mick_website_homepage:
+    path:     /accueil
+    defaults: { _controller: MickWebsiteBundle:Default:index }
+
+mick_website_fp:
+    path:     /fiche_produit
+    defaults: { _controller: MickWebsiteBundle:Default:ficheProduit } # bundle : controleur : methode(ici ficheProduitAction)  

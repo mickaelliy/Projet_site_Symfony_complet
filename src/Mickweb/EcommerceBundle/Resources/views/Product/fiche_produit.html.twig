@@ -1,0 +1,35 @@
+{# src/Mickweb/EcommerceBundle/Resources/views/Product/fiche_produit.html.twig #}
+
+{% extends "MickwebEcommerceBundle::layout.html.twig" %}
+
+{% block title %}
+  Fiche produit - {{ parent() }}
+{% endblock %}
+
+{% block MickwebEcommerce_body %}
+
+  <h2>{{ product.title }}</h2>
+  <i>Par {{ product.author }}, le {{ product.date|date('d/m/Y') }}</i>
+
+  <div class="well">
+      {{ product.content }}
+  </div>
+
+  <p>
+      <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Retour à la liste
+      </a>
+
+      <a href="{{ path('mickweb_ecommerce_modifier', {'id': product.id}) }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-edit"></i>
+        Modifier le produit
+      </a>
+
+      <a href="{{ path('mickweb_ecommerce_supprimer', {'id': product.id}) }}" class="btn btn-danger">
+        <i class="glyphicon glyphicon-trash"></i>
+        Supprimer le produit
+      </a>
+  </p>
+
+{% endblock %}

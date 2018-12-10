@@ -1,0 +1,16 @@
+{# src/Mickweb/EcommerceBundle/Resources/views/Product/index.html.twig #}
+
+
+{# Ce template n'hérite de personne,
+   tout comme le template inclus avec {{ include() }}. #}
+
+<ul class="nav nav-pills nav-stacked">
+
+  {% for product in listProducts %}
+    <li>
+      <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
+        {{ product.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

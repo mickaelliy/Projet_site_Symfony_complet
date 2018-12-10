@@ -1,0 +1,28 @@
+{# src/Mickweb/EcommerceBundle/Resources/views/Advert/add.html.twig #}
+
+
+{% extends "MickwebEcommerceBundle::layout.html.twig" %}
+
+{% block title %}
+    Ajouter un produit - {{ parent() }}
+{% endblock %}
+
+{% block MickwebEcommerce_body %}
+
+  <h2>Ajouter une annonce</h2>
+
+  {{ include("MickwebEcommerceBundle:Product:form.html.twig") }}
+
+  <p>
+    Attention : cette annonce sera ajoutée directement
+    sur la page d'accueil après validation du formulaire.
+  </p>
+
+  <p>
+    <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}" class="btn btn-default">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Retour à la liste
+    </a>
+  </p>
+
+{% endblock %}

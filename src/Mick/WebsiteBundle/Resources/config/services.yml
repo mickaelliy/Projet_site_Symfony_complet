@@ -1,0 +1,4 @@
+services:
+#    mick_website.example:
+#        class: Mick\WebsiteBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
