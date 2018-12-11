@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Mick\WebsiteBundle\MickWebsiteBundle(),
             new Mickweb\EcommerceBundle\MickwebEcommerceBundle(),
+            new Mickweb\UserBundle\MickwebUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

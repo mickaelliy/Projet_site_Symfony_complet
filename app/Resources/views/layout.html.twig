@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{% block title %} ML website{% endblock %}</title>
-    
+
     {% block stylesheets %}
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     {% endblock %}
@@ -15,14 +15,14 @@
 
   <body>
     <div id="header" class="jumbotron text-center">
-            <h1> Raaaaats </h1>
+            <h1> Layout principal : Raaaaats </h1>
             <p>
                 Retrouvez toute la gamme de produits ratiZ... des produits de qualité faits par des passionnés.
                 Vous aimez les rats mignons et le metal brutal, welcome to the hell !
             </p>
             <p>
                 <a class="btn btn-primary btn-lg" href="http://www.mickael-lizeray.fr/mmcommerce">
-                    l'enfer est ici >>
+                    click here >>
                 </a>
             </p>
     </div>
@@ -52,12 +52,12 @@
             <p class="text-center">Créateur du site {{ webmaster }} {{ 'now'|date('Y') }} </p>
         </footer>
     </div>
-    
+
     {% block javascripts %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     {% endblock %}
-  
+
   </body>
 
 </html>

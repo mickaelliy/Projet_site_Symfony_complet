@@ -1,21 +1,43 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    #encoders sert à encoder le mdp, ici plaintext laisse le mdp en clair, pour securiser mettre sha512
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    #role_hierarchy permet d'assigner des roles pour controler les accès
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                  user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                  admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ]}
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
+        # mise en place d'un pare feu
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
+        # main est le nom du pare feu
         main:
-            anonymous: ~
-            # activate different ways to authenticate
+            pattern:        ^/ #masque d'url. protege toutes les pages par un pare-feu
+            anonymous:      true #accepte les utilisateurs anonymes
+            # methode d'authentification du pare feu via un formulaire
+            form_login:
+                login_path: login # route de connexion du form
+                check_path: login_check # route de validation du form
+            logout:
+                path:       logout # nom de la route pour etre deconnecté
+                target:     login # nom de la route après deconnexion
+
+    access_control:
+      #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~

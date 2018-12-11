@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-
 class ProductController extends Controller
 {
     public function indexAction($page)
@@ -20,25 +19,25 @@ class ProductController extends Controller
               'author'  => 'Alexandre',
               'content' => 'Tshirt ratifiole metalleux…',
               'date'    => new \Datetime()),
-      
+
             array(
               'title'   => 'Polo',
               'id'      => 2,
               'author'  => 'Hugo',
               'content' => 'Polo avec un vieux monsieur barbu…',
               'date'    => new \Datetime()),
-      
+
             array(
               'title'   => 'Casquette',
-              'id'      => 3,  
+              'id'      => 3,
               'author'  => 'Mathieu',
               'content' => 'Casquette moche mais très chère car elle est oldschool…',
               'date'    => new \Datetime())
           );
-      
-      
+
+
           // Et modifiez le 2nd argument pour injecter notre liste
-      
+
           return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
             'listProducts' => $listProducts
           ));
@@ -66,7 +65,7 @@ class ProductController extends Controller
         $product->setTitre('T-shirt Ratifiole');
         $product->setAuteur('Mkl');
         $product->setDescription('T-shirt de qualité. Résiste aux hordes de métalleux, aux Wall of death et Circle pit');
-        
+
         //on récupère l'entityManager
         $em = $this->getDoctrine()->getManager();
 
@@ -79,7 +78,7 @@ class ProductController extends Controller
         // Metode de récupération des données du formulaire
         if($request->isMethod('POST')){
             $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
-            
+
             // On redirige vers la page de visualisation du produit
             return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
         }
@@ -93,7 +92,7 @@ class ProductController extends Controller
         if ($request->isMethod('POST')) {
 
             $request->getSession()->getFlashBag()->add('notice', 'produit bien modifiée.');
-            
+
             return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => 5));
     }
         $product = array(

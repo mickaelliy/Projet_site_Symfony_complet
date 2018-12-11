@@ -4,9 +4,10 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle",
+            "": "src/",
             "Mick\\WebsiteBundle\\": "src/Mick/WebsiteBundle",
-            "Mickweb\\EcommerceBundle\\": "src/Mickweb/EcommerceBundle"
+            "Mickweb\\EcommerceBundle\\": "src/Mickweb/EcommerceBundle",
+            "Mickweb\\UserBundle\\": "src/Mickweb/UserBundle"
         },
         "classmap": [
             "app/AppKernel.php",
