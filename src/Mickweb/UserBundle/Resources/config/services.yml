@@ -1,0 +1,4 @@
+services:
+#    mickweb_user.example:
+#        class: Mickweb\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
