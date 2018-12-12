@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Mick\WebsiteBundle\MickWebsiteBundle(),
             new Mickweb\EcommerceBundle\MickwebEcommerceBundle(),
             new Mickweb\UserBundle\MickwebUserBundle(),
+            //new FOS\UserBundle\FOSUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

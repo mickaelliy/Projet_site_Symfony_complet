@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ProductController extends Controller
 {
@@ -58,9 +60,17 @@ class ProductController extends Controller
             ));
     }
 
-    // fonction pour ajouter un produit
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    *
+    */
     public function ajoutAction(Request $request)
     {
+        // Condition qui donne accès à l'ajout des produits seulement aux ADMIN
+        /*if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+          throw new AccessDeniedException('Accès réservé aux administrateurs du site');
+        }*/
+
         $product = new Product();
         $product->setTitre('T-shirt Ratifiole');
         $product->setAuteur('Mkl');

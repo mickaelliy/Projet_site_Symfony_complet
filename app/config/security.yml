@@ -4,6 +4,7 @@ security:
     #encoders sert à encoder le mdp, ici plaintext laisse le mdp en clair, pour securiser mettre sha512
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        Mickweb\UserBundle\Entity\User: plaintext
 
     #role_hierarchy permet d'assigner des roles pour controler les accès
     role_hierarchy:
@@ -17,16 +18,27 @@ security:
                 users:
                   user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                   admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ]}
+        #main:
+            #entity:
+                #class:    Mickweb\UserBundle\Entity\User
+                #property: username
 
     firewalls:
         # mise en place d'un pare feu
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        # pare-feu uniquement pour le formulaire
+        main_login:
+            # expression regulière qui permet de prendre /login (mais pas login_check)
+            pattern:   ^/login$
+            anonymous: true # On autorise alors les anonymes sur ce pare-feu
         # main est le nom du pare feu
         main:
             pattern:        ^/ #masque d'url. protege toutes les pages par un pare-feu
-            anonymous:      true #accepte les utilisateurs anonymes
+            anonymous:      false # n'accepte les utilisateurs anonymes. Mettre TRUE pour les accepter
+            #provider: main
+
             # methode d'authentification du pare feu via un formulaire
             form_login:
                 login_path: login # route de connexion du form
@@ -35,8 +47,9 @@ security:
                 path:       logout # nom de la route pour etre deconnecté
                 target:     login # nom de la route après deconnexion
 
+    # permet de sécuriser toutes les pages dont l'URL commence par /admin
     access_control:
-      #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https }
 
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
