@@ -4,7 +4,7 @@ security:
     #encoders sert à encoder le mdp, ici plaintext laisse le mdp en clair, pour securiser mettre sha512
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
-        Mickweb\UserBundle\Entity\User: plaintext
+        Mickweb\UserBundle\Entity\User: sha512 #pour crypter le mdp
 
     #role_hierarchy permet d'assigner des roles pour controler les accès
     role_hierarchy:
@@ -13,12 +13,13 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory:
-                users:
-                  user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                  admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ]}
-        #main:
+        #in_memory:
+            #memory:
+                #users:
+                  #user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                  #admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ]}
+        main:
+            id: fos_user.user_provider.username
             #entity:
                 #class:    Mickweb\UserBundle\Entity\User
                 #property: username
@@ -36,17 +37,17 @@ security:
         # main est le nom du pare feu
         main:
             pattern:        ^/ #masque d'url. protege toutes les pages par un pare-feu
-            anonymous:      false # n'accepte les utilisateurs anonymes. Mettre TRUE pour les accepter
-            #provider: main
-
+            anonymous:      true # FALSE n'accepte pas les utilisateurs anonymes. Mettre TRUE pour les accepter
+            provider: main
             # methode d'authentification du pare feu via un formulaire
             form_login:
-                login_path: login # route de connexion du form
-                check_path: login_check # route de validation du form
+                login_path: fos_user_security_login # route de connexion du form
+                check_path: fos_user_security_check # route de validation du form
             logout:
-                path:       logout # nom de la route pour etre deconnecté
-                target:     login # nom de la route après deconnexion
-
+                path:       fos_user_security_logout # nom de la route pour etre deconnecté
+                target:     fos_user_security_login # nom de la route après deconnexion
+            remember_me:
+                secret:   %secret%
     # permet de sécuriser toutes les pages dont l'URL commence par /admin
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https }
