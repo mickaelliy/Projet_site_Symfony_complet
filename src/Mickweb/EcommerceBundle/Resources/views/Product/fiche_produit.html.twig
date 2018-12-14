@@ -8,12 +8,21 @@
 
 {% block MickwebEcommerce_body %}
 
-  <h2>{{ product.title }}</h2>
-  <i>Par {{ product.author }}, le {{ product.date|date('d/m/Y') }}</i>
+  <h2>{{ product.titre }}</h2>
+  <i>Par {{ product.auteur }}</i>
 
-  <div class="well">
-      {{ product.content }}
+  <div style="display:flex"> {# penser à mettre le css dans le dossier web  #}
+    <div class="well">
+        {# On vérifie qu'une image soit bien associée à l'annonce #}
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.image.alt }}">
+        {% endif %}
+    </div>
+    <div class="well">
+        {{ product.description }}
+    </div>
   </div>
+
 
   <p>
       <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-default">

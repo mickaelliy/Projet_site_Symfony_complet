@@ -3,6 +3,7 @@
 namespace Mickweb\EcommerceBundle\Controller;
 
 use Mickweb\EcommerceBundle\Entity\Product;
+use Mickweb\EcommerceBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -12,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ProductController extends Controller
 {
+/*******************************PAGE D'ACCUEIL DES PRODUITS****************************************************************/
     public function indexAction($page)
     {
         $listProducts = array(
@@ -44,26 +46,35 @@ class ProductController extends Controller
             'listProducts' => $listProducts
           ));
     }
-
+/*******************************FICHE PRODUIT****************************************************************/
     public function ficheProduitAction($id)
     {
-        $product = array(
-            'title'   => 'Tshirt',
-            'id'      => 1,
-            'author'  => 'Alexandre',
-            'content' => 'Tshirt ratifiole metalleux…',
-            'date'    => new \Datetime()
-        );
+      // Je recupere le repository
+      $respository = $this->getDoctrine()
+        ->getManager()
+        ->getRepository('MickwebEcommerceBundle:Product')
+      ;
+      // Je recupere l'entité correspondante à l'id $id
+      $product= $respository->find($id);
 
-        return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
-            'product' => $product
-            ));
+      // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
+      // ou null si l'id $id n'existe pas
+      if (null === $product) {
+        throw new NotFoundHttpException("Lannonce d'id" .$id. "n'existe pas");
+      }
+
+      return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
+        'product' => $product
+      ));
     }
+/*******************************AJOUT PRODUIT****************************************************************/
+    // Cette annonation sert à accéder à la page Ajout seulement aux Admin
+    // Je l'ai désactivé pour le moment
+    ///**
+    //* @Security("has_role('ROLE_ADMIN')")
+    //*
+    //*/
 
-    /**
-    * @Security("has_role('ROLE_ADMIN')")
-    *
-    */
     public function ajoutAction(Request $request)
     {
         // Condition qui donne accès à l'ajout des produits seulement aux ADMIN
@@ -71,16 +82,26 @@ class ProductController extends Controller
           throw new AccessDeniedException('Accès réservé aux administrateurs du site');
         }*/
 
+        // creation de l'entité product
         $product = new Product();
         $product->setTitre('T-shirt Ratifiole');
         $product->setAuteur('Mkl');
         $product->setDescription('T-shirt de qualité. Résiste aux hordes de métalleux, aux Wall of death et Circle pit');
+
+        // creation de l'entité Image
+        $image = new Image();
+        $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
+        $image->setAlt('Image palmier');
+
+        // On lie l'image à l'annonce
+        $product->setImage($image);
 
         //on récupère l'entityManager
         $em = $this->getDoctrine()->getManager();
 
         //1ere etape - On persiste l'entité
         $em->persist($product);
+        // le fait d'avoir mis cascade "persist", l'entité $image est persisté automatiquement
 
         //2eme etape - on flush tout ce qui a été persisté avant
         $em->flush();
@@ -97,6 +118,7 @@ class ProductController extends Controller
         return $this->render('@MickwebEcommerce/Product/add.html.twig', array('product' => $product));
     }
 
+    /*******************************MODIF PRODUIT****************************************************************/
     public function modifierAction($id, Request $request)
     {
         if ($request->isMethod('POST')) {
