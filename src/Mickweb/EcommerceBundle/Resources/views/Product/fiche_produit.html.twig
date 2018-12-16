@@ -23,6 +23,25 @@
     </div>
   </div>
 
+  <h2>Avis sur le produit</h2>
+    <div>
+      {# boucle foreach qui permet d'afficher les avis #}
+    
+        <ul>
+          {% for avis in listAvis %}
+            <li> 
+              <p> {{ avis.commentaire }} </p>
+              <p> note : {{ avis.note }} </p>
+              <p> Date de publication : {{ avis.date|date('Y-m-d') }} </p>
+            </li>
+            <hr>
+          {% else %}  
+            <li>Aucun commentaire </li>
+          {% endfor %}
+        </ul>
+
+    </div>
+
 
   <p>
       <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-default">

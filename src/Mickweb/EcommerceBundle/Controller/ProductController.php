@@ -4,6 +4,7 @@ namespace Mickweb\EcommerceBundle\Controller;
 
 use Mickweb\EcommerceBundle\Entity\Product;
 use Mickweb\EcommerceBundle\Entity\Image;
+use Mickweb\EcommerceBundle\Entity\Avis;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -49,22 +50,26 @@ class ProductController extends Controller
 /*******************************FICHE PRODUIT****************************************************************/
     public function ficheProduitAction($id)
     {
-      // Je recupere le repository
-      $respository = $this->getDoctrine()
-        ->getManager()
-        ->getRepository('MickwebEcommerceBundle:Product')
-      ;
-      // Je recupere l'entité correspondante à l'id $id
-      $product= $respository->find($id);
+      $em = $this->getDoctrine()->getManager();
+
+      // je recupere le produit l'id
+      $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
 
       // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
       // ou null si l'id $id n'existe pas
       if (null === $product) {
-        throw new NotFoundHttpException("Lannonce d'id" .$id. "n'existe pas");
+        throw new NotFoundHttpException("L'annonce d'id" .$id. "n'existe pas");
       }
 
+      // je recupere la liste des avis de ce produit grace au findBy
+      $listAvis = $em
+        ->getRepository('MickwebEcommerceBundle:Avis')
+        ->findBy(array('product' => $product))
+      ;
+
       return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
-        'product' => $product
+        'product' => $product,
+        'listAvis' => $listAvis
       ));
     }
 /*******************************AJOUT PRODUIT****************************************************************/
@@ -88,12 +93,24 @@ class ProductController extends Controller
         $product->setAuteur('Mkl');
         $product->setDescription('T-shirt de qualité. Résiste aux hordes de métalleux, aux Wall of death et Circle pit');
 
+        // Creation d'un 1er avis
+        $avis1 = new Avis();
+        $avis1->setCommentaire('Super produit, je recommande');
+        $avis1->setNote(4);
+
+        // Creation d'un 2eme avis
+        $avis2 = new Avis();
+        $avis2->setCommentaire('RAwwwww, royal, metal et casse-dalle');
+        $avis2->setNote(4);
+
         // creation de l'entité Image
         $image = new Image();
         $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
         $image->setAlt('Image palmier');
 
         // On lie l'image à l'annonce
+        $avis1->setProduct($product);
+        $avis2->setProduct($product);
         $product->setImage($image);
 
         //on récupère l'entityManager
@@ -101,6 +118,8 @@ class ProductController extends Controller
 
         //1ere etape - On persiste l'entité
         $em->persist($product);
+        $em->persist($avis1);
+        $em->persist($avis2);
         // le fait d'avoir mis cascade "persist", l'entité $image est persisté automatiquement
 
         //2eme etape - on flush tout ce qui a été persisté avant
@@ -139,6 +158,28 @@ class ProductController extends Controller
         ));
     }
 
+    /*******************************MODIFIER IMAGE****************************************************************/
+    public function modifierImageAction($productId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // On récupère l'annonce
+        $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($productId);
+
+        // On modifie l'URL de l'image par exemple
+        $product->getImage()->setUrl('https://images.unsplash.com/photo-1525923838299-2312b60f6d69');
+
+        // On n'a pas besoin de persister l'annonce ni l'image.
+        // ces entités sont automatiquement persistées car
+        // on les a récupérées depuis Doctrine lui-même
+
+        // On déclenche la modification
+        $em->flush();
+
+        return new Response('OK');
+    }
+
+    /*******************************SUPPRIMER PRODUIT****************************************************************/
     public function supprimerAction($id)
     {
         return $this->render('@MickwebEcommerce/Product/supprimer.html.twig');
