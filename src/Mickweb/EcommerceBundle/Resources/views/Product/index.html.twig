@@ -11,17 +11,53 @@
   <h2>Liste des produits</h2>
 
   <ul>
-    {% for product in listProducts %}
-      <li>
-        <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
-          {{ product.title }}
-        </a>
-        ajouté par {{ product.author }},
-        le {{ product.date|date('d/m/Y') }}
-      </li>
-    {% else %} 
-      <li>Aucun produit disponible</li> 
-    {% endfor %}
+      {% for product in listProducts %}
+        <li>
+          <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
+            {{ product.title }}
+          </a>
+          ajouté par {{ product.author }},
+          le {{ product.date|date('d/m/Y') }}
+        </li>
+      {% else %} 
+        <li>Aucun produit disponible</li> 
+      {% endfor %}
   </ul>
 
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-3">
+        <img src="../img/rats_1.jpg" alt="DevAndClick" width="300" height="300">
+        <div>
+          <h4>Thumbnail label</h4>
+          <p>100,00 €</p>
+          <a class="btn btn-primary" href="produit.php">Plus d'infos</a>
+          <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
+        </div>           
+      </div>
+
+      <div class="col-md-3">
+        <img src="../img/rats_2.jpg" alt="DevAndClick" width="300" height="300">
+        <div>
+          <h4>Thumbnail label</h4>
+          <p>100,00 €</p>
+          <a class="btn btn-primary" href="produit.php">Plus d'infos</a>
+          <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <img src="../img/rats_2.jpg" alt="DevAndClick" width="300" height="300">
+        <div class="caption">
+          <h4>Thumbnail label</h4>
+          <p>100,00 €</p>
+          <a class="btn btn-primary" href="produit.php">Plus d'infos</a>
+          <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
 {% endblock %}

@@ -40,7 +40,6 @@ class ProductController extends Controller
               'date'    => new \Datetime())
           );
 
-
           // Et modifiez le 2nd argument pour injecter notre liste
 
           return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
@@ -140,20 +139,38 @@ class ProductController extends Controller
     /*******************************MODIF PRODUIT****************************************************************/
     public function modifierAction($id, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        // on récupère le produit $id    
+        $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
+
+        if (null === $product) {
+            throw new NotFoundHttpException("L'annonce d'id" .$id. "n'existe pas");
+        }
+
+        $listCategories = $em->getRepository('MickwebEcommerceBundle:Category')->findAll();
+
+        // boucle sur les categories pour lier au produit
+        foreach ($listCategories as $category) {
+            $product->addCategory($category);
+        }
+
+        $em->flush();
+        
         if ($request->isMethod('POST')) {
 
             $request->getSession()->getFlashBag()->add('notice', 'produit bien modifiée.');
 
             return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => 5));
     }
-        $product = array(
+       /* $product = array(
             'title'   => 'Tshirt',
             'id'      => 1,
             'author'  => 'Alexandre',
             'content' => 'Tshirt ratifiole metalleux…',
             'date'    => new \Datetime()
         );
-
+*/
         return $this->render('@MickwebEcommerce/Product/modifier.html.twig', array('product' => $product
         ));
     }
@@ -182,7 +199,22 @@ class ProductController extends Controller
     /*******************************SUPPRIMER PRODUIT****************************************************************/
     public function supprimerAction($id)
     {
-        return $this->render('@MickwebEcommerce/Product/supprimer.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
+        
+        if (null === $product) {
+            throw new NotFoundHttpException("L'annonce d'id" .$id. "n'existe pas");
+        }
+
+        foreach($product->getCategories() as $category) {
+            $product->removeCategory($category);
+        }
+
+        $em->flush();
+
+        return $this->render('@MickwebEcommerce/Product/supprimer.html.twig', array('product' => $product
+        ));
     }
 
     public function menuAction($limit)

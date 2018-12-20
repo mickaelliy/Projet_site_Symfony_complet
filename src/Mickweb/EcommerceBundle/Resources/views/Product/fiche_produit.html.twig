@@ -13,7 +13,7 @@
 
   <div style="display:flex"> {# penser à mettre le css dans le dossier web  #}
     <div class="well">
-        {# On vérifie qu'une image soit bien associée à l'annonce #}
+        {# On vérifie qu'une image soit bien associée au produit #}
         {% if product.image %}
         <img src="{{ product.image.url }}" alt="{{ product.image.alt }}">
         {% endif %}
@@ -22,6 +22,16 @@
         {{ product.description }}
     </div>
   </div>
+
+  {# Affichage des catégories.... n'affiche rien pour le moment #}
+  {% if not product.categories.empty %}
+  <p>
+    Cette annonce est parue dans les catégories suivantes :
+    {% for category in product.categories %}
+      {{ category.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+  </p>
+  {% endif %}
 
   <h2>Avis sur le produit</h2>
     <div>
@@ -59,5 +69,6 @@
         Supprimer le produit
       </a>
   </p>
+
 
 {% endblock %}

@@ -13,9 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
-    * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=false)
-    */
+     * @ORM\ManyToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Category", cascade={"persist"}) 
+     * @ORM\JoinTable(name="mickweb_product_category")
+     */
+    private $categories;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $image;
     // le JoinColumn que j'ai ajouté "oblige" à mettre une image avec le produit
 
@@ -183,5 +189,48 @@ class Product
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function addCategory(\Mickweb\EcommerceBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\Category $category
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeCategory(\Mickweb\EcommerceBundle\Entity\Category $category)
+    {
+        return $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

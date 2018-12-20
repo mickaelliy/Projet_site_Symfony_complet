@@ -13,9 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
-    * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=false)
-    */
+     * @ORM\ManyToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Category", cascade={"persist"}) 
+     */
+    private $categories;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $image;
     // le JoinColumn que j'ai ajouté "oblige" à mettre une image avec le produit
 
@@ -159,5 +164,29 @@ class Product
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\Image $image
+     *
+     * @return Product
+     */
+    public function setImage(\Mickweb\EcommerceBundle\Entity\Image $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return \Mickweb\EcommerceBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
