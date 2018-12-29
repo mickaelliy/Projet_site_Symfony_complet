@@ -56,7 +56,6 @@ class Avis
     }
 
 
-
     /**
      * Get id.
      *

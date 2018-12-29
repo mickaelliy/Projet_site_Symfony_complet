@@ -20,10 +20,10 @@ class Product
     
     /**
      * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $image;
-    // le JoinColumn que j'ai ajouté "oblige" à mettre une image avec le produit
+    // mettre le JoinColumn en annotation "oblige" à mettre une image avec le produit si nullable=false
+    // @ORM\JoinColumn(nullable=false)
 
     /**
      * @var int
@@ -59,6 +59,7 @@ class Product
      * @ORM\Column(name="published", type="boolean")
      */
     private $published = true;
+    // mettre a true pour cocher published par default
 
 
     /**
@@ -196,6 +197,7 @@ class Product
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->date = new \Datetime();
     }
 
     /**

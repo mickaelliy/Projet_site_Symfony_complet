@@ -2,6 +2,9 @@
 
 namespace Mickweb\EcommerceBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * ProductRepository
  *
@@ -10,4 +13,12 @@ namespace Mickweb\EcommerceBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindAll()
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

@@ -11,36 +11,25 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Mickweb\EcommerceBundle\Form\ProductType;
 
 class ProductController extends Controller
 {
 /*******************************PAGE D'ACCUEIL DES PRODUITS****************************************************************/
     public function indexAction($page)
     {
-        $listProducts = array(
-            array(
-              'title'   => 'Tshirt',
-              'id'      => 1,
-              'author'  => 'Alexandre',
-              'content' => 'Tshirt ratifiole metalleux…',
-              'date'    => new \Datetime()),
+          $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('MickwebEcommerceBundle:Product')
+          ;
 
-            array(
-              'title'   => 'Polo',
-              'id'      => 2,
-              'author'  => 'Hugo',
-              'content' => 'Polo avec un vieux monsieur barbu…',
-              'date'    => new \Datetime()),
-
-            array(
-              'title'   => 'Casquette',
-              'id'      => 3,
-              'author'  => 'Mathieu',
-              'content' => 'Casquette moche mais très chère car elle est oldschool…',
-              'date'    => new \Datetime())
-          );
-
-          // Et modifiez le 2nd argument pour injecter notre liste
+          $listProducts = $repository->myFindAll();
 
           return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
             'listProducts' => $listProducts
@@ -86,6 +75,9 @@ class ProductController extends Controller
           throw new AccessDeniedException('Accès réservé aux administrateurs du site');
         }*/
 
+
+        /******************************************
+         ******************************************
         // creation de l'entité product
         $product = new Product();
         $product->setTitre('T-shirt Ratifiole');
@@ -124,54 +116,102 @@ class ProductController extends Controller
         //2eme etape - on flush tout ce qui a été persisté avant
         $em->flush();
 
-        // Metode de récupération des données du formulaire
-        if($request->isMethod('POST')){
+        ****************************************************/
+
+        $product = new Product();
+
+        // création du formbuilder grace au service form factory
+        $form = $this->get('form.factory')->create(ProductType::class, $product);
+
+       /* $formBuilder
+            ->add('titre',          TextType::class)
+            ->add('description',    TextareaType::class)
+            ->add('auteur',         TextType::class)
+            ->add('published',      CheckboxType::class, array('required' => false))
+            ->add('save',           SubmitType::class)
+        ;
+        */
+        // $form = $formBuilder->getForm();
+
+        // Methode de récupération des données du formulaire
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            // lien requete <-> formulaire - handlerequest
+            // verif que les entrées sont correctes - isValid
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            
             $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
 
             // On redirige vers la page de visualisation du produit
             return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
-        }
+        }    
+        
 
         // Si on n'est pas en post, on affiche le formulaire
-        return $this->render('@MickwebEcommerce/Product/add.html.twig', array('product' => $product));
+        return $this->render('@MickwebEcommerce/Product/add.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /*******************************MODIF PRODUIT****************************************************************/
     public function modifierAction($id, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $product = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('MickwebEcommerceBundle:Product')
+            ->find($id)
+        ;
+        //$em = $this->getDoctrine()->getManager();
 
         // on récupère le produit $id    
-        $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
+        //$product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
 
         if (null === $product) {
-            throw new NotFoundHttpException("L'annonce d'id" .$id. "n'existe pas");
+            throw new NotFoundHttpException("Le produit d'id" .$id. "n'existe pas");
         }
-
+/*
         $listCategories = $em->getRepository('MickwebEcommerceBundle:Category')->findAll();
 
         // boucle sur les categories pour lier au produit
         foreach ($listCategories as $category) {
             $product->addCategory($category);
         }
-
-        $em->flush();
-        
-        if ($request->isMethod('POST')) {
-
-            $request->getSession()->getFlashBag()->add('notice', 'produit bien modifiée.');
-
-            return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => 5));
-    }
-       /* $product = array(
-            'title'   => 'Tshirt',
-            'id'      => 1,
-            'author'  => 'Alexandre',
-            'content' => 'Tshirt ratifiole metalleux…',
-            'date'    => new \Datetime()
-        );
 */
-        return $this->render('@MickwebEcommerce/Product/modifier.html.twig', array('product' => $product
+        //$em->flush();
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $product);
+
+        $formBuilder
+            ->add('titre',          TextType::class)
+            ->add('description',    TextareaType::class)
+            ->add('auteur',         TextType::class)
+            ->add('published',      CheckboxType::class, array('required' => false))
+            ->add('save',           SubmitType::class)
+        ;
+
+        $form = $formBuilder->getForm();
+
+        // Methode de récupération des données du formulaire
+        if($request->isMethod('POST')){
+            // lien requete <-> formulaire
+            $form->handleRequest($request);
+
+            // verif que les entrées sont correctes
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($product);
+                $em->flush();
+            
+                $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
+
+                // On redirige vers la page de visualisation du produit
+                return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
+            }    
+        }
+
+        // Si on n'est pas en post, on affiche le formulaire
+        return $this->render('@MickwebEcommerce/Product/modifier.html.twig', array(
+            'form' => $form->createView()
         ));
     }
 
@@ -217,14 +257,15 @@ class ProductController extends Controller
         ));
     }
 
+    /******************************* MENU ****************************************************************/
     public function menuAction($limit)
     {
         // On fixe en dur une liste ici, bien entendu par la suite
         // on la récupérera depuis la BDD !
 
         $listProducts = array(
-        array('id' => 2, 'title' => 'T-shirt'),
-        array('id' => 5, 'title' => 'Sweats'),
+        array('id' => 10, 'title' => 'T-shirt'),
+        array('id' => 14, 'title' => 'Sweats'),
         array('id' => 9, 'title' => 'Casquettes')
         );
 

@@ -14,21 +14,40 @@
       {% for product in listProducts %}
         <li>
           <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
-            {{ product.title }}
+            {{ product.titre }}
           </a>
-          ajouté par {{ product.author }},
-          le {{ product.date|date('d/m/Y') }}
+          ajouté par {{ product.auteur }}
         </li>
       {% else %} 
         <li>Aucun produit disponible</li> 
       {% endfor %}
   </ul>
 
-  <div class="container">
+    <div class="container col-sm-12">
+      <div class="row">
+        {% for product in listProducts %}
+              <div class="col-sm-4">
+                <div>
+                  <h4><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
+                  {{ product.titre }}
+                </a></h4>
+                  <p>100,00 €</p>
+                  <a class="btn btn-primary" href="produit.php">Plus d'infos</a>
+                  <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
+                </div>           
+              </div>
+          
+          {% else %} 
+              <p>Aucun produit disponible</p> 
+        {% endfor %}
+      </div>
+    </div>
+
+  <div class="container col-sm-12">
     <div class="row">
 
-      <div class="col-md-3">
-        <img src="../img/rats_1.jpg" alt="DevAndClick" width="300" height="300">
+      <div class="col-sm-4">
+        <img src="../img/rats_1.jpg" alt="Rats1" width="250" height="250">
         <div>
           <h4>Thumbnail label</h4>
           <p>100,00 €</p>
@@ -37,8 +56,8 @@
         </div>           
       </div>
 
-      <div class="col-md-3">
-        <img src="../img/rats_2.jpg" alt="DevAndClick" width="300" height="300">
+      <div class="col-sm-4">
+        <img src="../img/rats_2.jpg" alt="rats2" width="250" height="250">
         <div>
           <h4>Thumbnail label</h4>
           <p>100,00 €</p>
@@ -47,8 +66,8 @@
         </div>
       </div>
 
-      <div class="col-md-3">
-        <img src="../img/rats_2.jpg" alt="DevAndClick" width="300" height="300">
+      <div class="col-sm-4">
+        <img src="../img/rats_2.jpg" alt="rats2" width="250" height="250">
         <div class="caption">
           <h4>Thumbnail label</h4>
           <p>100,00 €</p>
