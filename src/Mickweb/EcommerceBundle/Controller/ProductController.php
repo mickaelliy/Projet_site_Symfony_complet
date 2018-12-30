@@ -5,6 +5,7 @@ namespace Mickweb\EcommerceBundle\Controller;
 use Mickweb\EcommerceBundle\Entity\Product;
 use Mickweb\EcommerceBundle\Entity\Image;
 use Mickweb\EcommerceBundle\Entity\Avis;
+use Mickweb\EcommerceBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Mickweb\EcommerceBundle\Form\ProductType;
+use Mickweb\EcommerceBundle\Form\ProductModifierType;
 
 class ProductController extends Controller
 {
@@ -179,7 +181,28 @@ class ProductController extends Controller
         }
 */
         //$em->flush();
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $product);
+
+        /*********** */
+        $form = $this->get('form.factory')->create(ProductModifierType::class, $product);
+         // Methode de récupération des données du formulaire
+         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+             // lien requete <-> formulaire - handlerequest
+             // verif que les entrées sont correctes - isValid
+             $em = $this->getDoctrine()->getManager();
+             $em->persist($product);
+             $em->flush();
+             
+             $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
+ 
+             // On redirige vers la page de visualisation du produit
+             return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
+         }    
+         // Si on n'est pas en post, on affiche le formulaire
+         return $this->render('@MickwebEcommerce/Product/modifier.html.twig', array(
+             'form' => $form->createView()
+         ));
+        /************ */
+        /*$formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $product);
 
         $formBuilder
             ->add('titre',          TextType::class)
@@ -213,6 +236,8 @@ class ProductController extends Controller
         return $this->render('@MickwebEcommerce/Product/modifier.html.twig', array(
             'form' => $form->createView()
         ));
+        */
+
     }
 
     /*******************************MODIFIER IMAGE****************************************************************/

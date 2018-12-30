@@ -1,0 +1,59 @@
+[33mcommit d379850ac2519fe688c02027d115c76f3cf28f08[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: mickaelliy <mickael.lizeray@gmail.com>
+Date:   Sat Dec 29 18:52:05 2018 +0100
+
+    formulaire ajout produit
+
+[33mcommit 94055da833f83750e8d67546e39b05eaa62c4e6d[m
+Author: mickaelliy <mickael.lizeray@gmail.com>
+Date:   Thu Dec 20 19:32:18 2018 +0100
+
+    index + relations
+
+[33mcommit 864d70f5f52e0b23a8177c7fa084ee6cded986bd[m
+Author: mickaelliy <mickael.lizeray@gmail.com>
+Date:   Sun Dec 16 23:06:24 2018 +0100
+
+    ajout avis
+
+[33mcommit 7a22ecbdd543887af38db0fe8ba02c098ce08933[m[33m ([m[1;31morigin/dev[m[33m)[m
+Author: mlizeray <mlizeray@hitpart.fr>
+Date:   Fri Dec 14 17:44:06 2018 +0100
+
+     entity image + fosuser
+
+[33mcommit 12205bf6f1937313b8e3697f3158ad005ce0ab25[m
+Author: mlizeray <mlizeray@hitpart.fr>
+Date:   Thu Dec 13 17:45:33 2018 +0100
+
+    assetics + security
+
+[33mcommit 5eea49cc575753824af142f89f1d42bc04633ec3[m
+Author: mlizeray <mlizeray@hitpart.fr>
+Date:   Wed Dec 12 17:41:19 2018 +0100
+
+    Entity User
+
+[33mcommit b4fa3d15e44b99ec6a6fe559f3531405a72b0293[m
+Author: mlizeray <mlizeray@hitpart.fr>
+Date:   Wed Dec 12 17:39:57 2018 +0100
+
+    formulaire ok - installation FOSuser en cours
+
+[33mcommit 7979b3c20226b7461d4e9c49015742792bcac5f0[m[33m ([m[1;32mdev[m[33m)[m
+Author: mlizeray <mlizeray@hitpart.fr>
+Date:   Tue Dec 11 17:47:08 2018 +0100
+
+    ajout 2
+
+[33mcommit fa52fcc8d321ac7126bbdaee70a4cfcb2de831d5[m
+Author: mlizeray <mlizeray@hitpart.fr>
+Date:   Tue Dec 11 17:29:38 2018 +0100
+
+    ajout login securite
+
+[33mcommit 18a9c2dfe3cd6c25afffda14eaef2583fe56b428[m
+Author: mickaelliy <mickael.lizeray@gmail.com>
+Date:   Mon Dec 10 23:14:57 2018 +0100
+
+    début du projet
