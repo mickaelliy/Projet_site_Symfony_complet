@@ -15,7 +15,11 @@
     <div class="well">
         {# On vérifie qu'une image soit bien associée au produit #}
         {% if product.image %}
-        <img src="{{ product.image.url }}" alt="{{ product.image.alt }}">
+        {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
+          <img 
+            src="{{ asset(product.image.webPath) }}"
+            alt="{{ product.image.alt }}"
+          />
         {% endif %}
     </div>
     <div class="well">

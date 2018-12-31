@@ -31,6 +31,16 @@
                   <h4><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
                   {{ product.titre }}
                 </a></h4>
+                  <div>
+                  {% if product.image %}
+                  {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
+                    <img 
+                      src="{{ asset(product.image.webPath) }}"
+                      alt="{{ product.image.alt }}"
+                      width="250" height="250"
+                    />
+                  {% endif %}
+                  </div>
                   <p>100,00 €</p>
                   <a class="btn btn-primary" href="produit.php">Plus d'infos</a>
                   <a class="btn btn-success" href="panier.php">Ajouter au panier</a>

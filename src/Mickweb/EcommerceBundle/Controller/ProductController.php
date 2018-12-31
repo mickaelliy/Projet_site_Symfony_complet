@@ -137,6 +137,10 @@ class ProductController extends Controller
 
         // Methode de récupération des données du formulaire
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+
+            // deplace l'image où on veut la stocker
+            //$product->getImage()->upload();      
+
             // lien requete <-> formulaire - handlerequest
             // verif que les entrées sont correctes - isValid
             $em = $this->getDoctrine()->getManager();
@@ -199,6 +203,7 @@ class ProductController extends Controller
          }    
          // Si on n'est pas en post, on affiche le formulaire
          return $this->render('@MickwebEcommerce/Product/modifier.html.twig', array(
+             'product' => $product,
              'form' => $form->createView()
          ));
         /************ */
@@ -262,7 +267,7 @@ class ProductController extends Controller
     }
 
     /*******************************SUPPRIMER PRODUIT****************************************************************/
-    public function supprimerAction($id)
+    public function supprimerAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -272,6 +277,25 @@ class ProductController extends Controller
             throw new NotFoundHttpException("L'annonce d'id" .$id. "n'existe pas");
         }
 
+        // formualire vide qui contient le champ CSRF
+        // pour protéger la suppression de cette faille
+        $form = $this->get('form.factory')->create();
+
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $em->remove($product);
+            $em->flush();
+            
+            $request->getSession()->getFlashBag()->add('info', 'le produit a bien été supprimé.');
+
+            return $this->redirectToRoute('mickweb_ecommerce_homepage');
+        }    
+
+        return $this->render('@MickwebEcommerce/Product/supprimer.html.twig', array(
+            'product' => $product,
+            'form' => $form->createView()
+        ));
+
+    /* 
         foreach($product->getCategories() as $category) {
             $product->removeCategory($category);
         }
@@ -280,6 +304,7 @@ class ProductController extends Controller
 
         return $this->render('@MickwebEcommerce/Product/supprimer.html.twig', array('product' => $product
         ));
+    */
     }
 
     /******************************* MENU ****************************************************************/
