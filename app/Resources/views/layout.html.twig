@@ -36,7 +36,7 @@
           </div>
       </div>
     </div>
-    
+
     <div id="header" class="jumbotron text-center">
             <h1> Layout principal : Raaaaats </h1>
             <p>
@@ -49,6 +49,21 @@
                 </a>
             </p>
     </div>
+
+    {# ****************************************** #}
+    {# Menu haut --- en cours de construction #}
+
+    <div id="menu_haut">
+      <ul id="onglets">
+        <li class="active"><a href="{{ path('mickweb_ecommerce_homepage') }}"> Accueil </a></li>
+        <li><a href="Forums.html"> Forums </a></li>
+        <li><a href="Livre_or.html"> Livre d'or </a></li>
+        <li><a href="Equipe.html"> L'équipe </a></li>
+        <li><a href="{{ path('fos_user_registration_register') }}"> S'inscrire </a></li>
+        <li><a href="{{ path('fos_user_security_login') }}"> Se connecter </a></li>
+      </ul>
+    </div>
+    {# ****************************************** #} 
 
     {#Ce bloc permet d'afficher le bouton connexion, deconnexion#}
     <div class="container">

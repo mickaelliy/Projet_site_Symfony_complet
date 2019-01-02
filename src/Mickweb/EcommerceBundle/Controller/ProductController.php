@@ -120,7 +120,15 @@ class ProductController extends Controller
 
         ****************************************************/
 
+
+
         $product = new Product();
+
+        // Avis en dur dans le code -- à supprimer par la suite
+        $avis1 = new Avis();
+        $avis1->setCommentaire('Super produit, je recommande');
+        $avis1->setNote(4);
+        $avis1->setProduct($product);
 
         // création du formbuilder grace au service form factory
         $form = $this->get('form.factory')->create(ProductType::class, $product);
@@ -139,20 +147,22 @@ class ProductController extends Controller
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
 
             // deplace l'image où on veut la stocker
-            //$product->getImage()->upload();      
+            //$product->getImage()->upload();
 
             // lien requete <-> formulaire - handlerequest
             // verif que les entrées sont correctes - isValid
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
+            // persisrt de l'Avis en dur dans le code -- à supprimer par la suite 
+            $em->persist($avis1);
             $em->flush();
-            
+
             $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
 
             // On redirige vers la page de visualisation du produit
             return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
-        }    
-        
+        }
+
 
         // Si on n'est pas en post, on affiche le formulaire
         return $this->render('@MickwebEcommerce/Product/add.html.twig', array(
@@ -170,7 +180,7 @@ class ProductController extends Controller
         ;
         //$em = $this->getDoctrine()->getManager();
 
-        // on récupère le produit $id    
+        // on récupère le produit $id
         //$product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
 
         if (null === $product) {
@@ -195,12 +205,12 @@ class ProductController extends Controller
              $em = $this->getDoctrine()->getManager();
              $em->persist($product);
              $em->flush();
-             
+
              $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
- 
+
              // On redirige vers la page de visualisation du produit
              return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
-         }    
+         }
          // Si on n'est pas en post, on affiche le formulaire
          return $this->render('@MickwebEcommerce/Product/modifier.html.twig', array(
              'product' => $product,
@@ -229,12 +239,12 @@ class ProductController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($product);
                 $em->flush();
-            
+
                 $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
 
                 // On redirige vers la page de visualisation du produit
                 return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
-            }    
+            }
         }
 
         // Si on n'est pas en post, on affiche le formulaire
@@ -272,7 +282,7 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
-        
+
         if (null === $product) {
             throw new NotFoundHttpException("L'annonce d'id" .$id. "n'existe pas");
         }
@@ -284,18 +294,18 @@ class ProductController extends Controller
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
             $em->remove($product);
             $em->flush();
-            
+
             $request->getSession()->getFlashBag()->add('info', 'le produit a bien été supprimé.');
 
             return $this->redirectToRoute('mickweb_ecommerce_homepage');
-        }    
+        }
 
         return $this->render('@MickwebEcommerce/Product/supprimer.html.twig', array(
             'product' => $product,
             'form' => $form->createView()
         ));
 
-    /* 
+    /*
         foreach($product->getCategories() as $category) {
             $product->removeCategory($category);
         }
@@ -312,13 +322,20 @@ class ProductController extends Controller
     {
         // On fixe en dur une liste ici, bien entendu par la suite
         // on la récupérera depuis la BDD !
-
+/*
         $listProducts = array(
         array('id' => 10, 'title' => 'T-shirt'),
         array('id' => 14, 'title' => 'Sweats'),
         array('id' => 9, 'title' => 'Casquettes')
         );
+*/
+        $repository = $this
+          ->getDoctrine()
+          ->getManager()
+          ->getRepository('MickwebEcommerceBundle:Product')
+        ;
 
+        $listProducts = $repository->myFindAll();
         return $this->render('MickwebEcommerceBundle:Product:menu.html.twig', array(
 
         // Tout l'intérêt est ici : le contrôleur passe
@@ -326,5 +343,11 @@ class ProductController extends Controller
 
         'listProducts' => $listProducts
         ));
+
+      /*
+      return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
+        'listProducts' => $listProducts
+      ));
+        */
     }
 }

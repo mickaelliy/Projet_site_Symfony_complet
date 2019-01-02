@@ -9,7 +9,7 @@
   {% for product in listProducts %}
     <li>
       <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
-        {{ product.title }}
+        {{ product.titre }}
       </a>
     </li>
   {% endfor %}

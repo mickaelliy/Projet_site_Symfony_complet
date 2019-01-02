@@ -16,7 +16,7 @@
         {# On vérifie qu'une image soit bien associée au produit #}
         {% if product.image %}
         {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
-          <img 
+          <img
             src="{{ asset(product.image.webPath) }}"
             alt="{{ product.image.alt }}"
           />
@@ -25,6 +25,14 @@
     <div class="well">
         {{ product.description }}
     </div>
+  </div>
+
+  <div>
+    {# le lien vers les avis n'est pas bon --- penser à le mettre à jour #}
+    <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-success">
+      <i class="glyphicon glyphicon-edit"></i>
+      Ajouter au panier
+    </a>
   </div>
 
   {# Affichage des catégories.... n'affiche rien pour le moment #}
@@ -40,39 +48,45 @@
   <h2>Avis sur le produit</h2>
     <div>
       {# boucle foreach qui permet d'afficher les avis #}
-    
         <ul>
           {% for avis in listAvis %}
-            <li> 
+            <li>
               <p> {{ avis.commentaire }} </p>
               <p> note : {{ avis.note }} </p>
               <p> Date de publication : {{ avis.date|date('Y-m-d') }} </p>
             </li>
             <hr>
-          {% else %}  
-            <li>Aucun commentaire </li>
+          {% else %}
+            <li>Aucun avis </li>
           {% endfor %}
         </ul>
 
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {# le lien vers les avis n'est pas bon --- penser à le mettre à jour #}
+        <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-warning">
+          <i class="glyphicon glyphicon-edit"></i>
+          mettre un avis
+        </a>
+        {% endif %}
     </div>
 
+  <div>
+    <p>
+        <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+          Retour à la liste
+        </a>
 
-  <p>
-      <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-default">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        Retour à la liste
-      </a>
+        <a href="{{ path('mickweb_ecommerce_modifier', {'id': product.id}) }}" class="btn btn-default">
+          <i class="glyphicon glyphicon-edit"></i>
+          Modifier le produit
+        </a>
 
-      <a href="{{ path('mickweb_ecommerce_modifier', {'id': product.id}) }}" class="btn btn-default">
-        <i class="glyphicon glyphicon-edit"></i>
-        Modifier le produit
-      </a>
-
-      <a href="{{ path('mickweb_ecommerce_supprimer', {'id': product.id}) }}" class="btn btn-danger">
-        <i class="glyphicon glyphicon-trash"></i>
-        Supprimer le produit
-      </a>
-  </p>
-
+        <a href="{{ path('mickweb_ecommerce_supprimer', {'id': product.id}) }}" class="btn btn-danger">
+          <i class="glyphicon glyphicon-trash"></i>
+          Supprimer le produit
+        </a>
+    </p>
+  </div>
 
 {% endblock %}
