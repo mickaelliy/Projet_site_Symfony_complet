@@ -12,13 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-class BasketController extends Controller
+class PanierController extends Controller
 {
 /***********************************************************************************************/
-    public function indexAction($page)
+    public function panierAction()
     {
-          return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
-            'listProducts' => $listProducts
-          ));
+          return $this->render('@MickwebEcommerce/Panier/panier.html.twig');
+    }
+
+    public function livraisonAction()
+    {
+          return $this->render('@MickwebEcommerce/Panier/livraison.html.twig');
     }
 }

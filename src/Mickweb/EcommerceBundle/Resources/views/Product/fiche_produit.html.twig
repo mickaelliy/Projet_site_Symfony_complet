@@ -89,4 +89,51 @@
     </p>
   </div>
 
+
+{#test affiche#}
+  
+			
+  <div class="container col-sm-12">
+    <div class="row">
+
+      <div class="col-sm-12">
+			
+				<div class="row">
+					<div class="col-sm-6">
+            {#<div class="well">#}
+                {# On vérifie qu'une image soit bien associée au produit #}
+                {% if product.image %}
+                {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
+                  <img
+                    src="{{ asset(product.image.webPath) }}"
+                    alt="{{ product.image.alt }}"
+                    width="400" 
+                    height="300"
+                  />
+                {% endif %}
+             {#</div>#}
+					</div>
+
+					<div class="col-sm-6">
+						<h2>{{ product.titre }}</h2>
+						<h5>AB29837 Item Model</h5>
+						<p>{{ product.description }}</p>
+						<h4>3.33€</h4>
+						<form action="panier.php">
+							<select name="qte" class="span1">
+								<option>1</option>
+							</select>
+
+							<div>
+							    <button class="btn btn-primary">Ajouter au panier</button>
+							</div>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+
+
 {% endblock %}

@@ -9,9 +9,11 @@
     <title>{% block title %} ML website{% endblock %}</title>
 
     {% stylesheets 'css/style.css' %}
+     {# <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" /> #}
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
       <link rel="stylesheet" href="css/style.css"/>
+      <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Special+Elite" rel="stylesheet">  
     {% endstylesheets %}
 
   </head>
@@ -19,26 +21,26 @@
   <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-          <div class="container">
-              <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="brand" href="index.php">Raaaaats</a>
-              <div class="nav-collapse collapse">
-                  <form class="navbar-form form-search pull-right">
-                      <input id="Search" name="Search" type="text" class="input-medium search-query">
-                      <button type="submit" class="btn">Rechercher</button>
-                  </form>
-              </div>
-          </div>
-      </div>
+        <div class="navbar-inner">
+            <div class="container">
+                <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="index.php">Raaaaats</a>
+                <div class="nav-collapse collapse">
+                    <form class="navbar-form form-search pull-right">
+                        <input id="Search" name="Search" type="text" class="input-medium search-query">
+                        <button type="submit" class="btn">Rechercher</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="header" class="jumbotron text-center">
-            <h1> Layout principal : Raaaaats </h1>
+            <h1> Raaaaats </h1>
             <p>
                 Retrouvez toute la gamme de produits ratiZ... des produits de qualité faits par des passionnés.
                 Vous aimez les rats mignons et le metal brutal, welcome to the hell !
@@ -84,6 +86,9 @@
     <div class="container">
         <div class="row">
             <div id="menu" class="col-md-3 menu">
+                {#TEST INCLUDE barre de navigation#}
+                {% include '::modulesUsed/navigation.html.twig' %}
+
                 <h3>Catégories</h3>
                   <ul class="nav nav-pills nav-stacked">
                     <li><a href="{{ path('mickweb_ecommerce_homepage') }}">Accueil</a></li>
@@ -104,18 +109,47 @@
                 {% endblock %}
             </div>
         </div>
-
-        <hr>
-
-        <footer>
-            <p class="text-center">Créateur du site {{ webmaster }} {{ 'now'|date('Y') }} </p>
-        </footer>
     </div>
+        
+        <hr/>
+
+	<footer id="footer" class="vspace20">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 text-center">
+					<h4>Informations</h4>
+					<ul class="nav nav-stacked">
+						<li><a href="texte.php">CGV</a>
+						<li><a href="texte.php">Mentions légales</a>
+					</ul>
+				</div> 
+
+				<div class="col-md-4 text-center">
+					<h4>Notre entrepôt</h4>
+					<p><i class="icon-map-marker"></i>&nbsp;Paris 75 000 - 3 rue des jardins</p>
+				</div>
+
+				<div class="col-md-4 text-center">
+					<h4>Nous contacter</h4>
+					<p><i class="icon-phone"></i>&nbsp;Tel: 02 35 00 00 00</p>
+					<p><i class="icon-print"></i>&nbsp;Fax: 02 35 00 00 00</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+                    <p class="text-center">&copy;Créateur du site {{ webmaster }} {{ 'now'|date('Y') }} </p>
+				</div>
+			</div>
+		</div>
+	</footer>	    
 
     {% javascripts 'js/main.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.js"></script>
     {% endjavascripts %}
 
   </body>

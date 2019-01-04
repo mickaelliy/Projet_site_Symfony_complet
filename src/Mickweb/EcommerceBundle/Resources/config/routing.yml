@@ -32,7 +32,6 @@ mickweb_ecommerce_supprimer:
     requirements:
         id: \d+
 
-
 mickweb_ecommerce_view_slug:
     path:      /{year}/{slug}.{format}
     defaults:
@@ -41,3 +40,18 @@ mickweb_ecommerce_view_slug:
     requirements:
         year: \d{4}
         format: html|xml
+
+#################################
+#             Panier 
+#################################
+mickweb_ecommerce_panier:
+    path:    /panier/{id}
+    defaults:
+        _controller: MickwebEcommerceBundle:Panier:panier
+    requirements:
+        id: \d+
+
+mickweb_ecommerce_livraison:
+    path:    /livraison
+    defaults:
+        _controller: MickwebEcommerceBundle:Panier:livraison

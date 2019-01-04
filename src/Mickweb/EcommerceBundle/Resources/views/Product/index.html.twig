@@ -8,23 +8,13 @@
 
 {% block MickwebEcommerce_body %}
 
-  <h2>Liste des produits</h2>
 
-  <ul>
-      {% for product in listProducts %}
-        <li>
-          <a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
-            {{ product.titre }}
-          </a>
-          ajouté par {{ product.auteur }}
-        </li>
-      {% else %} 
-        <li>Aucun produit disponible</li> 
-      {% endfor %}
-  </ul>
+
+  <h2>Liste des produits</h2>
 
     <div class="container col-sm-12">
       <div class="row">
+
         {% for product in listProducts %}
               <div class="col-sm-4">
                 <div>
@@ -42,8 +32,8 @@
                   {% endif %}
                   </div>
                   <p>100,00 €</p>
-                  <a class="btn btn-primary" href="produit.php">Plus d'infos</a>
-                  <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
+                  <a class="button button5" href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">Plus d'infos</a>
+                  <a class="btn btn-success" href="{{ path('mickweb_ecommerce_panier', {'id': product.id}) }}">Ajouter au panier</a>
                 </div>           
               </div>
           
