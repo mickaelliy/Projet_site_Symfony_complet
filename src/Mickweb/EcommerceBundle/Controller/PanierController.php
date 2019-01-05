@@ -20,8 +20,15 @@ class PanierController extends Controller
           return $this->render('@MickwebEcommerce/Panier/panier.html.twig');
     }
 
+    /**************************** Livraison ************************************/
     public function livraisonAction()
     {
           return $this->render('@MickwebEcommerce/Panier/livraison.html.twig');
+    }
+
+    /**************************** Validation ************************************/
+    public function validationAction()
+    {
+          return $this->render('@MickwebEcommerce/Panier/validation.html.twig');
     }
 }

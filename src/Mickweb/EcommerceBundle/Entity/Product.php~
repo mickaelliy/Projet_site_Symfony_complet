@@ -22,7 +22,8 @@ class Product
      * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist"})
      */
     private $image;
-    // le JoinColumn que j'ai ajouté "oblige" à mettre une image avec le produit si nullable=false
+    // mettre le JoinColumn en annotation "oblige" à mettre une image avec le produit si nullable=false
+    // @ORM\JoinColumn(nullable=false)
 
     /**
      * @var int
@@ -58,6 +59,21 @@ class Product
      * @ORM\Column(name="published", type="boolean")
      */
     private $published = true;
+    // mettre a true pour cocher published par default
+
+    /**
+     * @ORM\Column(name="disponible", type="boolean")
+     */
+    private $disponible = true;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float")
+     */
+    private $prix;
+
+
 
 
     /**
@@ -232,5 +248,29 @@ class Product
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set prix.
+     *
+     * @param float $prix
+     *
+     * @return Product
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get prix.
+     *
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
     }
 }

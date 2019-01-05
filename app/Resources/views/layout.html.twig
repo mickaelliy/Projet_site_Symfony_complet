@@ -94,9 +94,9 @@
                     <li><a href="{{ path('mickweb_ecommerce_homepage') }}">Accueil</a></li>
 
                     {# Cette condition permet d'afficher "ajouter un produit" seulement aux ADMIN  #}
-                  {# if is_granted('ROLE_ADMIN') #}
+                  {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('mickweb_ecommerce_ajout') }}">Ajouter un produit</a></li>
-                  {# endif #}
+                  {% endif %}
 
                   </ul>
 
@@ -119,7 +119,7 @@
 				<div class="col-md-4 text-center">
 					<h4>Informations</h4>
 					<ul class="nav nav-stacked">
-						<li><a href="texte.php">CGV</a>
+						<li><a href="{{ path('mickweb_pages_homepage') }}">CGV</a>
 						<li><a href="texte.php">Mentions légales</a>
 					</ul>
 				</div> 

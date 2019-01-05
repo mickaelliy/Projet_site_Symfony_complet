@@ -61,6 +61,20 @@ class Product
     private $published = true;
     // mettre a true pour cocher published par default
 
+    /**
+     * @ORM\Column(name="disponible", type="boolean")
+     */
+    private $disponible = true;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float")
+     */
+    private $prix;
+
+
+
 
     /**
      * Get id.
@@ -234,5 +248,53 @@ class Product
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set prix.
+     *
+     * @param float $prix
+     *
+     * @return Product
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get prix.
+     *
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * Set disponible.
+     *
+     * @param bool $disponible
+     *
+     * @return Product
+     */
+    public function setDisponible($disponible)
+    {
+        $this->disponible = $disponible;
+
+        return $this;
+    }
+
+    /**
+     * Get disponible.
+     *
+     * @return bool
+     */
+    public function getDisponible()
+    {
+        return $this->disponible;
     }
 }

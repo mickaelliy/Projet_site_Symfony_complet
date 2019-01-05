@@ -41,9 +41,11 @@ mickweb_ecommerce_view_slug:
         year: \d{4}
         format: html|xml
 
-#################################
-#             Panier 
-#################################
+
+#################################################################
+#                            Panier 
+##################################################################
+
 mickweb_ecommerce_panier:
     path:    /panier/{id}
     defaults:
@@ -55,3 +57,8 @@ mickweb_ecommerce_livraison:
     path:    /livraison
     defaults:
         _controller: MickwebEcommerceBundle:Panier:livraison
+
+mickweb_ecommerce_validation:
+    path:    /validation
+    defaults:
+        _controller: MickwebEcommerceBundle:Panier:validation

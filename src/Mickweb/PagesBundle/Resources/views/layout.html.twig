@@ -1,0 +1,20 @@
+{# src/Mickweb/EcommerceBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    Produits - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {# sous-titre commun à toutes les pages du bundle #}
+    <h1>Produits</h1>
+
+    <hr>
+    
+    {# nouveau bloc que les vues vues du bundle pourront remplir #}
+    {% block MickwebEcommerce_body %}
+    {% endblock %}
+
+{% endblock %}
+

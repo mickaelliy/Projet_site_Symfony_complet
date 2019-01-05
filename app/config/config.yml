@@ -40,7 +40,6 @@ twig:
     globals:
         webmaster: "Mik"
    
-
 fos_user:
     db_driver:     orm        # le type de BDD à utiliser, ici l'orm doctrine
     firewall_name: main       # le nom du firewall derrière lequel on utilisera ces utilisateurs

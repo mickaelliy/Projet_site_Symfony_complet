@@ -48,10 +48,15 @@ security:
                 target:     fos_user_security_login # nom de la route après deconnexion
             remember_me:
                 secret:   %secret%
+    
     # permet de sécuriser toutes les pages dont l'URL commence par /admin
+    #access_control:
+        #- { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https }
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https }
-
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~

@@ -1,3 +1,7 @@
+mickweb_pages:
+    resource: "@MickwebPagesBundle/Resources/config/routing.yml"
+    prefix:   /
+
 mickweb_ecommerce:
     resource: "@MickwebEcommerceBundle/Resources/config/routing.yml"
     prefix:   /accueil #permet de ne pas remettre à chaque fois /accueil dans chacune des routes

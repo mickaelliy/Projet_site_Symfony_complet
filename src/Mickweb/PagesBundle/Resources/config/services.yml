@@ -1,0 +1,4 @@
+services:
+#    mickweb_pages.example:
+#        class: Mickweb\PagesBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
