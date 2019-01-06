@@ -75,6 +75,7 @@
                 Connecté en tant que {{ app.user.username }}
                 -
                 <a class="btn btn-danger btn-lg" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                <a class="btn btn-primary btn-lg" href="{{ path('fos_user_profile_show') }}">Mon compte</a>
               {% else %}
                 <a class="btn btn-success btn-lg" href="{{ path('fos_user_security_login') }}">Connexion</a>
                 <a class="btn btn-success btn-lg" href="{{ path('fos_user_registration_register') }}">Inscription</a>
