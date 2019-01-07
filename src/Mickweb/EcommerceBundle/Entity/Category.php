@@ -22,6 +22,12 @@ class Category
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist","remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $image;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -61,5 +67,29 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\Image $image
+     *
+     * @return Category
+     */
+    public function setImage(\Mickweb\EcommerceBundle\Entity\Image $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return \Mickweb\EcommerceBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

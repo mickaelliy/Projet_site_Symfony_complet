@@ -6,6 +6,8 @@ use Mickweb\EcommerceBundle\Entity\Product;
 use Mickweb\EcommerceBundle\Entity\Image;
 use Mickweb\EcommerceBundle\Entity\Avis;
 use Mickweb\EcommerceBundle\Entity\Category;
+use Mickweb\EcommerceBundle\Entity\tva;
+use Mickweb\EcommerceBundle\Entity\Commande;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
