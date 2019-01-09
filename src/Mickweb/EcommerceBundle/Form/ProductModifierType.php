@@ -12,7 +12,11 @@ class ProductModifierType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-       
+        // A mettre si je veux cacher un champs
+        /*  
+        $builder
+            ->remove('titre');
+        */
     }
     
     /**
