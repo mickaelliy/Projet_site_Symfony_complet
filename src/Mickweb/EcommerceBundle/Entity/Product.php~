@@ -13,17 +13,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Category", cascade={"persist"}) 
-     * @ORM\JoinTable(name="mickweb_product_category")
+     * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Category", cascade={"persist", "remove"}) 
+     * @ORM\JoinColumn(nullable=false)
      */
     private $categories;
     // Voir plus tard pour mettre en ManyToOne
+    //@ORM\JoinTable(name="mickweb_product_category")
 
     /**
      * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\tva", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $tva;
+    //private $tva; // TVA à remettre...resoudre probleme
     
     /**
      * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist","remove"})
@@ -219,6 +220,7 @@ class Product
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tva = new \Doctrine\Common\Collections\ArrayCollection(); // peut etre à supprimer
         $this->date = new \Datetime();
     }
 
@@ -304,5 +306,29 @@ class Product
     public function getDisponible()
     {
         return $this->disponible;
+    }
+
+    /**
+     * Set tva.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\tva $tva
+     *
+     * @return Product
+     */
+    public function setTva(\Mickweb\EcommerceBundle\Entity\tva $tva)
+    {
+        $this->tva = $tva;
+
+        return $this;
+    }
+
+    /**
+     * Get tva.
+     *
+     * @return \Mickweb\EcommerceBundle\Entity\tva
+     */
+    public function getTva()
+    {
+        return $this->tva;
     }
 }

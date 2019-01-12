@@ -8,34 +8,10 @@
 
 {% block MickwebEcommerce_body %}
 
-  <h2>{{ product.titre }}</h2>
-  <i>Par {{ product.auteur }}</i>
-
-  <div style="display:flex"> {# penser à mettre le css dans le dossier web  #}
-    <div class="well">
-        {# On vérifie qu'une image soit bien associée au produit #}
-        {% if product.image %}
-        {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
-          <img
-            src="{{ asset(product.image.webPath) }}"
-            alt="{{ product.image.alt }}"
-          />
-        {% endif %}
-    </div>
-    <div class="well">
-        {{ product.description }}
-    </div>
-  </div>
-
-  <div>
-    {# le lien vers les avis n'est pas bon --- penser à le mettre à jour #}
-    <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-success">
-      <i class="glyphicon glyphicon-edit"></i>
-      Ajouter au panier
-    </a>
-  </div>
-
-  {# Affichage des catégories.... n'affiche rien pour le moment #}
+<div class="container col-sm-12">
+  <i>Produit ajouté par  {{ product.auteur }}</i>
+</div>
+  {# Affichage des catégories.... n'affiche rien pour le moment 
   {% if not product.categories.empty %}
   <p>
     Cette annonce est parue dans les catégories suivantes :
@@ -44,8 +20,59 @@
     {% endfor %}
   </p>
   {% endif %}
+#}
 
-  <h2>Avis sur le produit</h2>
+{#test affiche#}
+  
+			
+  <div class="container col-sm-12">
+    <div class="row">
+      <div class="col-sm-12">
+				<div class="row">
+
+					<div class="col-sm-6">
+            {#<div class="well">#}
+                {# On vérifie qu'une image soit bien associée au produit #}
+                {% if product.image %}
+                {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
+                  <img
+                    src="{{ asset(product.image.webPath) }}"
+                    alt="{{ product.image.alt }}"
+                    width="400" 
+                    height="350"
+                  />
+                {% endif %}
+             {#</div>#}
+					</div>
+
+					<div class="col-sm-6">
+						<h2>{{ product.titre }}</h2>
+						<h5>AB29837 Item Model</h5>
+						<p>{{ product.description }}</p>
+						<h4>3.33€</h4>
+						<form action="{{ path('ajouter_panier', {'id': product.id}) }}" method="get">
+							<select name="qte" class="span1">
+                {% for i in 1..10  %}
+								  <option value="{{ i }}"> {{ i }} </option>
+                {% endfor %}
+							</select>
+							<div>
+                  <a href="{{ path('ajouter_panier', {'id': product.id}) }}" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    Ajouter au panier
+                  </a>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+  </div>
+
+  <hr/>
+  <div class="container col-sm-12">
+    <h2>Avis sur le produit</h2>
     <div>
       {# boucle foreach qui permet d'afficher les avis #}
         <ul>
@@ -63,14 +90,20 @@
 
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {# le lien vers les avis n'est pas bon --- penser à le mettre à jour #}
-        <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-warning">
-          <i class="glyphicon glyphicon-edit"></i>
-          mettre un avis
-        </a>
+        <div class="container col-sm-12">
+          <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-warning">
+            <i class="glyphicon glyphicon-edit"></i>
+            mettre un avis
+          </a>
+        </div>
         {% endif %}
     </div>
+  </div>
 
-  <div>
+  <hr/>
+
+  <div class="container col-sm-12">
+  <hr/>
     <p>
         <a href="{{ path('mickweb_ecommerce_homepage') }}" class="btn btn-default">
           <i class="glyphicon glyphicon-chevron-left"></i>
@@ -87,52 +120,6 @@
           Supprimer le produit
         </a>
     </p>
-  </div>
-
-
-{#test affiche#}
-  
-			
-  <div class="container col-sm-12">
-    <div class="row">
-
-      <div class="col-sm-12">
-			
-				<div class="row">
-					<div class="col-sm-6">
-            {#<div class="well">#}
-                {# On vérifie qu'une image soit bien associée au produit #}
-                {% if product.image %}
-                {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
-                  <img
-                    src="{{ asset(product.image.webPath) }}"
-                    alt="{{ product.image.alt }}"
-                    width="400" 
-                    height="300"
-                  />
-                {% endif %}
-             {#</div>#}
-					</div>
-
-					<div class="col-sm-6">
-						<h2>{{ product.titre }}</h2>
-						<h5>AB29837 Item Model</h5>
-						<p>{{ product.description }}</p>
-						<h4>3.33€</h4>
-						<form action="panier.php">
-							<select name="qte" class="span1">
-								<option>1</option>
-							</select>
-
-							<div>
-							    <button class="btn btn-primary">Ajouter au panier</button>
-							</div>
-						</form>
-						
-					</div>
-				</div>
-			</div>
-		</div>
   </div>
 
 

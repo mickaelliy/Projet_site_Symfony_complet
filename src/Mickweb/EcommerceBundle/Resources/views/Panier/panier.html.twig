@@ -24,8 +24,9 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for produit in produits %}
                             <tr>
-                                <td>AB29837</td>
+                                <td>{{produit.titre}}</td>
                                 <td>
                                     <select class="span1"><option>1</option></select>&nbsp;
                                     <a href="#"><i class="icon-refresh"></i></a>
@@ -44,6 +45,7 @@
                                 <td>333,33€</td>
                                 <td>666,66€</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </form>

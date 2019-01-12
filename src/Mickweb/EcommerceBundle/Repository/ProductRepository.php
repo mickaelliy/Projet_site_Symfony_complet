@@ -21,4 +21,23 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
     }
+
+    public function byCategorie($categorie)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u = :categorie')
+            ->orderBy('u.id')
+            ->setParameter('categorie', $categorie);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findArray($array)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.id IN (:array)')
+            ->setParameter('array', $array);
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -15,9 +15,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class PanierController extends Controller
 {
 /***********************************************************************************************/
-    public function panierAction()
+    public function panierAction(Request $request)
     {
-          return $this->render('@MickwebEcommerce/Panier/panier.html.twig');
+          $session = $request->getSession();
+          if (!$session->has('panier')) $session->set('panier', array());
+
+          $em = $this->getDoctrine()->getManager();
+          $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
+
+      
+          return $this->render('@MickwebEcommerce/Panier/panier.html.twig', array('produits' => $produits, 
+                                                                                  'panier' => $session->get('panier')));
     }
 
     /**************************** Livraison ************************************/
@@ -30,5 +38,26 @@ class PanierController extends Controller
     public function validationAction()
     {
           return $this->render('@MickwebEcommerce/Panier/validation.html.twig');
+    }
+
+    public function ajouterAction($id, Request $request)
+    {
+          $session = $request->getSession();
+
+          if (!$session->has('panier')) $session->set('panier', array());
+          $panier = $session->get('panier');
+
+          if(array_key_exists($id, $panier)) {
+                if ($request->query->get('qte') != null) $panier[$id] = $request->query->get('qte');
+          } else {
+                if ($request->query->get('qte') != null)
+                  $panier[$id] = $request->query->get('qte');
+                else
+                  $panier[$id] = 1;
+          }
+
+          $session->set('panier', $panier);
+
+          return $this->redirect($this->generateUrl('mickweb_ecommerce_panier'));
     }
 }

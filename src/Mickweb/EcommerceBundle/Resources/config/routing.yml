@@ -46,8 +46,15 @@ mickweb_ecommerce_view_slug:
 #                            Panier 
 ##################################################################
 
+ajouter_panier:
+    path:    /ajouter/{id}
+    defaults:
+        _controller: MickwebEcommerceBundle:Panier:ajouter
+    requirements:
+        id: \d+   
+
 mickweb_ecommerce_panier:
-    path:    /panier/{id}
+    path:    /panier
     defaults:
         _controller: MickwebEcommerceBundle:Panier:panier
     requirements:
@@ -62,3 +69,12 @@ mickweb_ecommerce_validation:
     path:    /validation
     defaults:
         _controller: MickwebEcommerceBundle:Panier:validation
+
+#################################################################
+#                           Categories
+##################################################################
+
+categorieProduits:
+    path:    /categorie/{categorie}
+    defaults:
+        _controller: MickwebEcommerceBundle:Product:categorie

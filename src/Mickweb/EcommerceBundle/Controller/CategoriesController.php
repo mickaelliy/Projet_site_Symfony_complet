@@ -4,6 +4,7 @@ namespace Mickweb\EcommerceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CategoriesController extends Controller
 {
@@ -11,9 +12,9 @@ class CategoriesController extends Controller
       public function menuAction()
       {
       $em = $this->getDoctrine()->getManager();
-      $pages = $em->getRepository('MickwebEcommerceBundle:Categories')->findAll();
+      $categories = $em->getRepository('MickwebEcommerceBundle:Category')->findAll();
 
-      return $this->render('MickwebPagesBundle:Default:pages/modulesUsed/menu.html.twig', array('pages' => $pages));
+      return $this->render('@MickwebEcommerce/Categories/modulesUsed/menu.html.twig', array('categories' => $categories));
       }
 
 /***********************************************************************************************/

@@ -13,11 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
-     * @ORM\ManyToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Category", cascade={"persist"}) 
-     * @ORM\JoinTable(name="mickweb_product_category")
+     * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Category", cascade={"persist", "remove"}) 
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $categories;
-    // Voir plus tard pour mettre en ManyToOne
+    //private $categories;
+    
+    //@ORM\JoinTable(name="mickweb_product_category")
 
     /**
      * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\tva", cascade={"persist","remove"})
@@ -329,5 +330,19 @@ class Product
     public function getTva()
     {
         return $this->tva;
+    }
+
+    /**
+     * Set categories.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\Category $categories
+     *
+     * @return Product
+     */
+    public function setCategories(\Mickweb\EcommerceBundle\Entity\Category $categories)
+    {
+        $this->categories = $categories;
+
+        return $this;
     }
 }

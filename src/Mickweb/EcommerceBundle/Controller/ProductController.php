@@ -320,17 +320,20 @@ class ProductController extends Controller
     }
 
     /******************************* MENU ****************************************************************/
+   
+    /*
+   
     public function menuAction($limit)
     {
         // On fixe en dur une liste ici, bien entendu par la suite
         // on la récupérera depuis la BDD !
-/*
-        $listProducts = array(
-        array('id' => 10, 'title' => 'T-shirt'),
-        array('id' => 14, 'title' => 'Sweats'),
-        array('id' => 9, 'title' => 'Casquettes')
-        );
-*/
+
+    //    $listProducts = array(
+    //    array('id' => 10, 'title' => 'T-shirt'),
+    //    array('id' => 14, 'title' => 'Sweats'),
+    //    array('id' => 9, 'title' => 'Casquettes')
+    //    );
+
         $repository = $this
           ->getDoctrine()
           ->getManager()
@@ -346,10 +349,20 @@ class ProductController extends Controller
         'listProducts' => $listProducts
         ));
 
-      /*
-      return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
-        'listProducts' => $listProducts
-      ));
-        */
+      
+     // return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
+     //   'listProducts' => $listProducts
+     //  ));
+    
+    }
+    */
+    
+    /*******************************categories****************************************************************/
+    public function categorieAction($categorie)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $produits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategorie($categorie);
+
+        return $this->render('@MickwebEcommerce/Product/index.html.twig', array('produits' => $produits));
     }
 }
