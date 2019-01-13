@@ -198,7 +198,7 @@ class Image
     public function RemoveUpload()
     {
         // on a pas accès à l'id, on utilise notre nom sauvegardé
-        if (file_exists($this->temFilename)) {
+        if (file_exists($this->tempFilename)) {
             // on supprime le fichier
             unlink($this->tempFilename);
         }

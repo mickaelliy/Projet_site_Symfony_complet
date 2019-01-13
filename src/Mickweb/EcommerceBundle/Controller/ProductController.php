@@ -25,18 +25,24 @@ use Mickweb\EcommerceBundle\Form\ProductModifierType;
 class ProductController extends Controller
 {
 /*******************************PAGE D'ACCUEIL DES PRODUITS****************************************************************/
-    public function indexAction($page)
+    public function indexAction($page, Request $request)
     {
+          $session = $request->getSession();
           $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('MickwebEcommerceBundle:Product')
           ;
-
           $listProducts = $repository->myFindAll();
 
+          if($session->has('panier'))
+            $panier = $session->get('panier');
+          else
+            $panier = false;
+
           return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
-            'listProducts' => $listProducts
+            'listProducts' => $listProducts,
+            'panier' => $panier
           ));
     }
 /*******************************FICHE PRODUIT****************************************************************/

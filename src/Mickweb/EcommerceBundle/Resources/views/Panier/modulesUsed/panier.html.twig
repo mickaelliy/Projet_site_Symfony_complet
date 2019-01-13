@@ -1,22 +1,5 @@
-    <div class="well">
-        <ul class="nav nav-list">
-            <li class="nav-header">Panier</li>
-            <li>
-                <a href="{{ path('mickweb_ecommerce_panier') }}">
-                {% if articles == 0 %}
-                    Aucun article dans votre panier
-                {% elseif articles == 1 %}
-                    1 article dans votre panier
-                {% else %}
-                    {{ articles }} arcticles dans votre panier
-                {% endif %}
-                </a>
-            </li>
-        </ul>
-    </div>
-
-{#
-    <div class="dropdown">
+<div class="well">
+        <div class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="icon-shopping-cart"></i>
                 3 item - 54,27 €
@@ -29,4 +12,21 @@
                 <a href="panier.php" class="btn btn-primary">Mon Panier</a>
             </div>
         </div>
-#}
+    </div>
+
+<div class="well">
+        <ul class="nav nav-list">
+            <li class="nav-header">Panier</li>
+            <li>
+                <a href="{{ path('mickweb_ecommerce_panier') }}">
+                {% if article == 0 %}
+                    Aucun article dans votre panier
+                {% elseif article == 1 %}
+                    1 article dans votre panier
+                {% else %}
+                    {{ article }} arcticles dans votre panier
+                {% endif %}
+                </a>
+            </li>
+        </ul>
+    </div>
