@@ -41,7 +41,7 @@ class ProductType extends AbstractType
                 'choice_label'  => 'name',
                 'multiple'      => false,
                 'expanded'      => false,
-                'mapped'        => false, 
+                'mapped'        => true, 
             ))
             ->add('prix',           MoneyType::class)
             ->add('save',           SubmitType::class)

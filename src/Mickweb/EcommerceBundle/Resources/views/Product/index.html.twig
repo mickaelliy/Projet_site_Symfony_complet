@@ -16,7 +16,7 @@
       <div class="row">
 
         {% for product in listProducts %}
-              <div class="col-sm-4">
+              <div class="col-sm-4 well">
                 <div>
                   <h4><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
                   {{ product.titre }}
@@ -31,9 +31,9 @@
                     />
                   {% endif %}
                   </div>
-                  <p>100,00 €</p>
+                  <p>{{product.prix}} €</p>
                   <a class="button button5" href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">Plus d'infos</a>
-                  <a class="btn btn-success" href="{{ path('ajouter_panier', {'id': product.id}) }}">Ajouter au panier</a>
+                  <a class="buttonBasket button6" href="{{ path('ajouter_panier', {'id': product.id}) }}">Ajouter au panier</a>
                 </div>           
               </div>
           

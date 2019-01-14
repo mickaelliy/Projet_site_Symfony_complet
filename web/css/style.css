@@ -50,7 +50,38 @@
     background-color: rgb(11, 12, 11); /* Green */
     border: none;
     color: white;
-    padding: 7px 14px;
+    padding: 5px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+.button {
+background-color:rgb(11, 12, 11);
+color: rgb(245, 240, 240);
+border-radius: 4px;
+text-decoration: none;
+}
+
+.button5:hover {
+background-color: blueviolet;
+color: white;
+text-decoration: none;
+}
+
+
+
+/********** bouton ajout panier - INDEX ********/
+  .buttonBasket {
+    background-color: rgb(24, 185, 172);
+    border: none;
+    color: white;
+    padding: 5px 3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -61,17 +92,17 @@
     cursor: pointer;
   }
   
-  .button5 {
-    background-color: rgb(14, 13, 13);
-    color: rgb(245, 240, 240);
-    border: 2px solid #555555;
+  .button6 {
+    background-color: rgb(24, 185, 172);
+    color: rgb(245, 245, 245);
     border-radius: 4px;
     text-decoration: none;
   }
-  
-  .button5:hover {
-    background-color: #555555;
+
+  .button6:hover {
+    background-color: rgb(38, 182, 33);
     color: white;
+    text-decoration: none;
   }
 
 body {
