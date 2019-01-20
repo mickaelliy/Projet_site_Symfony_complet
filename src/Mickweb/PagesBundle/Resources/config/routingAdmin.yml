@@ -1,0 +1,24 @@
+adminPages_index:
+    path:     /
+    defaults: { _controller: "MickwebPagesBundle:PagesAdmin:index" }
+    methods:  GET
+
+adminPages_show:
+    path:     /{id}/show
+    defaults: { _controller: "MickwebPagesBundle:PagesAdmin:show" }
+    methods:  GET
+
+adminPages_new:
+    path:     /new
+    defaults: { _controller: "MickwebPagesBundle:PagesAdmin:new" }
+    methods:  [GET, POST]
+
+adminPages_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MickwebPagesBundle:PagesAdmin:edit" }
+    methods:  [GET, POST]
+
+adminPages_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MickwebPagesBundle:PagesAdmin:delete" }
+    methods:  DELETE

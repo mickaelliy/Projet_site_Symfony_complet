@@ -27,6 +27,7 @@
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-fixtures-bundle": "^3.0.4",
         "doctrine/orm": "^2.5",
+        "easycorp/easyadmin-bundle": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "paragonie/random_compat": "^2.0",

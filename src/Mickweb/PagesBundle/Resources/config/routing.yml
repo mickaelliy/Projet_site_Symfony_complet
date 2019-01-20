@@ -1,3 +1,7 @@
+mickweb_pages_adminPages:
+    resource: "@MickwebPagesBundle/Resources/config/routingAdmin.yml"
+    prefix:   /admin/pages
+
 mickweb_pages_homepage:
     path:     /page/{id}
     defaults: { _controller: MickwebPagesBundle:Pages:page }

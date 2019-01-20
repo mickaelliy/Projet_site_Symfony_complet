@@ -39,6 +39,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         webmaster: "Mik"
+    form_themes: ['bootstrap_4_layout.html.twig']
    
 fos_user:
     db_driver:     orm        # le type de BDD à utiliser, ici l'orm doctrine
