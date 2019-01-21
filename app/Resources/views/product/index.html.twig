@@ -1,0 +1,49 @@
+{% extends '::layout/layoutAdmin.html.twig' %}
+
+{% block body %}
+    <h1>Products list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Description</th>
+                <th>Published</th>
+                <th>Disponible</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('adminProduct_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.titre }}</td>
+                <td>{{ product.auteur }}</td>
+                <td>{{ product.description }}</td>
+                <td>{% if product.published %}Yes{% else %}No{% endif %}</td>
+                <td>{% if product.disponible %}Yes{% else %}No{% endif %}</td>
+                <td>{{ product.prix }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('adminProduct_show', { 'id': product.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('adminProduct_edit', { 'id': product.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('adminProduct_new') }}">Create a new product</a>
+        </li>
+    </ul>
+{% endblock %}

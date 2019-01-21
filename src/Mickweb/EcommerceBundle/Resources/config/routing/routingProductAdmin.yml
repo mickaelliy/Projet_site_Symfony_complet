@@ -1,0 +1,24 @@
+adminProduct_index:
+    path:     /
+    defaults: { _controller: "MickwebEcommerceBundle:ProductAdmin:index" }
+    methods:  GET
+
+adminProduct_show:
+    path:     /{id}/show
+    defaults: { _controller: "MickwebEcommerceBundle:ProductAdmin:show" }
+    methods:  GET
+
+adminProduct_new:
+    path:     /new
+    defaults: { _controller: "MickwebEcommerceBundle:ProductAdmin:new" }
+    methods:  [GET, POST]
+
+adminProduct_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MickwebEcommerceBundle:ProductAdmin:edit" }
+    methods:  [GET, POST]
+
+adminProduct_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MickwebEcommerceBundle:ProductAdmin:delete" }
+    methods:  DELETE

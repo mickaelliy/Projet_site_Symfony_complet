@@ -41,6 +41,12 @@ mickweb_ecommerce_view_slug:
         year: \d{4}
         format: html|xml
 
+#################################################################
+#                            CRUD Produits 
+##################################################################
+mickweb_product_adminProduct:
+    resource: "@MickwebEcommerceBundle/Resources/config/routing/routingProductAdmin.yml"
+    prefix:    /admin/product
 
 #################################################################
 #                            Panier 
@@ -83,3 +89,4 @@ categorieProduits:
     path:    /categorie/{categorie}
     defaults:
         _controller: MickwebEcommerceBundle:Product:categorie
+
