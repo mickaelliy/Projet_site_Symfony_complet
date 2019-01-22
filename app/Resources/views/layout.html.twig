@@ -13,8 +13,8 @@
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
       <link rel="stylesheet" href="css/style.css"/>
-      <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Special+Elite" rel="stylesheet">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  
+      <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Special+Elite|Dosis" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     {% endstylesheets %}
 
   </head>
@@ -66,7 +66,7 @@
         <li><a href="{{ path('fos_user_security_login') }}"> Se connecter </a></li>
       </ul>
     </div>
-    {# ****************************************** #} 
+    {# ****************************************** #}
 
     {#Ce bloc permet d'afficher le bouton connexion, deconnexion#}
     <div class="container">
@@ -105,7 +105,7 @@
                   </ul>
 
                 <h4>Derniers produits</h4>
-              {#  {{ render(controller("MickwebEcommerceBundle:Product:menu", {'limit': 3})) }} #}
+               {# render(controller("MickwebEcommerceBundle:Product:menu", {'limit': 3})) #}
             </div>
 
             <div id="content" class="col-md-9">
@@ -114,7 +114,7 @@
             </div>
         </div>
     </div>
-        
+
         <hr/>
 
 	<footer id="footer" class="vspace20">
@@ -125,7 +125,7 @@
 					<ul class="nav nav-stacked">
                         {{ render(controller("MickwebPagesBundle:Pages:menu")) }}
 					</ul>
-				</div> 
+				</div>
 
 				<div class="col-md-4 text-center">
 					<h4>Notre entrepôt</h4>
@@ -145,7 +145,7 @@
 				</div>
 			</div>
 		</div>
-	</footer>	    
+	</footer>
 
     {% javascripts 'js/main.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

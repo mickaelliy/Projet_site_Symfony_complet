@@ -91,7 +91,7 @@ text-decoration: none;
     transition-duration: 0.4s;
     cursor: pointer;
   }
-  
+
   .button6 {
     background-color: rgb(24, 185, 172);
     color: rgb(245, 245, 245);
@@ -107,5 +107,5 @@ text-decoration: none;
 
 body {
     /*font-family: 'Amatic SC', cursive;*/
-    font-family: 'Special Elite', cursive;
+    font-family: 'Dosis', cursive;
 }
