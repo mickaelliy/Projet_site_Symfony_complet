@@ -6,6 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Mickweb\EcommerceBundle\Form\ImageType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 
 class CategoryType extends AbstractType
 {
@@ -16,6 +19,7 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name',   TextType::class)
+            ->add('image',  ImageType::class)
         ;
     }
     

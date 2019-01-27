@@ -18,6 +18,20 @@
                 <td>{{ product.auteur }}</td>
             </tr>
             <tr>
+                <th>Image</th>
+                <td>
+                    {% if product.image %}
+                    {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
+                    <img
+                        src="{{ asset(product.image.webPath) }}"
+                        alt="{{ product.image.alt }}"
+                        width="300" 
+                        height="250"
+                    />
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ product.description }}</td>
             </tr>

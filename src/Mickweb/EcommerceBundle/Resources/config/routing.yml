@@ -43,14 +43,21 @@ mickweb_ecommerce_view_slug:
 
 #################################################################
 #                            CRUD Produits 
-##################################################################
+
 mickweb_product_adminProduct:
     resource: "@MickwebEcommerceBundle/Resources/config/routing/routingProductAdmin.yml"
     prefix:    /admin/product
 
 #################################################################
+#                            CRUD Categories 
+
+mickweb_category_adminCategories:
+    resource: "@MickwebEcommerceBundle/Resources/config/routing/routingCategoriesAdmin.yml"
+    prefix:    /admin/categories
+
+#################################################################
 #                            Panier 
-##################################################################
+
 
 ajouter_panier:
     path:    /ajouter/{id}

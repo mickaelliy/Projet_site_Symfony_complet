@@ -14,7 +14,7 @@ class CategoriesController extends Controller
       $em = $this->getDoctrine()->getManager();
       $categories = $em->getRepository('MickwebEcommerceBundle:Category')->findAll();
 
-      return $this->render('@MickwebEcommerce/Categories/modulesUsed/menu.html.twig', array('categories' => $categories));
+      return $this->render('MickwebEcommerceBundle:Categories:modulesUsed/menu.html.twig', array('categories' => $categories));
       }
 
 /***********************************************************************************************/

@@ -28,6 +28,11 @@ class Category
     private $image;
 
     /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     */
+    private $product;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -91,5 +96,48 @@ class Category
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\Product $product
+     *
+     * @return Category
+     */
+    public function addProduct(\Mickweb\EcommerceBundle\Entity\Product $product)
+    {
+        $this->product[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\Product $product
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeProduct(\Mickweb\EcommerceBundle\Entity\Product $product)
+    {
+        return $this->product->removeElement($product);
+    }
+
+    /**
+     * Get product.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

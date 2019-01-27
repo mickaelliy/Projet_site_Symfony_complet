@@ -133,10 +133,10 @@ class ProductController extends Controller
         $product = new Product();
 
         // Avis en dur dans le code -- à supprimer par la suite
-        $avis1 = new Avis();
-        $avis1->setCommentaire('Super produit, je recommande');
-        $avis1->setNote(4);
-        $avis1->setProduct($product);
+        // $avis1 = new Avis();
+        // $avis1->setCommentaire('Super produit, je recommande');
+        // $avis1->setNote(4);
+        // $avis1->setProduct($product);
 
         // création du formbuilder grace au service form factory
         $form = $this->get('form.factory')->create(ProductType::class, $product);
@@ -162,7 +162,7 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             // persisrt de l'Avis en dur dans le code -- à supprimer par la suite 
-            $em->persist($avis1);
+            // $em->persist($avis1);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'produit bien enregistré.');
@@ -194,14 +194,14 @@ class ProductController extends Controller
         if (null === $product) {
             throw new NotFoundHttpException("Le produit d'id" .$id. "n'existe pas");
         }
-/*
+
         $listCategories = $em->getRepository('MickwebEcommerceBundle:Category')->findAll();
 
         // boucle sur les categories pour lier au produit
         foreach ($listCategories as $category) {
             $product->addCategory($category);
         }
-*/
+
         //$em->flush();
 
         /*********** */

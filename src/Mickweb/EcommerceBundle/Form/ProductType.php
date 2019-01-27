@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Mickweb\EcommerceBundle\Form\ImageType;
+use Mickweb\EcommerceBundle\Form\CategoryType;
 
 class ProductType extends AbstractType
 {
