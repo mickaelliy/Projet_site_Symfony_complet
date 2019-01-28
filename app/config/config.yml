@@ -39,6 +39,9 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         webmaster: "Mik"
+        telephone: 01 23 65 32 45
+        fax: 01 35 46 78 99
+        adresse: Paris 75 000 - 3 rue des jardins
     form_themes: ['bootstrap_4_layout.html.twig']
    
 fos_user:

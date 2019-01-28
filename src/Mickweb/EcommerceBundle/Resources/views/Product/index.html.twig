@@ -5,6 +5,7 @@
 {% block title %}
   Accueil - {{ parent() }}
 {% endblock %}
+{% block description %} {# description à ajouter #} {% endblock %}
 
 {% block MickwebEcommerce_body %}
 
@@ -31,7 +32,8 @@
                     />
                   {% endif %}
                   </div>
-                  <p>{{product.prix}} €</p>
+                  <p>{{ product.prix }} €</p>
+                  {# <p>{{ product.prix|tva(product.tva.multiplicate) }} €</p> #}
                   <a class="button button5" href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">Plus d'infos</a>
                   <a class="buttonBasket button6" href="{{ path('ajouter_panier', {'id': product.id}) }}">Ajouter au panier</a>
                 </div>           

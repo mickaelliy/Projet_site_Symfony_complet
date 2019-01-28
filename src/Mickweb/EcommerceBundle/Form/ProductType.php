@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Mickweb\EcommerceBundle\Form\ImageType;
 use Mickweb\EcommerceBundle\Form\CategoryType;
+use Mickweb\EcommerceBundle\Form\TvaType;
 
 class ProductType extends AbstractType
 {
@@ -44,6 +45,13 @@ class ProductType extends AbstractType
                 'expanded'      => false,
                 'mapped'        => true, 
             ))
+            // ->add('tva',            EntityType::class, array(
+            //     'class'         => 'MickwebEcommerceBundle:tva',
+            //     'choice_label'  => 'name',
+            //     'multiple'      => false,
+            //     'expanded'      => false,
+            //     'mapped'        => true, 
+            // ))
             ->add('prix',           MoneyType::class)
             ->add('save',           SubmitType::class)
         ;

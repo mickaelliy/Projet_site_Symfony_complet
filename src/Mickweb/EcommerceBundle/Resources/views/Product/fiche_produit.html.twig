@@ -3,8 +3,9 @@
 {% extends "MickwebEcommerceBundle::layout.html.twig" %}
 
 {% block title %}
-  Fiche produit - {{ parent() }}
+  {{ product.titre }} - {{ parent() }}
 {% endblock %}
+{% block description %} {{ product.description }} {% endblock %}
 
 {% block MickwebEcommerce_body %}
 

@@ -6,7 +6,9 @@
     <meta charset="utf-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %} ML website{% endblock %}</title>
+    <title>{% block title %} Raaaaats{% endblock %}</title>
+    <meta name="keywords" content="{% block motsCles %} {% endblock %}" />
+    <meta name="description" content="{% block description %} {% endblock %}" />
 
     {% stylesheets 'css/style.css' %}
      {# <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" /> #}
@@ -23,18 +25,21 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
-            <div class="container">
-                <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+            <div class="container-fluid">
+                {# <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a class="brand" href="index.php">Raaaaats</a>
-                <div class="nav-collapse collapse">
-                    <form class="navbar-form form-search pull-right">
-                        <input id="Search" name="Search" type="text" class="input-medium search-query">
-                        <button type="submit" class="btn">Rechercher</button>
-                    </form>
+                </button> #}
+               
+                
+                <div navbar-header>
+                <a href="{{ path('mickweb_ecommerce_homepage') }}"> 
+                    <img src="../img/ratioactive-icon.png" alt="logos raaaaats" width="50" height="50">
+                </a>
+
+                {{ render(controller('MickwebEcommerceBundle:Product:recherche')) }}
+                    
                 </div>
             </div>
         </div>
@@ -127,13 +132,13 @@
 
 				<div class="col-md-4 text-center">
 					<h4>Notre entrepôt</h4>
-					<p><i class="icon-map-marker"></i>&nbsp;Paris 75 000 - 3 rue des jardins</p>
+					<p><i class="icon-map-marker"></i>&nbsp;{{ adresse }}</p>
 				</div>
 
 				<div class="col-md-4 text-center">
 					<h4>Nous contacter</h4>
-					<p><i class="icon-phone"></i>&nbsp;Tel: 02 35 00 00 00</p>
-					<p><i class="icon-print"></i>&nbsp;Fax: 02 35 00 00 00</p>
+					<p><i class="icon-phone"></i>&nbsp;{{ telephone }}</p>
+					<p><i class="icon-print"></i>&nbsp;{{ fax }}</p>
 				</div>
 			</div>
 

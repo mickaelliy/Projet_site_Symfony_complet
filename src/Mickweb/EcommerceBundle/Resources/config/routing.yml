@@ -58,7 +58,6 @@ mickweb_category_adminCategories:
 #################################################################
 #                            Panier 
 
-
 ajouter_panier:
     path:    /ajouter/{id}
     defaults:
@@ -90,10 +89,17 @@ mickweb_ecommerce_validation:
 
 #################################################################
 #                           Categories
-##################################################################
 
 categorieProduits:
     path:    /categorie/{categorie}
     defaults:
         _controller: MickwebEcommerceBundle:Product:categorie
 
+
+#################################################################
+#                           Recherche
+
+rechercheProduits:
+    path:    /recherche
+    defaults:
+        _controller: MickwebEcommerceBundle:Product:rechercheTraitement

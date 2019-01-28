@@ -11,7 +11,10 @@ use Mickweb\EcommerceBundle\Entity\Commande;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 //use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Mickweb\EcommerceBundle\Form\ProductType;
 use Mickweb\EcommerceBundle\Form\ProductModifierType;
+use Mickweb\EcommerceBundle\Form\RechercheType;
 
 class ProductController extends Controller
 {
@@ -33,7 +37,9 @@ class ProductController extends Controller
             ->getManager()
             ->getRepository('MickwebEcommerceBundle:Product')
           ;
-          $listProducts = $repository->myFindAll();
+        //   $listProducts = $repository->myFindAll();
+          $listProducts = $repository->findBy(array('disponible' => 1));
+
 
           if($session->has('panier'))
             $panier = $session->get('panier');
@@ -368,6 +374,36 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $produits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategorie($categorie);
+
+        $categorie = $em->getRepository('MickwebEcommerceBundle:Category')->find($categorie);
+        if (!$categorie) throw $this->createNotFoundException('La page n\'existe pas.');
+
+        return $this->render('@MickwebEcommerce/Product/index.html.twig', array('produits' => $produits));
+    }
+
+    public function rechercheAction()
+    {
+        $form = $this->createFormBuilder()->add('recherche')->getForm();
+
+        return $this->render('@MickwebEcommerce/Recherche/modulesUsed/recherche.html.twig', array('form' => $form->createView()));
+    }
+
+    public function rechercheTraitementAction(Request $request, RequestStack $requestStack)
+    {
+        $form = $this->createFormBuilder()->add('recherche')->getForm();
+        // $form = $this->createForm('Mickweb\EcommerceBundle\Form\RechercheType', $product);
+
+        if ($this->isSubmitted())
+        {
+            $form->$this->get('request_stack')->getCurrentRequest();
+            $em = $this->getDoctrine()->getManager();
+            $produits = $em->getRepository('MickwebEcommerceBundle:Product')->recherche($form['recherche']->getData());
+        } else {
+            throw $this->createNotFoundException('La page n\'existe pas.');
+        }
+
+        // $em = $this->getDoctrine()->getManager();
+        // $product = $em->getRepository('MickwebEcommerceBundle:Product')->recherche($chaine);
 
         return $this->render('@MickwebEcommerce/Product/index.html.twig', array('produits' => $produits));
     }
