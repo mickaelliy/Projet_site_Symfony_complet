@@ -4,6 +4,15 @@ services:
       tags:
         - { name: twig.extension }
 
+    redirectionListener:
+      class: Mickweb\EcommerceBundle\Listener\RedirectionListener
+      arguments:
+        - "@service_container"
+        - "@session"
+        - "@security.token_storage"
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
 #    mickweb_ecommerce.example:
 #        class: Mickweb\EcommerceBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]

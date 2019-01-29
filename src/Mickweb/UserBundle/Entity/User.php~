@@ -27,6 +27,13 @@ class User extends BaseUser
         parent::__construct();
         $this->commande = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $lastname;
 
     /**
      * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Commande", mappedBy="user", cascade={"persist"}) 
