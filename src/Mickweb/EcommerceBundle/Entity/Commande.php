@@ -23,10 +23,11 @@ class Commande
 
     /**
      * @ORM\ManyToOne(targetEntity="Mickweb\UserBundle\Entity\User", inversedBy="commande") 
-     * @ORM\JoinTable(name="mickweb_product_category")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
     // Plusieurs commandes pour un utilisateur
+    // @ORM\JoinTable(name="mickweb_product_category")
 
     /**
      * @var bool

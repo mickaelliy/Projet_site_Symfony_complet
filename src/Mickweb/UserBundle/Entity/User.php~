@@ -26,22 +26,30 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->commande = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255)
-     */
-    private $lastname;
+    // /**
+    //  * @var string
+    //  *
+    //  * @ORM\Column(name="nom", type="string", length=255)
+    //  */
+    // private $lastname;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Commande", mappedBy="user", cascade={"persist"}) 
+     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Commande", mappedBy="user", cascade={"remove"}) 
      * @ORM\JoinColumn(nullable=true)
      */
     private $commande;
     // One to Many : un utilisateur peut avoir plusieurs commandes
     // @ORM\JoinTable(name="mickweb_product_category")
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\UtilisateursAdresse", mappedBy="user", cascade={"remove"}) 
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $adresses;
 
     /**
      * Add commande.
@@ -78,4 +86,28 @@ class User extends BaseUser
     {
         return $this->commande;
     }
+
+    // /**
+    //  * Set lastname.
+    //  *
+    //  * @param string $lastname
+    //  *
+    //  * @return User
+    //  */
+    // public function setLastname($lastname)
+    // {
+    //     $this->lastname = $lastname;
+
+    //     return $this;
+    // }
+
+    // /**
+    //  * Get lastname.
+    //  *
+    //  * @return string
+    //  */
+    // public function getLastname()
+    // {
+    //     return $this->lastname;
+    // }
 }

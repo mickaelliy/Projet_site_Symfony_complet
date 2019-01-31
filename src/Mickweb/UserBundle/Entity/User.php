@@ -21,12 +21,6 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->commande = new \Doctrine\Common\Collections\ArrayCollection();
-    }
     
     // /**
     //  * @var string
@@ -36,12 +30,26 @@ class User extends BaseUser
     // private $lastname;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Commande", mappedBy="user", cascade={"persist"}) 
+     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Commande", mappedBy="user", cascade={"remove"}) 
      * @ORM\JoinColumn(nullable=true)
      */
     private $commande;
     // One to Many : un utilisateur peut avoir plusieurs commandes
     // @ORM\JoinTable(name="mickweb_product_category")
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\UtilisateursAdresse", mappedBy="user", cascade={"remove"}) 
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $adresses;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->commande = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
 
     /**
      * Add commande.
@@ -102,4 +110,40 @@ class User extends BaseUser
     // {
     //     return $this->lastname;
     // }
+
+    /**
+     * Add adress.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress
+     *
+     * @return User
+     */
+    public function addAdress(\Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress)
+    {
+        $this->adresses[] = $adress;
+
+        return $this;
+    }
+
+    /**
+     * Remove adress.
+     *
+     * @param \Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeAdress(\Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress)
+    {
+        return $this->adresses->removeElement($adress);
+    }
+
+    /**
+     * Get adresses.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdresses()
+    {
+        return $this->adresses;
+    }
 }

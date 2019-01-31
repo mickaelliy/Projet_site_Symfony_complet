@@ -138,3 +138,49 @@ body {
 }
 
 /*-----fin Pictos réassurance-----*/
+
+/* Images bloc Nos Produits */
+.bloc_pdt_home img{
+    width: 300px;
+    height: 250px;
+}
+
+.bloc_produits{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    margin-top: 10px;
+    margin-bottom:30px;
+    position: relative;
+    text-align: center;
+    color:white;
+}
+
+h2{
+    color: grey;
+    text-align: center;
+}
+
+.img_accessoires, .img_pantalons, .img_tshirt, .img_chaussures, .img_vestes, .img_lunettes {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+.bloc_produits span{
+    font-size: 0.6em;
+    font-weight: bold;
+    color: snow;
+}
+
+.texte_img_accessoires, .texte_img_pantalons, .texte_img_tshirt, .texte_img_chaussures, .texte_img_vestes, .texte_img_lunettes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em;
+    text-shadow: 1px 2px 3px rgba(0,0,0, 0.5); 
+}
+/*-----fin nos produits-----*/
