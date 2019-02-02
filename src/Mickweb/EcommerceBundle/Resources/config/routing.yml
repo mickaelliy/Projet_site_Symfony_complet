@@ -87,6 +87,11 @@ mickweb_ecommerce_validation:
     defaults:
         _controller: MickwebEcommerceBundle:Panier:validation
 
+mickweb_ecommerce_livraisonAdresseSuppression:
+    path:    /livraison/adresse/suppression/{id}
+    defaults:
+        _controller: MickwebEcommerceBundle:Panier:adresseSuppression
+
 #################################################################
 #                           Categories
 

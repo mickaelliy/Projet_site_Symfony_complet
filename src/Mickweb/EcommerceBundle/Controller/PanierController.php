@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mickweb\EcommerceBundle\Twig\Extension;
+use Mickweb\EcommerceBundle\Entity\UtilisateursAdresse;
+use Mickweb\EcommerceBundle\Form\UtilisateursAdresseType;
 
 class PanierController extends Controller
 {
@@ -44,10 +46,51 @@ class PanierController extends Controller
                                                                                   'panier' => $session->get('panier')));
     }
 
-    /**************************** Livraison ************************************/
-    public function livraisonAction()
+    /**************************** Adresse suppression ************************************/
+    public function adresseSuppressionAction($id)
     {
-          return $this->render('@MickwebEcommerce/Panier/livraison.html.twig');
+          $em = $this->getDoctrine()->getManager();
+          $entity = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($id);
+
+          if ($this->container->get('security.token_storage')->getToken()->getUser() != $entity->getUser() || !$entity) {
+            return $this->redirect($this->generateUrl('mickweb_ecommerce_livraison'));
+          }
+
+          $em->remove($entity);
+          $em->flush();
+            // $request->getSession()->getFlashBag()->add('info', 'Adresse bien supprimée.');
+
+          return $this->redirect($this->generateUrl('mickweb_ecommerce_livraison'));
+    }
+
+    /**************************** Livraison ************************************/
+    public function livraisonAction(Request $request)
+    {
+      //     $entity = new UtilisateursAdresse();
+      //     $form = $this->createForm(new UtilisateursAdresseType(), $entity);
+
+      //     return $this->render('@MickwebEcommerce/Panier/livraison.html.twig', array('form' => $form->createView()));
+
+      $user = $this->container->get('security.token_storage')->getToken()->getUser();
+      $entity = new UtilisateursAdresse();
+      $form = $this->get('form.factory')->create(UtilisateursAdresseType::class, $entity);
+
+      if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+
+            $em = $this->getDoctrine()->getManager();
+            $entity->setUser($user);
+            $em->persist($entity);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'adresse mise à jour.');
+
+            return $this->redirect($this->generateUrl('mickweb_ecommerce_livraison'));
+      }
+      
+      return $this->render('@MickwebEcommerce/Panier/livraison.html.twig', array(
+            'user' => $user,
+            'form' => $form->createView())
+      );
     }
 
     /**************************** Validation ************************************/

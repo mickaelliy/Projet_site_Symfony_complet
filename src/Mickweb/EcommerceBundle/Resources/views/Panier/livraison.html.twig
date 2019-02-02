@@ -8,80 +8,54 @@
 
 {% block MickwebEcommerce_body %}
 
-  <div class="container col-md-12">
+<div class="container col-md-12">
     <div class="row">
-        <div>
-            <h2>Livraison</h2>
-            <div id="collapseOne" class="accordion-body collapse in">
-                <div class="accordion-inner">
-                    <div class="col-md-6">
-                        <form action="validation.php">
-                            <h4>Adresse de livraison</h4>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                3b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                4b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                5b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            
-                            <br /><br />
-                            
-                            <h4>Adresse de facturation</h4>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios2" id="optionsRadios1" value="option1" checked="">
-                                3b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios2" id="optionsRadios1" value="option1" checked="">
-                                4b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios2" id="optionsRadios1" value="option1" checked="">
-                                5b rue jules paulo, 75 000 Paris <a href="#"><i class="icon-trash"></i></a>
-                            </label>
-                            <a href="{{ path('mickweb_ecommerce_validation') }}" class="btn btn-primary">Valider mon adresse de livraison</a>
-                        </form>
-                    </div>
-                    
+        <h2>Livraison</h2>
+        <div id="collapseOne" class="accordion-body collapse in">
+            <div class="accordion-inner">
+                <div class="col-md-6">
+                    {% if user.adresses |length != 0 %}
+                    <form action="validation.php">
+                        <h4>Adresse de livraison</h4>
+                        {% for adresse in user.adresses %}
+                        <label class="radio">
+                            <input type="radio" name="livraison" id="optionsRadios1" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
+                            {{ adresse.prenom }} {{ adresse.nom }}
+                            <br /> 
+                            {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays }} <a href="{{ path('mickweb_ecommerce_livraisonAdresseSuppression', {'id' : adresse.id }) }}"><i class="fas fa-trash-alt"></i></a>
+                        </label>
+                        {% endfor %}
+                        
+                        <br /><br />
+                        
+                        <h4>Adresse de facturation</h4>
+                        {% for adresse in user.adresses %}
+                        <label class="radio">
+                            <input type="radio" name="facturation" id="optionsRadios1" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
+                            {{ adresse.prenom }} {{ adresse.nom }}
+                            <br /> 
+                            {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays }} <a href="{{ path('mickweb_ecommerce_livraisonAdresseSuppression', {'id' : adresse.id }) }}"><i class="fas fa-trash-alt"></i></a>
+                        </label>
+                        {% endfor %}
 
-								<div class="col-md-6">
-									<h4>Ajouter une nouvelle adresse</h4>
-									<form>
-										<label>Nom</label>
-										<input type="text">
-										
-										<label>Prénom</label>
-										<input type="text">
-										
-										<label>Adresse</label>
-										<input type="text">
-										
-										<label>Ville</label>
-										<input type="text">
-										
-										<label>Code postal</label>
-										<input type="text">
-                                        
-										<label>Ville</label>
-										<input type="text">
-                                        
-										<label>Téléphone</label>
-										<input type="text">                                        
-                                        
-                                        <br />
-										<button class="btn btn-primary">Ajouter</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					
-		</div>
+                        <br />
+
+                        <a href="{{ path('mickweb_ecommerce_validation') }}" class="btn btn-primary">Valider mes adresses</a>
+                    </form>
+                    {% endif %}
+                </div>
+                
+                <div class="col-md-6">
+                    <h4>Ajouter une nouvelle adresse</h4>
+                    <form action="{{ path('mickweb_ecommerce_livraison') }}" method="POST">
+                        {{ form_widget(form) }}                                     
+                        
+                        <br />
+                        <button class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+        </div>	
+	</div>
 </div>
 
 
