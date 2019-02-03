@@ -15,11 +15,11 @@
             <div class="accordion-inner">
                 <div class="col-md-6">
                     {% if user.adresses |length != 0 %}
-                    <form action="validation.php">
+                    <form action="{{ path('mickweb_ecommerce_validation') }}" method="POST">
                         <h4>Adresse de livraison</h4>
                         {% for adresse in user.adresses %}
                         <label class="radio">
-                            <input type="radio" name="livraison" id="optionsRadios1" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
+                            <input type="radio" name="livraison" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
                             {{ adresse.prenom }} {{ adresse.nom }}
                             <br /> 
                             {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays }} <a href="{{ path('mickweb_ecommerce_livraisonAdresseSuppression', {'id' : adresse.id }) }}"><i class="fas fa-trash-alt"></i></a>
@@ -31,7 +31,7 @@
                         <h4>Adresse de facturation</h4>
                         {% for adresse in user.adresses %}
                         <label class="radio">
-                            <input type="radio" name="facturation" id="optionsRadios1" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
+                            <input type="radio" name="facturation" value="{{ adresse.id }}" {% if loop.index0 == 0 %}checked="checked" {% endif %}>
                             {{ adresse.prenom }} {{ adresse.nom }}
                             <br /> 
                             {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays }} <a href="{{ path('mickweb_ecommerce_livraisonAdresseSuppression', {'id' : adresse.id }) }}"><i class="fas fa-trash-alt"></i></a>

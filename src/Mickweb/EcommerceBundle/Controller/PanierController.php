@@ -14,6 +14,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Mickweb\EcommerceBundle\Twig\Extension;
 use Mickweb\EcommerceBundle\Entity\UtilisateursAdresse;
 use Mickweb\EcommerceBundle\Form\UtilisateursAdresseType;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PanierController extends Controller
 {
@@ -93,10 +95,49 @@ class PanierController extends Controller
       );
     }
 
-    /**************************** Validation ************************************/
-    public function validationAction()
+    /**************************** Set livraison ************************************/
+    public function setLivraisonOnSession(Request $request)
     {
-          return $this->render('@MickwebEcommerce/Panier/validation.html.twig');
+      //      $session = $this->getRequest()->getSession();
+           $session = $request->getSession();
+
+          if(!$session->has('adresse')) $session->set('adresse', array());
+          $adresse = $session->get('adresse');
+
+          if($this->getRequest()->request->get('livraison') != null && $this->getRequest()->request->get('facturation') != null)
+          {
+                $adresse['livraison'] = $this->getRequest()->request->get('livraison');
+                $adresse['facturation'] = $this->getRequest()->request->get('facturation');
+          } else {
+                return $this->redirect($this->generateUrl('mickweb_ecommerce_validation'));
+          }
+
+          $session->set('adresse', $adresse);
+          return $this->redirect($this->generateUrl('mickweb_ecommerce_validation'));
+    }
+
+    /**************************** Validation ************************************/
+    public function validationAction(Request $request)
+    {
+          if($request->isMethod('POST'))
+          {
+                $this->setLivraisonOnSession();
+          }
+          $em = $this->getDoctrine()->getManager();
+      //     $session = $this->getRequest()->getSession();
+          $session = $request->getSession();
+          $adresse = $session->get('adresse');
+
+          $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
+      //     $livraison = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['livraison']);
+      //     $facturation = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['facturation']);
+
+          return $this->render('@MickwebEcommerce/Panier/validation.html.twig', array(
+                'produits' => $produits,
+            //     'livraison' => $livraison,
+            //     'facturation' => $facturation,
+                'panier' => $session->get('panier')
+            ));
     }
 
     /**************************** ajouter panier ************************************/  
