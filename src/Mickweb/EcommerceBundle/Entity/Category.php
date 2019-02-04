@@ -28,7 +28,7 @@ class Category
     private $image;
 
     /**
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Product", mappedBy="categories")
      */
     private $product;
 
@@ -139,5 +139,10 @@ class Category
     public function getProduct()
     {
         return $this->product;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

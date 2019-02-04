@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Avis
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Product", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Product", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $product;

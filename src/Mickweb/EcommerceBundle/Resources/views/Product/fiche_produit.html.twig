@@ -77,8 +77,8 @@
     <div>
       {# boucle foreach qui permet d'afficher les avis #}
         <ul>
-          {% for avis in listAvis %}
-            <li>
+          {# {% for avis in listAvis %} #}
+            {# <li>
               <p> {{ avis.commentaire }} </p>
               <p> note : {{ avis.note }} </p>
               <p> Date de publication : {{ avis.date|date('Y-m-d') }} </p>
@@ -86,7 +86,7 @@
             <hr>
           {% else %}
             <li>Aucun avis </li>
-          {% endfor %}
+          {% endfor %} #}
         </ul>
 
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

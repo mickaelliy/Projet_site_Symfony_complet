@@ -8,7 +8,7 @@
 
   {% for categorie in categories %}
     <li>
-      <a href="{{ path('categorieProduits', {'categorie': categorie.id}) }}">
+      <a href="{{ path('categorieProduits', {'categories': categorie.id}) }}">
         {{ categorie.name }}
       </a>
     </li>

@@ -66,14 +66,14 @@ class ProductController extends Controller
       }
 
       // je recupere la liste des avis de ce produit grace au findBy
-      $listAvis = $em
-        ->getRepository('MickwebEcommerceBundle:Avis')
-        ->findBy(array('product' => $product))
-      ;
+    //   $listAvis = $em
+    //     ->getRepository('MickwebEcommerceBundle:Avis')
+    //     ->findBy(array('product' => $product))
+    //   ;
 
       return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
         'product' => $product,
-        'listAvis' => $listAvis
+        // 'listAvis' => $listAvis
       ));
     }
 /*******************************AJOUT PRODUIT****************************************************************/
@@ -370,17 +370,19 @@ class ProductController extends Controller
     */
     
     /*******************************categories****************************************************************/
-    public function categorieAction($categorie)
+    public function categorieAction($categories)
     {
         $em = $this->getDoctrine()->getManager();
-        $produits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategorie($categorie);
+        $produits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategorie($categories);
 
-        $categorie = $em->getRepository('MickwebEcommerceBundle:Category')->find($categorie);
-        if (!$categorie) throw $this->createNotFoundException('La page n\'existe pas.');
+        $categories = $em->getRepository('MickwebEcommerceBundle:Category')->find($categories);
+        if (!$categories) throw $this->createNotFoundException('La page n\'existe pas.');
 
-        return $this->render('@MickwebEcommerce/Product/index.html.twig', array('produits' => $produits));
+        return $this->render('@MickwebEcommerce/Product/categories.html.twig', array('produits' => $produits,
+    'categories' => $categories));
     }
 
+    /*******************************Recherche****************************************************************/
     public function rechercheAction()
     {
         $form = $this->createFormBuilder()->add('recherche')->getForm();

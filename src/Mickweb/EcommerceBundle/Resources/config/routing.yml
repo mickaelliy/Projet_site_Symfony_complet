@@ -96,7 +96,7 @@ mickweb_ecommerce_livraisonAdresseSuppression:
 #                           Categories
 
 categorieProduits:
-    path:    /categorie/{categorie}
+    path:    /categorie/{categories}
     defaults:
         _controller: MickwebEcommerceBundle:Product:categorie
 

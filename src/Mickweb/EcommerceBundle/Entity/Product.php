@@ -16,9 +16,10 @@ class Product
      * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Category", inversedBy="product", cascade={"persist"}) 
      * @ORM\JoinColumn(nullable=false)
      */
-   //private $categories;
+    private $categories;
+
+    // @ORM\JoinTable(name="mickweb_product_category")
     
-   // @ORM\JoinTable(name="mickweb_product_category")
 
 
     /**

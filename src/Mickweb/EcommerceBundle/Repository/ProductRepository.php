@@ -22,14 +22,14 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         ;
     }
 
-    public function byCategorie($categorie)
+    public function byCategorie($categories)
     {
         $qb = $this->createQueryBuilder('u')
                     ->select('u')
-                    ->where('u = :categorie')
+                    ->where('u.categories = :categories')
                     ->andWhere('u.disponible = 1') // prend seulement les pdts disponibles
                     ->orderBy('u.id')
-                    ->setParameter('categorie', $categorie);
+                    ->setParameter('categories', $categories);
         return $qb->getQuery()->getResult();
     }
 

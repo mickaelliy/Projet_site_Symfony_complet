@@ -8,52 +8,17 @@
 {% block description %} {# description à ajouter #} {% endblock %}
 
 {% block MickwebEcommerce_body %}
-
-  <div class="titre_nos_produits"> 
-    <h2>Nos produits phares</h2>  
-      
-      <div class="bloc_produits">
-        <a href="jeans_femme.html">
-        <div class="img_pantalons">
-          <img src="../img/31.jpeg" alt="tshirt vert" width="250" height="250">
-          <div class="texte_img_pantalons">Jeans <span>FEMME</span></div>
-        </div>  
-        </a>
-
-
-        <a href="shoes_femme.html">
-        <div class="img_chaussures">
-        <img src="../img/31.jpeg" alt="tshirt vert" width="250" height="250">
-        <div class="texte_img_chaussures">Chaussures <span>FEMME</span></div>
-        </div>
-        </a>
-
-        <a href="vestes_femme.html">
-        <div class="img_vestes">
-        <img src="../img/31.jpeg" alt="tshirt vert" width="250" height="250">
-        <div class="texte_img_vestes">Vestes <span>FEMME</span></div>
-        </div>
-        </a>
-
-        <a href="accessoires_homme.html">
-        <div class="img_accessoires">
-        <img src="../img/31.jpeg" alt="tshirt vert" width="250" height="250">
-        <div class="texte_img_accessoires">Accessoires <span>HOMME</span></div>
-        </div>
-        </a>
-
-      </div> 
-  </div>
-
-  <h2>Liste des produits</h2>
+  
+  <h2> Vous êtes dans la catégorie : {{ categories.name }}</h2>
 
     <div class="container col-sm-12">
       <div class="row">
-          {% for product in listProducts %} {# produits ou listProducts #}
+          {% for product in produits %} {# produits ou listProducts #}
                 <div class="col-sm-4">
                   <div>
                     <h4><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
                     {{ product.titre }}
+        
                   </a></h4>
                     <div>
                     {% if product.image %}
@@ -74,9 +39,9 @@
           
                 {% else %} 
                 <p>Aucun produit disponible</p> 
-
-          {% endfor %}
+          {% endfor %}  
       </div>
     </div>
+    
   
 {% endblock %}

@@ -30,13 +30,13 @@ class ProductType extends AbstractType
             ->add('published',      CheckboxType::class, array('required' => false))
             ->add('image',          ImageType::class)
             // Le add ci-dessous sert à ajouter une catégorie
-            /*
-            ->add('categories',     CollectionType::class, array(
-               'entry_type' => CategoryType::class,
-               'allow_add' => true,
-               'allow_delete' => true
-            ))
-            */
+            
+            // ->add('categories',     CollectionType::class, array(
+            //    'entry_type' => CategoryType::class,
+            //    'allow_add' => true,
+            //    'allow_delete' => true
+            // ))
+            
             // le add ci-dessous ne fonctionne pas comme je souhaite, il n'ajoute pas la catégorie, a corriger
             ->add('categories',     EntityType::class, array(
                 'class'         => 'MickwebEcommerceBundle:Category',
