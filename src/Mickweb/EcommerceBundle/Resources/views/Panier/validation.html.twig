@@ -6,6 +6,9 @@
   Fiche produit - {{ parent() }}
 {% endblock %}
 
+{% set totalHT = 0 %}
+{% set totalTTC = 0 %}
+
 {% block MickwebEcommerce_body %}
 
     <div class="container col-md-12">
@@ -29,25 +32,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% if produits|length == 0 %}
-                                <tr>
+                            {# {% if produits|length == 0 %} #}
+                                {# <tr>
                                     <td colspan="4">Aucun article dans votre panier</td>
-                                </tr>
-                            {% endif %}    
-
-                            {% for produit in produits %}
+                                </tr> #}
+                            {# {% endif %}     #}
+                            {% for produit in commande.commande.produits %}
+                            {# {% for produit in produits %} #}
                             <tr>
-                                <form action="{{ path('ajouter_panier', { 'id' : produit.id }) }}" method="get">
-                                    <td>{{produit.titre}}</td>
-                                    <td>{{ panier[produit.id] }}</td>
-                                    <td>{{ produit.prix }} €</td>
-                                    <td>{{ produit.prix * panier[produit.id] }} €</td>
-                                </form>
+                                {# <form action="{{ path('ajouter_panier', { 'id' : produit.id }) }}" method="get"> #}
+                                    {# <td>{{produit.titre}}</td> #}
+                                    <td>{{ produit.reference }}</td>
+                                    <td>{{ produit.quantite }}</td>
+                                    <td>{{ produit.prixHT }} €</td>
+                                    <td>{{ produit.prixHT * produit.quantite }} €</td>
+                                {# </form> #}
                             </tr>
                             {# Fonctions twig pour calcul de la TVA #}
-                            {# {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %} #}
-                            {# {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) %} |tva(produit.tva.multiplicate) #}
-                            {% endfor %} #}
+                            {# {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
+                            {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) %}  #}
+                            {#|tva(produit.tva.multiplicate)#}
+                            {% endfor %}
 
                         </tbody>
                     </table>
@@ -55,13 +60,13 @@
 
                 <dl class="dl-horizontal pull-right">
                     <dt>Total HT :</dt>
-                    {# <dd>{{ totalHT }} €</dd> #}
+                    <dd>{{ commande.commande.prixHT }} €</dd>
                     
                     <dt>TVA :</dt>
                     <dd>0€</dd>
     
                     <dt>Total TTC :</dt>
-                    {# <dd>{{ totalTTC }} €</dd> #}
+                    <dd>{{ commande.commande.prixTTC }} €</dd>
                 </dl>
 
                 {# <div class="span3 pull-left" >

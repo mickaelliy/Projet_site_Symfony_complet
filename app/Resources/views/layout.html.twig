@@ -39,9 +39,9 @@
                 
                 <a href="{{ path('fos_user_registration_register') }}"><i class="fas fa-sign-in-alt" style="color:white"></i></a>
                 
-                <i class="fas fa-user" style="color:white"></i>
+                <i class="fas fa-user" style="color:white" title="mon compte"></i>
                 <i class="fas fa-times" style="color:white"></i>
-                <i class="fas fa-shopping-basket" style="color:white"></i>
+                <i class="fas fa-shopping-basket" style="color:white" title="panier"></i>
                 {{ render(controller('MickwebEcommerceBundle:Product:recherche')) }}
                     
                 </div>
@@ -58,6 +58,7 @@
     </div>
 
     {# ****************************************** #}
+
     {# Menu haut --- en cours de construction #}
 
     <div id="menu_haut">
@@ -107,6 +108,7 @@
 
                 <h4>Derniers produits</h4>
                {# render(controller("MickwebEcommerceBundle:Product:menu", {'limit': 3})) #}
+
             </div>
 
             <div id="content" class="col-md-9">
@@ -167,6 +169,8 @@
 		</div>
 	</footer>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     {% javascripts 'js/main.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -174,6 +178,10 @@
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.js"></script>
     {% endjavascripts %}
+    {# <script src="js/script.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/function.js"></script> #}
+
 
   </body>
 

@@ -16,6 +16,7 @@ use Mickweb\EcommerceBundle\Entity\UtilisateursAdresse;
 use Mickweb\EcommerceBundle\Form\UtilisateursAdresseType;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Mickweb\EcommerceBundle\Entity\Commande;
 
 class PanierController extends Controller
 {
@@ -123,20 +124,26 @@ class PanierController extends Controller
           {
                 $this->setLivraisonOnSession();
           }
+      // renvoie la methode preparecommande du controller "Commandes" 
           $em = $this->getDoctrine()->getManager();
-      //     $session = $this->getRequest()->getSession();
-          $session = $request->getSession();
-          $adresse = $session->get('adresse');
+          $prepareCommande = $this->forward('MickwebEcommerceBundle:Commandes:prepareCommande');
+          $commande = $em->getRepository('MickwebEcommerceBundle:Commande')->find($prepareCommande->getContent());
 
-          $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
+          
+      //     $session = $this->getRequest()->getSession();
+      //     $session = $request->getSession();
+      //     $adresse = $session->get('adresse');
+
+      //     $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
       //     $livraison = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['livraison']);
       //     $facturation = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['facturation']);
 
           return $this->render('@MickwebEcommerce/Panier/validation.html.twig', array(
-                'produits' => $produits,
+                  'commande' => $commande
+            //     'produits' => $produits,
             //     'livraison' => $livraison,
             //     'facturation' => $facturation,
-                'panier' => $session->get('panier')
+            //     'panier' => $session->get('panier')
             ));
     }
 

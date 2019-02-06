@@ -26,7 +26,7 @@ class Product
      * @ORM\ManyToOne(targetEntity="Mickweb\EcommerceBundle\Entity\tva", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    //private $tva; // TVA à remettre...resoudre probleme
+    // private $tva; // TVA à remettre...resoudre probleme
     
     /**
      * @ORM\OneToOne(targetEntity="Mickweb\EcommerceBundle\Entity\Image", cascade={"persist","remove"})

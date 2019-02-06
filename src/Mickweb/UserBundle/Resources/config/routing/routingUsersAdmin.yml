@@ -1,0 +1,14 @@
+adminUsers_index:
+    path:     /
+    defaults: { _controller: "MickwebUserBundle:UsersAdmin:index" }
+    # methods:  GET
+
+adminAdressesUsers:
+    path:     /{id}/adresses
+    defaults: { _controller: "MickwebUserBundle:UsersAdmin:utilisateur" }
+    # methods:  GET
+
+adminFacturesUsers:
+    path:     /{id}/factures
+    defaults: { _controller: "MickwebUserBundle:UsersAdmin:utilisateur" }
+    # methods:  GET

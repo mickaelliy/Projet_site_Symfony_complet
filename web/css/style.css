@@ -190,3 +190,57 @@ h2{
  color:  rgb(203, 163, 32);
  margin-left: 1em;
 }
+
+/*slider dans la partie tendances*/
+*{
+    box-sizing: border-box;
+  }
+
+  .slider {
+      width: 80%;
+      margin: 100px auto;
+      margin-top: 20px;
+  }
+
+  .slider a{
+      text-decoration: none;
+      border: none;
+  }
+  a:link 
+  { 
+      text-decoration:none; 
+  } 
+
+  .slick-slide {
+    margin: 0px 20px;
+  }
+
+  .slick-slide img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: black;
+  }
+
+
+  .slick-slide {
+    transition: all ease-in-out .3s;
+    opacity: .2;
+  }
+
+  .slick-active {
+    opacity: 1;
+  }
+
+  .slick-current {
+    opacity: 1;
+  }
+
+
+/*-----fin Tendances-----*/
+
+/*Options du menu*/
+/* ------Fin menu --------*/
