@@ -42,8 +42,8 @@ class PanierController extends Controller
           $em = $this->getDoctrine()->getManager();
           $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
           
-          //var_dump($session->get('panier'));
-          //die();
+      //     var_dump($session->get('panier'));
+      //     die();
       
           return $this->render('@MickwebEcommerce/Panier/panier.html.twig', array('produits' => $produits, 
                                                                                   'panier' => $session->get('panier')));
@@ -89,6 +89,18 @@ class PanierController extends Controller
 
             return $this->redirect($this->generateUrl('mickweb_ecommerce_livraison'));
       }
+
+      // Ici sera envoyé le mail indiquant qu'il y a des produits dans le panier
+      $message = \Swift_Message::newInstance()
+                  ->setSubject('Vous avez des produits dans votre panier')
+                  ->setFrom(array('mickael.lizeray@gmail.com' => 'Raaaaats'))
+                  ->setTo('mickael.lizeray@gmail.com') 
+                  // setTo à corriger
+                  ->setContentType('text/html')
+                  ->setBody($this->renderView('SwiftLayout/produitsPanier.html.twig'));
+
+      $this->get('mailer')->send($message);
+      // 
       
       return $this->render('@MickwebEcommerce/Panier/livraison.html.twig', array(
             'user' => $user,
@@ -151,20 +163,22 @@ class PanierController extends Controller
     public function ajouterAction($id, Request $request)
     {
           $session = $request->getSession();
+      //     $session = $this->getRequest()->getSession();
 
           if (!$session->has('panier')) $session->set('panier', array());
           $panier = $session->get('panier');
 
           if(array_key_exists($id, $panier)) {
-                if ($request->query->get('qte') != null) $panier[$id] = $request->query->get('qte');
-                //$this->get('session')->getFlashBag()->add('success', 'quantité modifiée avec succès');
+                if ($request->query->get('qte') != null) {
+                      $panier[$id] = $request->query->get('qte');
+                }
+            //     $this->get('session')->getFlashBag()->add('success', 'quantité modifiée avec succès');
           } else {
-                if ($request->query->get('qte') != null)
+                if ($request->query->get('qte') != null) {
                   $panier[$id] = $request->query->get('qte');
-                else
-                  $panier[$id] = 1;
-
-                
+                } else {
+                      $panier[$id] = 1;
+                  }
           }
 
           $session->set('panier', $panier);
@@ -184,7 +198,7 @@ class PanierController extends Controller
                 unset($panier[$id]);
                 $session->set('panier', $panier);
                 // permet d'afficher message de suppression
-                $this->get('session')->getFlashBag()->add('success', 'Article supprimé avec succès');
+                $session->getFlashBag()->add('success', 'Article supprimé avec succès');
           }
 
           return $this->redirect($this->generateUrl('mickweb_ecommerce_panier'));

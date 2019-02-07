@@ -45,13 +45,13 @@ class ProductType extends AbstractType
                 'expanded'      => false,
                 'mapped'        => true, 
             ))
-            // ->add('tva',            EntityType::class, array(
-            //     'class'         => 'MickwebEcommerceBundle:tva',
-            //     'choice_label'  => 'name',
-            //     'multiple'      => false,
-            //     'expanded'      => false,
-            //     'mapped'        => true, 
-            // ))
+            ->add('tva',            EntityType::class, array(
+                'class'         => 'MickwebEcommerceBundle:tva',
+                'choice_label'  => 'nom',
+                'multiple'      => false,
+                'expanded'      => false,
+                'mapped'        => true, 
+            ))
             ->add('prix',           MoneyType::class)
             ->add('save',           SubmitType::class)
         ;

@@ -8,12 +8,12 @@
 
 {% set totalHT = 0 %}
 {% set totalTTC = 0 %}
-{#
+
 {% set refTva = {} %}
 {% for produit in produits %}
     {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : 0 }) %}
 {% endfor %}
-#}
+
 
 {% block MickwebEcommerce_body %}
 
@@ -57,13 +57,14 @@
                                         </select>&nbsp;
                                         <a href="{{ path('supprimer_panier', {'id' : produit.id}) }}"><i class="fas fa-trash-alt"></i></a>
                                     </td>
-                                    <td>{{ produit.prix }} €</td>
+                                    <td>{{ produit.prix|tva(produit.tva.multiplicate) }} €</td>
                                     <td>{{ produit.prix * panier[produit.id] }} €</td>
                                 </form>
                             </tr>
                             {# Fonctions twig pour calcul de la TVA #}
                             {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
-                            {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) %} {#|tva(produit.tva.multiplicate)#}
+                            {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]|tva(produit.tva.multiplicate)) %} 
+                            {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : refTva['%' ~ produit.tva.valeur] + (produit.prix * panier[produit.id])|montantTva(produit.tva.multiplicate) }) %}
                             {% endfor %}
 
                         </tbody>
@@ -72,14 +73,13 @@
 
                 {% if produits|length != 0 %}
                 <dl class="dl-horizontal pull-right">
-                    <dt>Total HT :</dt>
-                    <dd>{{ totalHT }} €</dd>
+                    <dt>Total HT :</dt> <dd>{{ totalHT }} €</dd>
                     
-                    <dt>TVA :</dt>
-                    <dd>0€</dd>
-    
-                    <dt>Total TTC :</dt>
-                    <dd>{{ totalTTC }} €</dd>
+                    {% for key, tva in refTva %}
+                    <dt>TVA {{ key }} :</dt> <dd> {{ tva }} €</dd>
+                    {% endfor %}
+
+                    <dt>Total TTC :</dt> <dd>{{ totalTTC }} €</dd>
                 </dl>
                 <div class="clearfix"></div>
                 <a href="{{ path('mickweb_ecommerce_livraison') }}" class="btn btn-success pull-right">Valider mon panier</a>

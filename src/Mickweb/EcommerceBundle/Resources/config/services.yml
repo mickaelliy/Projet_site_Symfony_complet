@@ -3,6 +3,11 @@ services:
       class: Mickweb\EcommerceBundle\Twig\Extension\TvaExtension
       tags:
         - { name: twig.extension }
+    montantTva:
+      class: Mickweb\EcommerceBundle\Twig\Extension\MontantTvaExtension
+      tags:
+        - { name: twig.extension }
+    
 
     redirectionListener:
       class: Mickweb\EcommerceBundle\Listener\RedirectionListener

@@ -62,8 +62,8 @@ ajouter_panier:
     path:    /ajouter/{id}
     defaults:
         _controller: MickwebEcommerceBundle:Panier:ajouter
-    requirements:
-        id: \d+
+    # requirements:
+    #     id: \d+
 
 supprimer_panier:
     path:    /supprimer/panier/{id}
@@ -74,8 +74,8 @@ mickweb_ecommerce_panier:
     path:    /panier
     defaults:
         _controller: MickwebEcommerceBundle:Panier:panier
-    requirements:
-        id: \d+
+    # requirements:
+    #     id: \d+
 
 mickweb_ecommerce_livraison:
     path:    /livraison

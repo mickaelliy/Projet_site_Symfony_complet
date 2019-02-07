@@ -58,6 +58,7 @@ class ProductController extends Controller
 
       // je recupere le produit l'id
       $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
+      $categories = $em->getRepository('MickwebEcommerceBundle:Category')->find($id);
 
       // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
       // ou null si l'id $id n'existe pas
@@ -73,6 +74,7 @@ class ProductController extends Controller
 
       return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
         'product' => $product,
+        'categories' => $categories
         // 'listAvis' => $listAvis
       ));
     }

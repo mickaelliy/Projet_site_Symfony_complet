@@ -44,8 +44,12 @@
                 <td>{% if product.disponible %}Yes{% else %}No{% endif %}</td>
             </tr>
             <tr>
-                <th>Prix</th>
+                <th>Prix HT</th>
                 <td>{{ product.prix }}</td>
+            </tr>
+            <tr>
+                <th>TVA</th>
+                <td>{{ product.tva.valeur }} %</td>
             </tr>
         </tbody>
     </table>
