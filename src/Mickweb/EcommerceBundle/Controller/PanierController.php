@@ -171,18 +171,19 @@ class PanierController extends Controller
           if(array_key_exists($id, $panier)) {
                 if ($request->query->get('qte') != null) {
                       $panier[$id] = $request->query->get('qte');
+                      $this->get('session')->getFlashBag()->add('success', 'quantité modifiée avec succès');
                 }
             //     $this->get('session')->getFlashBag()->add('success', 'quantité modifiée avec succès');
           } else {
                 if ($request->query->get('qte') != null) {
-                  $panier[$id] = $request->query->get('qte');
+                      $panier[$id] = $request->query->get('qte');
                 } else {
                       $panier[$id] = 1;
+                      $this->get('session')->getFlashBag()->add('success', 'Article ajouté avec succès');
                   }
           }
 
           $session->set('panier', $panier);
-          $this->get('session')->getFlashBag()->add('success', 'Article ajouté avec succès');
 
           return $this->redirect($this->generateUrl('mickweb_ecommerce_panier'));
     }
@@ -198,7 +199,7 @@ class PanierController extends Controller
                 unset($panier[$id]);
                 $session->set('panier', $panier);
                 // permet d'afficher message de suppression
-                $session->getFlashBag()->add('success', 'Article supprimé avec succès');
+                $session->getFlashBag()->add('warning', 'Article supprimé avec succès');
           }
 
           return $this->redirect($this->generateUrl('mickweb_ecommerce_panier'));

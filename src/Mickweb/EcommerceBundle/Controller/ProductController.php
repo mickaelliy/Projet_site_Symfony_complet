@@ -52,31 +52,37 @@ class ProductController extends Controller
           ));
     }
 /*******************************FICHE PRODUIT****************************************************************/
-    public function ficheProduitAction($id)
+    public function ficheProduitAction($id, Request $request)
     {
-      $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
 
-      // je recupere le produit l'id
-      $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
-      $categories = $em->getRepository('MickwebEcommerceBundle:Category')->find($id);
+        // je recupere le produit l'id
+        $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
+        $categories = $em->getRepository('MickwebEcommerceBundle:Category')->find($id);
 
-      // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
-      // ou null si l'id $id n'existe pas
-      if (null === $product) {
-        throw new NotFoundHttpException("L'annonce d'id" .$id. "n'existe pas");
-      }
+        // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
+        // ou null si l'id $id n'existe pas
+        if (null === $product) {
+            throw new NotFoundHttpException("Le produit d'id" .$id. "n'existe pas");
+        }
 
-      // je recupere la liste des avis de ce produit grace au findBy
-    //   $listAvis = $em
-    //     ->getRepository('MickwebEcommerceBundle:Avis')
-    //     ->findBy(array('product' => $product))
-    //   ;
+        if($session->has('panier'))
+            $panier = $session->get('panier');
+          else
+            $panier = false;
 
-      return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
-        'product' => $product,
-        'categories' => $categories
-        // 'listAvis' => $listAvis
-      ));
+        // je recupere la liste des avis de ce produit grace au findBy
+        //   $listAvis = $em
+        //     ->getRepository('MickwebEcommerceBundle:Avis')
+        //     ->findBy(array('product' => $product))
+        //   ;
+
+        return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
+            'product' => $product,
+            'categories' => $categories
+            // 'listAvis' => $listAvis
+        ));
     }
 /*******************************AJOUT PRODUIT****************************************************************/
     // Cette annonation sert à accéder à la page Ajout seulement aux Admin

@@ -94,6 +94,13 @@ text-decoration: none;
     text-decoration: none;
   }
 
+  .buttondeja {
+    background-color: white;
+    color: red;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
   .button6:hover {
     background-color: rgb(38, 182, 33);
     color: white;

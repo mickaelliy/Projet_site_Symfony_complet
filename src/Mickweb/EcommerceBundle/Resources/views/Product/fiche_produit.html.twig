@@ -51,6 +51,7 @@
 						<p>{{ product.description }}</p>
 						<h4>{{ product.prix|tva(product.tva.multiplicate) }} €</h4>
            
+            {% if panier[product.id] is not defined %}
 						<form action="{{ path('ajouter_panier', { 'id': product.id }) }}" method="get">
 							<select name="qte" class="span1">
                 {% for i in 1..10  %}
@@ -64,7 +65,14 @@
                   </a>
 							</div>
 						</form>
+            {# A verifier, mais cette condition ne fonctionne pas #}
+            {% else %}
+              <div>
+                <a href="{{ path('mickweb_ecommerce_panier') }}" class="btn btn-primary">Le produit est déjà dans votre panier</a>
+              </div>
+            {% endif %}
 
+          </div>
 				</div>
 			</div>
 		</div>
