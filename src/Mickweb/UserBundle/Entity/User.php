@@ -30,10 +30,10 @@ class User extends BaseUser
     // private $lastname;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Commande", mappedBy="user", cascade={"remove"}) 
+     * @ORM\OneToMany(targetEntity="Mickweb\EcommerceBundle\Entity\Commandes", mappedBy="user", cascade={"remove"}) 
      * @ORM\JoinColumn(nullable=true)
      */
-    private $commande;
+    private $commandes;
     // One to Many : un utilisateur peut avoir plusieurs commandes
     // @ORM\JoinTable(name="mickweb_product_category")
 
@@ -46,7 +46,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->commande = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->commandes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->adresses = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
@@ -58,33 +58,33 @@ class User extends BaseUser
      *
      * @return User
      */
-    public function addCommande(\Mickweb\EcommerceBundle\Entity\Commande $commande)
+    public function addCommande(\Mickweb\EcommerceBundle\Entity\Commandes $commandes)
     {
-        $this->commande[] = $commande;
+        $this->commandes[] = $commandes;
 
         return $this;
     }
 
     /**
-     * Remove commande.
+     * Remove commandes.
      *
-     * @param \Mickweb\EcommerceBundle\Entity\Commande $commande
+     * @param \Mickweb\EcommerceBundle\Entity\Commandes $commandes
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeCommande(\Mickweb\EcommerceBundle\Entity\Commande $commande)
+    public function removeCommande(\Mickweb\EcommerceBundle\Entity\Commandes $commandes)
     {
-        return $this->commande->removeElement($commande);
+        return $this->commandes->removeElement($commandes);
     }
 
     /**
-     * Get commande.
+     * Get commandes.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCommande()
+    public function getCommandes()
     {
-        return $this->commande;
+        return $this->commandes;
     }
 
     // /**
@@ -112,29 +112,29 @@ class User extends BaseUser
     // }
 
     /**
-     * Add adress.
+     * Add adresses.
      *
-     * @param \Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress
+     * @param \Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adresses
      *
      * @return User
      */
-    public function addAdress(\Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress)
+    public function addAdress(\Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adresses)
     {
-        $this->adresses[] = $adress;
+        $this->adresses[] = $adresses;
 
         return $this;
     }
 
     /**
-     * Remove adress.
+     * Remove adresses.
      *
-     * @param \Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress
+     * @param \Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adresses
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeAdress(\Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adress)
+    public function removeAdress(\Mickweb\EcommerceBundle\Entity\UtilisateursAdresse $adresses)
     {
-        return $this->adresses->removeElement($adress);
+        return $this->adresses->removeElement($adresses);
     }
 
     /**

@@ -40,6 +40,8 @@ class ProductController extends Controller
         //   $listProducts = $repository->myFindAll();
           $listProducts = $repository->findBy(array('disponible' => 1));
 
+        // Voir pour ajouter le Param converter pour les catégories
+        // listener environ 22
 
           if($session->has('panier'))
             $panier = $session->get('panier');

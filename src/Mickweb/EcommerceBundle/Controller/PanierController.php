@@ -3,6 +3,7 @@
 namespace Mickweb\EcommerceBundle\Controller;
 
 use Mickweb\EcommerceBundle\Entity\Product;
+use Mickweb\EcommerceBundle\Entity\Commandes;
 use Mickweb\EcommerceBundle\Entity\Image;
 use Mickweb\EcommerceBundle\Entity\Avis;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -117,10 +118,11 @@ class PanierController extends Controller
           if(!$session->has('adresse')) $session->set('adresse', array());
           $adresse = $session->get('adresse');
 
-          if($this->getRequest()->request->get('livraison') != null && $this->getRequest()->request->get('facturation') != null)
+      //     if($this->getRequest()->request->get('livraison') != null && $this->getRequest()->request->get('facturation') != null)
+          if($request->request->get('livraison') != null && $request->request->get('facturation') != null)
           {
-                $adresse['livraison'] = $this->getRequest()->request->get('livraison');
-                $adresse['facturation'] = $this->getRequest()->request->get('facturation');
+                $adresse['livraison'] = $request->request->get('livraison');
+                $adresse['facturation'] = $request->request->get('facturation');
           } else {
                 return $this->redirect($this->generateUrl('mickweb_ecommerce_validation'));
           }
@@ -133,29 +135,29 @@ class PanierController extends Controller
     public function validationAction(Request $request)
     {
           if($request->isMethod('POST'))
+      // if($request->getMethod() == 'POST')
+      // if ($this->get('request_stack')->getCurrentRequest()->isMethod('POST'));
           {
                 $this->setLivraisonOnSession();
           }
       // renvoie la methode preparecommande du controller "Commandes" 
           $em = $this->getDoctrine()->getManager();
-          $prepareCommande = $this->forward('MickwebEcommerceBundle:Commandes:prepareCommande');
-          $commande = $em->getRepository('MickwebEcommerceBundle:Commande')->find($prepareCommande->getContent());
+      //     $prepareCommande = $this->forward('MickwebEcommerceBundle:Commandes:prepareCommande');
+      //     $commande = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($prepareCommande->getContent());
 
-          
-      //     $session = $this->getRequest()->getSession();
-      //     $session = $request->getSession();
-      //     $adresse = $session->get('adresse');
+  
+          $session = $request->getSession();
+          $adresse = $session->get('adresse');
 
-      //     $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
+          $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
       //     $livraison = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['livraison']);
       //     $facturation = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['facturation']);
-
           return $this->render('@MickwebEcommerce/Panier/validation.html.twig', array(
-                  'commande' => $commande
-            //     'produits' => $produits,
+                  // 'commande' => $commande
+                'produits' => $produits,
             //     'livraison' => $livraison,
             //     'facturation' => $facturation,
-            //     'panier' => $session->get('panier')
+                'panier' => $session->get('panier')
             ));
     }
 

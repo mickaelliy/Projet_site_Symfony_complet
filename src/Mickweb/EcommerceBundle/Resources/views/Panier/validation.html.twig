@@ -9,6 +9,11 @@
 {% set totalHT = 0 %}
 {% set totalTTC = 0 %}
 
+{% set refTva = {} %}
+{% for produit in produits %}
+    {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : 0 }) %}
+{% endfor %}
+
 {% block MickwebEcommerce_body %}
 
     <div class="container col-md-12">
@@ -37,38 +42,38 @@
                                     <td colspan="4">Aucun article dans votre panier</td>
                                 </tr> #}
                             {# {% endif %}     #}
-                            {% for produit in commande.commande.produits %}
-                            {# {% for produit in produits %} #}
+                            {# {% for produit in commande.commande.produits %} #}
+                            {% for produit in produits %}
                             <tr>
                                 {# <form action="{{ path('ajouter_panier', { 'id' : produit.id }) }}" method="get"> #}
-                                    {# <td>{{produit.titre}}</td> #}
-                                    <td>{{ produit.reference }}</td>
-                                    <td>{{ produit.quantite }}</td>
-                                    <td>{{ produit.prixHT }} €</td>
-                                    <td>{{ produit.prixHT * produit.quantite }} €</td>
+                                    <td>{{produit.titre}}</td>
+                                    <td>{{ panier[produit.id] }}</td>
+                                    <td>{{ produit.prix }} €</td>
+                                    <td>{{ produit.prix * panier[produit.id] }} €</td>
                                 {# </form> #}
                             </tr>
                             {# Fonctions twig pour calcul de la TVA #}
-                            {# {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
-                            {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) %}  #}
-                            {#|tva(produit.tva.multiplicate)#}
+                             {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
+                            {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]|tva(produit.tva.multiplicate)) %} 
+                            {% set refTva = refTva|merge({ ('%' ~ produit.tva.valeur) : refTva['%' ~ produit.tva.valeur] + (produit.prix * panier[produit.id])|montantTva(produit.tva.multiplicate) }) %}
                             {% endfor %}
 
                         </tbody>
                     </table>
                 </form>
 
+               {% if produits|length != 0 %}
                 <dl class="dl-horizontal pull-right">
-                    <dt>Total HT :</dt>
-                    <dd>{{ commande.commande.prixHT }} €</dd>
+                    <dt>Total HT :</dt> <dd>{{ totalHT }} €</dd>
                     
-                    <dt>TVA :</dt>
-                    <dd>0€</dd>
-    
-                    <dt>Total TTC :</dt>
-                    <dd>{{ commande.commande.prixTTC }} €</dd>
-                </dl>
+                    {% for key, tva in refTva %}
+                    <dt>TVA {{ key }} :</dt> <dd> {{ tva }} €</dd>
+                    {% endfor %}
 
+                    <dt>Total TTC :</dt> <dd>{{ totalTTC }} €</dd>
+                </dl>
+                {% endif %}
+               
                 {# <div class="span3 pull-left" >
                     <dl class="pull-left">
                         <dt><h4>Adresse de livraison</h4></dt>
@@ -76,9 +81,9 @@
                         <dt>{{ livraison.adresse }}</dt>
                         <dt>{{ livraison.cp }} {{ livraison.ville }} - {{ livraison.pays }}</dt>
                     </dl>
-                </div>
+                </div> #}
 
-                <div class="span3 pull-left" >
+                {# <div class="span3 pull-left" >
                     <dl class="pull-left">
                         <dt><h4>Adresse de facturation</h4></dt>
                         <dt>{{ facturation.prenom }} {{ facturation.nom }}</dt>
@@ -88,7 +93,9 @@
                 </div> #}
 
                 <div class="clearfix"></div>
-                <a href="#" class="btn btn-success pull-right">Payer</a>
+
+                <a href="" class="btn btn-success pull-right">Payer</a>
+
                 <a href="{{path('mickweb_ecommerce_livraison')}}" class="btn btn-primary">retour</a>
             </div>
 		</div>
