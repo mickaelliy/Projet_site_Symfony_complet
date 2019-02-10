@@ -44,9 +44,10 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
     public function recherche($chaine)
     {
+        // Ajouter une condition pour que le produit s'affiche meme si le titre n'est pas tapé en entier.
         $qb = $this->createQueryBuilder('u')
                     ->select('u')
-                    ->where('u.nom like :chaine')
+                    ->where('u.titre like :chaine')  
                     ->andWhere('u.disponible = 1') // prend seulement les pdts disponibles
                     ->orderBy('u.id')
                     ->setParameter('chaine', $chaine);

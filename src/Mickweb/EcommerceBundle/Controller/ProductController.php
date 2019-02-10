@@ -29,16 +29,20 @@ use Mickweb\EcommerceBundle\Form\RechercheType;
 class ProductController extends Controller
 {
 /*******************************PAGE D'ACCUEIL DES PRODUITS****************************************************************/
-    public function indexAction($page, Request $request)
+    public function indexAction($page, Request $request, Category $categories = null)
     {
           $session = $request->getSession();
-          $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('MickwebEcommerceBundle:Product')
-          ;
+          $em = $this->getDoctrine()->getManager();
+
+          if ($categories != null)
+            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategory($categories);
+          else 
+            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
+            // ->getRepository('MickwebEcommerceBundle:Product')
+
         //   $listProducts = $repository->myFindAll();
-          $listProducts = $repository->findBy(array('disponible' => 1));
+        //   $listProducts = $repository->findBy(array('disponible' => 1));
+        // $listProducts = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
 
         // Voir pour ajouter le Param converter pour les catégories
         // listener environ 22
@@ -47,6 +51,11 @@ class ProductController extends Controller
             $panier = $session->get('panier');
           else
             $panier = false;
+
+        // Le knp limite l'affichage à 9 produits
+        $listProducts  = $this->get('knp_paginator')->paginate($findProduits, $request->query->getInt('page', 1)/*page number*/,
+            9/*limit per page*/
+        );
 
           return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
             'listProducts' => $listProducts,
@@ -396,27 +405,27 @@ class ProductController extends Controller
     public function rechercheAction()
     {
         $form = $this->createFormBuilder()->add('recherche')->getForm();
+        // $form = $this->createForm(new RechercheType());
 
         return $this->render('@MickwebEcommerce/Recherche/modulesUsed/recherche.html.twig', array('form' => $form->createView()));
     }
-
-    public function rechercheTraitementAction(Request $request, RequestStack $requestStack)
+    
+    /*******************************Recherche Traitement****************************************************************/
+    public function rechercheTraitementAction(Request $request)
     {
         $form = $this->createFormBuilder()->add('recherche')->getForm();
-        // $form = $this->createForm('Mickweb\EcommerceBundle\Form\RechercheType', $product);
 
-        if ($this->isSubmitted())
+        // if ($this->isSubmitted())
+        if ($request->isMethod('POST'))
         {
-            $form->$this->get('request_stack')->getCurrentRequest();
+            $form->handleRequest($request);
             $em = $this->getDoctrine()->getManager();
-            $produits = $em->getRepository('MickwebEcommerceBundle:Product')->recherche($form['recherche']->getData());
+            $listProducts = $em->getRepository('MickwebEcommerceBundle:Product')->recherche($form['recherche']->getData());
         } else {
             throw $this->createNotFoundException('La page n\'existe pas.');
         }
-
-        // $em = $this->getDoctrine()->getManager();
-        // $product = $em->getRepository('MickwebEcommerceBundle:Product')->recherche($chaine);
-
-        return $this->render('@MickwebEcommerce/Product/index.html.twig', array('produits' => $produits));
+       
+        return $this->render('@MickwebEcommerce/Product/index.html.twig', array('listProducts' => $listProducts));
     }
+
 }

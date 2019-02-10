@@ -75,11 +75,14 @@
                     {% endif %}
                   </div>           
                 </div>
-          
+                
                 {% else %} 
                 <p>Aucun produit disponible</p> 
 
           {% endfor %}
+          <div class="navigation">
+              {{ knp_pagination_render(listProducts) }}
+          </div>
       </div>
     </div>
   

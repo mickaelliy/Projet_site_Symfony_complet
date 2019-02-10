@@ -115,11 +115,11 @@ class PanierController extends Controller
       //      $session = $this->getRequest()->getSession();
            $session = $request->getSession();
 
-          if(!$session->has('adresse')) $session->set('adresse', array());
+          if (!$session->has('adresse')) $session->set('adresse', array());
           $adresse = $session->get('adresse');
 
       //     if($this->getRequest()->request->get('livraison') != null && $this->getRequest()->request->get('facturation') != null)
-          if($request->request->get('livraison') != null && $request->request->get('facturation') != null)
+          if ($request->request->get('livraison') != null && $request->request->get('facturation') != null)
           {
                 $adresse['livraison'] = $request->request->get('livraison');
                 $adresse['facturation'] = $request->request->get('facturation');
@@ -134,7 +134,7 @@ class PanierController extends Controller
     /**************************** Validation ************************************/
     public function validationAction(Request $request)
     {
-          if($request->isMethod('POST'))
+          if ($request->isMethod('POST'))
       // if($request->getMethod() == 'POST')
       // if ($this->get('request_stack')->getCurrentRequest()->isMethod('POST'));
           {
@@ -145,13 +145,13 @@ class PanierController extends Controller
       //     $prepareCommande = $this->forward('MickwebEcommerceBundle:Commandes:prepareCommande');
       //     $commande = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($prepareCommande->getContent());
 
-  
           $session = $request->getSession();
           $adresse = $session->get('adresse');
 
           $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
       //     $livraison = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['livraison']);
       //     $facturation = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['facturation']);
+
           return $this->render('@MickwebEcommerce/Panier/validation.html.twig', array(
                   // 'commande' => $commande
                 'produits' => $produits,
@@ -170,7 +170,7 @@ class PanierController extends Controller
           if (!$session->has('panier')) $session->set('panier', array());
           $panier = $session->get('panier');
 
-          if(array_key_exists($id, $panier)) {
+          if (array_key_exists($id, $panier)) {
                 if ($request->query->get('qte') != null) {
                       $panier[$id] = $request->query->get('qte');
                       $this->get('session')->getFlashBag()->add('success', 'quantité modifiée avec succès');
