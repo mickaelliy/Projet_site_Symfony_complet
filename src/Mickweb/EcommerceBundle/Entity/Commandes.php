@@ -145,7 +145,7 @@ class Commandes
      *
      * @param array $commande
      *
-     * @return Commande
+     * @return Commandes
      */
     public function setCommande($commande)
     {

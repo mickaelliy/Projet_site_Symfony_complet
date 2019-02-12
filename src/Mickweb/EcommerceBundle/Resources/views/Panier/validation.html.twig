@@ -74,23 +74,29 @@
                 </dl>
                 {% endif %}
                
-                {# <div class="span3 pull-left" >
-                    <dl class="pull-left">
-                        <dt><h4>Adresse de livraison</h4></dt>
-                        <dt>{{ livraison.prenom }} {{ livraison.nom }}</dt>
-                        <dt>{{ livraison.adresse }}</dt>
-                        <dt>{{ livraison.cp }} {{ livraison.ville }} - {{ livraison.pays }}</dt>
-                    </dl>
-                </div> #}
+                <div class="container col-md-4" >
+                    <div class="row">
+                    
+                        <dl class="pull-left">
+                            <dt><h4>Adresse de livraison</h4></dt>
+                            <dt>{{ livraison.prenom }} {{ livraison.nom }}</dt>
+                            <dt>{{ livraison.adresse }}</dt>
+                            <dt>{{ livraison.cp }} {{ livraison.ville }} - {{ livraison.pays }}</dt>
+                        </dl>
+                    </div>
+                </div>
 
-                {# <div class="span3 pull-left" >
-                    <dl class="pull-left">
-                        <dt><h4>Adresse de facturation</h4></dt>
-                        <dt>{{ facturation.prenom }} {{ facturation.nom }}</dt>
-                        <dt>{{ facturation.adresse }}</dt>
-                        <dt>{{ facturation.cp }} {{ facturation.ville }} - {{ facturation.pays }}</dt>
-                    </dl>
-                </div> #}
+                <div class="container col-md-4" >
+                    <div class="row">
+                  
+                        <dl class="pull-left">
+                            <dt><h4>Adresse de facturation</h4></dt>
+                            <dt>{{ facturation.prenom }} {{ facturation.nom }}</dt>
+                            <dt>{{ facturation.adresse }}</dt>
+                            <dt>{{ facturation.cp }} {{ facturation.ville }} - {{ facturation.pays }}</dt>
+                        </dl>
+                    </div>
+                </div>
 
                 <div class="clearfix"></div>
 

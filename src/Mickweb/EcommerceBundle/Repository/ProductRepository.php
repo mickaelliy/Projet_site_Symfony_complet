@@ -50,7 +50,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                     ->where('u.titre like :chaine')  
                     ->andWhere('u.disponible = 1') // prend seulement les pdts disponibles
                     ->orderBy('u.id')
-                    ->setParameter('chaine', $chaine);
+                    ->setParameter('chaine', '%'.$chaine.'%');
         return $qb->getQuery()->getResult();
     }
 }
