@@ -142,22 +142,22 @@ class PanierController extends Controller
           }
       // renvoie la methode preparecommande du controller "Commandes" 
           $em = $this->getDoctrine()->getManager();
-      //     $prepareCommande = $this->forward('MickwebEcommerceBundle:Commandes:prepareCommande');
-      //     $commande = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($prepareCommande->getContent());
+          $prepareCommande = $this->forward('MickwebEcommerceBundle:Commandes:prepareCommande');
+          $commande = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($prepareCommande->getContent());
 
-          $session = $request->getSession();
-          $adresse = $session->get('adresse');
+      //     $session = $request->getSession();
+      //     $adresse = $session->get('adresse');
 
-          $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
-          $livraison = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['livraison']);
-          $facturation = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['facturation']);
+      //     $produits = $em->getRepository('MickwebEcommerceBundle:Product')->findArray(array_keys($session->get('panier')));
+      //     $livraison = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['livraison']);
+      //     $facturation = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['facturation']);
 
           return $this->render('@MickwebEcommerce/Panier/validation.html.twig', array(
-                  // 'commande' => $commande
-                'produits' => $produits,
-                'livraison' => $livraison,
-                'facturation' => $facturation,
-                'panier' => $session->get('panier')
+                  'commande' => $commande
+            //     'produits' => $produits,
+            //     'livraison' => $livraison,
+            //     'facturation' => $facturation,
+            //     'panier' => $session->get('panier')
             ));
     }
 

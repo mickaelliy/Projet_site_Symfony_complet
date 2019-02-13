@@ -16,10 +16,11 @@ class CommandesController extends Controller
 {
 
 /***********************************************************************************************/
-      public function facture()
+      public function facture(Request $request)
       {
             $em = $this->getDoctrine()->getManager();
-            $generator = $this->container->get('security.secure_random');
+            // $generator = $this->container->get('security.secure_random');
+            $generator = random_bytes(20);
             $session = $request->getSession();
             $adresse = $session->get('adresse');
             $panier = $session->get('panier');
@@ -73,7 +74,7 @@ class CommandesController extends Controller
                                     
             $commande['prixHT'] = round($totalHT,2);
             $commande['prixTTC'] = round($totalTTC,2);
-            $commande['token'] = bin2hex($generator->nextBytes(20));
+            $commande['token'] = bin2hex($generator);
             
             return $commande;
       }      
@@ -87,19 +88,21 @@ class CommandesController extends Controller
             {
                   $commande = new Commandes();
             } else {
-                  $commande = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($session->get('commande'));
+                  // $commande = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($session->get('commande'));
+                  $commande = $session->get('commande');
             }
 
             $commande->setDate(new \DateTime());
             $commande->setUser($this->container->get('security.token_storage')->getToken()->getUser());
             $commande->setValider(0);
             $commande->setReference(0);
-            $commande->setCommande($this->facture());
+            $commande->setCommande($this->facture($request));
 
-            if (!$session->has('commande')) {
-                  $em->persist($commande);
-                  $session->set('commande', $commande);
-            }
+            // if (!$session->has('commande')) {
+                 
+            // }
+            $em->persist($commande);
+            $session->set('commande', $commande);
 
             $em->flush();
       
@@ -107,10 +110,10 @@ class CommandesController extends Controller
       }
 
 /***********************************************************************************************/
-      public function validationCommandeAction($id)
+      public function validationCommandeAction($id, Request $request)
       {
             $em = $this->getDoctrine()->getManager();
-            $commande = $em->getRepository('EcommerceBundle:Commandes')->find($id);
+            $commande = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($id);
             
             if (!$commande || $commande->getValider() == 1)
                   throw $this->createNotFoundException('La commande n\'existe pas');
@@ -119,13 +122,13 @@ class CommandesController extends Controller
             $commande->setReference(1); //Service
             $em->flush();   
             
-            $session = $this->getRequest()->getSession();
+            $session = $request->getSession();
             $session->remove('adresse');
             $session->remove('panier');
             $session->remove('commande');
             
-            $this->get('session')->getFlashBag()->add('success','Votre commande est validé avec succès');
-            return $this->redirect($this->generateUrl('produits'));
+            $this->get('session')->getFlashBag()->add('success','Votre commande est validée avec succès');
+            return $this->redirect($this->generateUrl('mickweb_ecommerce_homepage'));
       }
 
 /***********************************************************************************************/

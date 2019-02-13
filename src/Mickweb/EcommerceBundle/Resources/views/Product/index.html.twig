@@ -9,6 +9,10 @@
 
 {% block MickwebEcommerce_body %}
 
+  {% for flashMessage in app.session.flashbag.get('success') %}
+      <div class="alert alert-success">{{ flashMessage }}</div>
+  {% endfor %}
+
   <div class="titre_nos_produits"> 
     <h2>Nos produits phares</h2>  
       

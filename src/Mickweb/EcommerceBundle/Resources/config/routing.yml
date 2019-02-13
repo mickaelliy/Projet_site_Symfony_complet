@@ -56,6 +56,13 @@ mickweb_category_adminCategories:
     prefix:    /admin/categories
 
 #################################################################
+#                            Admin Commandes 
+
+mickweb_Commandes_adminCommandes:
+    resource: "@MickwebEcommerceBundle/Resources/config/routing/routingCommandesAdmin.yml"
+    prefix:    /admin/commandes
+
+#################################################################
 #                            Panier 
 
 ajouter_panier:
@@ -87,10 +94,10 @@ mickweb_ecommerce_validation:
     defaults:
         _controller: MickwebEcommerceBundle:Panier:validation
 
-# mickweb_ecommerce_validation_commande:
-#     path:    /api/banque/{id}
-#     defaults:
-#         _controller: MickwebEcommerceBundle:Commandes:validationCommande
+mickweb_ecommerce_validation_commande:
+    path:    /api/banque/{id}
+    defaults:
+        _controller: MickwebEcommerceBundle:Commandes:validationCommande
 
 mickweb_ecommerce_livraisonAdresseSuppression:
     path:    /livraison/adresse/suppression/{id}
