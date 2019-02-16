@@ -2,3 +2,8 @@ adminCommandes_index:
     path:     /
     defaults: { _controller: "MickwebEcommerceBundle:CommandesAdmin:commandes" }
     methods:  GET
+
+adminCommandes_showFacture:
+    path:    /facture/{id}
+    defaults: { _controller: "MickwebEcommerceBundle:CommandesAdmin:showFacture" }
+    methods:  GET

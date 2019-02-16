@@ -27,6 +27,7 @@ class CommandesController extends Controller
             $commande = array();
             $totalHT = 0;
             $totalTTC = 0;
+            // $totalTVA = 0;
 
             $facturation = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['facturation']);
             $livraison = $em->getRepository('MickwebEcommerceBundle:UtilisateursAdresse')->find($adresse['livraison']);
@@ -45,6 +46,8 @@ class CommandesController extends Controller
                   } else {
                         $commande['tva']['%'.$produit->getTva()->getValeur()] = round($prixTTC - $prixHT,2);
                   }
+
+                  $totalTVA += round($prixTTC - $prixHT,2);
 
                   $commande['produit'][$produit->getId()] = array('reference' => $produit->getTitre(),
                                                                   'quantite' => $panier[$produit->getId()],
@@ -74,6 +77,7 @@ class CommandesController extends Controller
                                     
             $commande['prixHT'] = round($totalHT,2);
             $commande['prixTTC'] = round($totalTTC,2);
+            // $commande['prixTTC'] = round($totalHT + $totalTVA,2);
             $commande['token'] = bin2hex($generator);
             
             return $commande;

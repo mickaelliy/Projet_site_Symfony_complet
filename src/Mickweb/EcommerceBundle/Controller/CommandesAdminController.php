@@ -51,5 +51,18 @@ class CommandesAdminController extends Controller
       }
 
 /***********************************************************************************************/
-      
+      public function showFactureAction($id)
+      {
+            $em = $this->getDoctrine()->getManager();
+            $facture = $em->getRepository('MickwebEcommerceBundle:Commandes')->find($id);
+
+            if(!$facture) {
+                  $this->get('session')->getFlashBag()->add('error', 'Une erreur est survenue');
+                  return $this->redirect($this->generateUrl('adminCommandes_index'));
+            }
+
+            // Le service getFacture permet de générer la facture
+            $this->container->get('setNewFacture')->facture($facture);
+      }
+
 }

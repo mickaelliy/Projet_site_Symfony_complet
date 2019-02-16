@@ -1,10 +1,11 @@
 mickweb_ecommerce_homepage:
-    path:     /{page}
+    path:     /
+    # path:     /{page}
     defaults:
         _controller: MickwebEcommerceBundle:Product:index
         page:        1
-    requirements:
-        page: \d*
+    # requirements:
+    #     page: \d*
 
 mickweb_ecommerce_fiche_produit:
     path:     /fiche_produit/{id}

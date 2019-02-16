@@ -53,9 +53,8 @@ class ProductController extends Controller
             $panier = false;
 
         // Le knp limite l'affichage à 9 produits
-        $listProducts  = $this->get('knp_paginator')->paginate($findProduits, $request->query->getInt('page', 1)/*page number*/,
-            9/*limit per page*/
-        );
+        $listProducts = $this->get('knp_paginator')->paginate($findProduits, $request->query->getInt('page', 1)/*page number*/,
+            9/*limit per page*/);
 
           return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
             'listProducts' => $listProducts,

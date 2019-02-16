@@ -29,22 +29,24 @@ class UsersController extends Controller
             return $this->redirect($this->generateUrl('mickweb_user_factures'));
         }
 
-        $html = $this->renderView('MickwebUserBundle:Default:layout/facturePDF.html.twig', array('facture' => $facture));
+        // $html = $this->renderView('MickwebUserBundle:Default:layout/facturePDF.html.twig', array('facture' => $facture));
         
-        // $html2pdf = new \Html2Pdf_Html2Pdf('P','A4','fr');
-        $html2pdf = new Html2Pdf('P','A4','fr');
-        $html2pdf->pdf->SetAuthor('Raaaaats');
-        $html2pdf->pdf->SetTitle('Facture '.$facture->getReference());
-        $html2pdf->pdf->SetSubject('Facture Raaaaats');
-        $html2pdf->pdf->SetKeywords('facture,raaaaats');
-        $html2pdf->pdf->SetDisplayMode('real');
-        $html2pdf->writeHTML($html);
-        $html2pdf->Output('Facture.pdf');
+        // $html2pdf = new Html2Pdf('P','A4','fr');
+        // $html2pdf->pdf->SetAuthor('Raaaaats');
+        // $html2pdf->pdf->SetTitle('Facture '.$facture->getReference());
+        // $html2pdf->pdf->SetSubject('Facture Raaaaats');
+        // $html2pdf->pdf->SetKeywords('facture,raaaaats');
+        // $html2pdf->pdf->SetDisplayMode('real');
+        // $html2pdf->writeHTML($html);
+        // $html2pdf->Output('Facture.pdf');
          
-        $response = new Response();
-        $response->headers->set('Content-type' , 'application/pdf');
+        // $response = new Response();
+        // $response->headers->set('Content-type' , 'application/pdf');
         
-        return $response;
+        // return $response;
+
+        // Le service getFacture permet de générer la facture
+        $this->container->get('setNewFacture')->facture($facture);
 
     }
     

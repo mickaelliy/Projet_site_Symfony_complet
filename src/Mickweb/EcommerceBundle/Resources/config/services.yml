@@ -1,4 +1,9 @@
 services:
+    setNewFacture:
+      class: Mickweb\EcommerceBundle\Services\GetFacture
+      arguments:
+        - "@service_container" 
+
     setNewReference:
       class: Mickweb\EcommerceBundle\Services\GetReference
       arguments:
