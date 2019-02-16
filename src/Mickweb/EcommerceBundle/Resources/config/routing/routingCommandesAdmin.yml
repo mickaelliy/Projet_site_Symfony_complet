@@ -1,0 +1,4 @@
+adminCommandes_index:
+    path:     /
+    defaults: { _controller: "MickwebEcommerceBundle:CommandesAdmin:commandes" }
+    methods:  GET

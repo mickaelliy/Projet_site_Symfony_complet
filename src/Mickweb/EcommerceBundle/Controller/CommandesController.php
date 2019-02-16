@@ -119,7 +119,7 @@ class CommandesController extends Controller
                   throw $this->createNotFoundException('La commande n\'existe pas');
             
             $commande->setValider(1);
-            $commande->setReference(1); //Service
+            $commande->setReference($this->container->get('setNewReference')->reference()); //on appelle le Service
             $em->flush();   
             
             $session = $request->getSession();
@@ -128,7 +128,8 @@ class CommandesController extends Controller
             $session->remove('commande');
             
             $this->get('session')->getFlashBag()->add('success','Votre commande est validée avec succès');
-            return $this->redirect($this->generateUrl('mickweb_ecommerce_homepage'));
+            // return $this->redirect($this->generateUrl('mickweb_ecommerce_homepage'));
+            return $this->redirect($this->generateUrl('mickweb_user_factures'));
       }
 
 /***********************************************************************************************/

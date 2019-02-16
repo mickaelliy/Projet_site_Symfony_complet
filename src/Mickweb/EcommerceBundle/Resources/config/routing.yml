@@ -58,7 +58,7 @@ mickweb_category_adminCategories:
 #################################################################
 #                            Admin Commandes 
 
-mickweb_Commandes_adminCommandes:
+mickweb_commandes_adminCommandes:
     resource: "@MickwebEcommerceBundle/Resources/config/routing/routingCommandesAdmin.yml"
     prefix:    /admin/commandes
 

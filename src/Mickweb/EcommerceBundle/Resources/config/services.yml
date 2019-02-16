@@ -1,4 +1,10 @@
 services:
+    setNewReference:
+      class: Mickweb\EcommerceBundle\Services\GetReference
+      arguments:
+        - "@security.token_storage"
+        - "@doctrine.orm.entity_manager"
+
     tva:
       class: Mickweb\EcommerceBundle\Twig\Extension\TvaExtension
       tags:
@@ -7,7 +13,6 @@ services:
       class: Mickweb\EcommerceBundle\Twig\Extension\MontantTvaExtension
       tags:
         - { name: twig.extension }
-    
 
     redirectionListener:
       class: Mickweb\EcommerceBundle\Listener\RedirectionListener

@@ -1,0 +1,36 @@
+{% extends '::layout/layoutAdmin.html.twig' %}
+
+{% block body %}
+    <h1>Liste des commandes</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Date de commande</th>
+                <th>Référence</th>
+                <th>Nom du client</th>
+                <th>Action</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                {# <td><a href="{{ path('adminProduct_show', { 'id': product.id }) }}">{{ product.id }}</a></td> #}
+                <td>{{ commande.date|date('d-m-Y h:i:s') }}</td>
+                <td>{{ commande.reference }}</td>
+                <td>{{ commande.user }}</td>
+                <td>
+                    <a href=""><i class="far fa-eye"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('adminProduct_new') }}">Créer un nouveau produit</a>
+        </li>
+    </ul>
+{% endblock %}

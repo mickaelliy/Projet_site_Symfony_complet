@@ -10,4 +10,8 @@ namespace Mickweb\UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function byFacture($user)
+    {
+
+    }
 }

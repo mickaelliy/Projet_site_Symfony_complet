@@ -10,4 +10,16 @@ namespace Mickweb\EcommerceBundle\Repository;
  */
 class CommandesRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function byFacture($user)
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('u')
+            ->where('u.user = :user')
+            ->andWhere('u.valider = 1')
+            ->andWhere('u.reference != 0')
+            ->orderBy('u.id')
+            ->setParameter('user', $user);
+            
+        return $qb->getQuery()->getResult();
+    }
 }

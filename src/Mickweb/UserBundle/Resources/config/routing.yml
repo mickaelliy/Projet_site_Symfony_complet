@@ -1,0 +1,12 @@
+mickweb_user_factures:
+    path:     /profile/factures
+    defaults:
+        _controller: MickwebUserBundle:Users:facture
+        # page:        1
+    # requirements:
+    #     page: \d*
+
+mickweb_user_facturesPDF:
+    path:     /profile/factures/pdf/{id}
+    defaults:
+        _controller: MickwebUserBundle:Users:facturePDF
