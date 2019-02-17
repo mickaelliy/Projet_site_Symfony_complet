@@ -5,7 +5,8 @@
 
     {% for adresse in utilisateur.adresses %}
         <div class="span4">
-            <h4>Adresse : </h4>
+            {# loop.index permet de compter le nombre d'adresse #}
+            <h4>Adresse {{ loop.index }} : </h4>
             {{ adresse.adresse }}, {{ adresse.cp }} {{ adresse.ville }} - {{ adresse.pays }}
             <br/> {{ adresse.prenom }} {{ adresse.nom }}
             <br/><br/>

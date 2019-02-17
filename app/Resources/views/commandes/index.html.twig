@@ -21,7 +21,7 @@
                 <td>{{ commande.reference }}</td>
                 <td>{{ commande.user }}</td>
                 <td>
-                    <a href="{{ path('adminCommandes_showFacture', {'id': commande.id}) }}"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('adminCommandes_showFacture', {'id': commande.id}) }}"><i class="far fa-eye" title="voir les factures"></i></a>
                 </td>
             </tr>
         {% endfor %}

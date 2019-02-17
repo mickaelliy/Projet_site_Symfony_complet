@@ -3,9 +3,66 @@
 {% block body %}
     <h1>Liste des factures</h1>
 
-    {% for commande in utilisateur.commandes %}
+    <div class="container col-md-12">
+    <div class="row">
 
-    {% endfor %}
+            {# <div class="col-md-3">
+            {# {% include '::modulesUsed/navigation.html.twig' %}
+            {% include 'UtilisateursBundle:Default:modulesUsed/utilisateursConnecte.html.twig' %}    #}
+            {# {% render(controller('EcommerceBundle:Panier:menu')) %} #}
+            {# </div> #}
+
+            <div class="col-md-12">
+                
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <div class="alert alert-errors">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                
+                <h2>Factures</h2>
+                <form>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Références</th>
+                                <th>Date</th>
+                                <th>Prix TTC</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {# si il n'y a pas de factures #}
+                            {% if utilisateur.commandes|length == 0 %}
+                                <tr>
+                                    <td colspan="4"><center>Ancunne facture actuellement.</center></td>
+                                </tr>
+                            {% endif %}
+
+                            {# si il y a un e facture, on affiche les infos #}
+                            {% for facture in utilisateur.commandes %}
+                            <tr>
+                                <td>ref : {{ facture.reference }}</td>
+                                <td>{{ facture.date|date('d/m/Y') }}</td>
+                                <td>{{ facture.commande.prixTTC }} €</td>
+                                <td><a href="{{ path('adminCommandes_showFacture', { 'id' : facture.id }) }}" target="_blank"><i class="fas fa-sync-alt" title="voir la facture"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+
+                <a class="button button5" href="{{ path('adminUsers_index') }}">Retour à la page clients</a>
+
+            </div>
+
+        </div>
+    </div>
 
     
 {% endblock %}

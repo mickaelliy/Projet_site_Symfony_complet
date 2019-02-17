@@ -77,8 +77,7 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
-    # encryption: '%mailer_encryption%'
-    # encryption pour envoi de mail - a supprimer si probleme
+    encryption: '%mailer_encryption%'
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'

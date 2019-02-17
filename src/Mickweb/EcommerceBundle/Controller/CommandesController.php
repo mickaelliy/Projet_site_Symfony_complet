@@ -47,7 +47,8 @@ class CommandesController extends Controller
                         $commande['tva']['%'.$produit->getTva()->getValeur()] = round($prixTTC - $prixHT,2);
                   }
 
-                  $totalTVA += round($prixTTC - $prixHT,2);
+                  // $totalTVA += round($prixTTC - $prixHT,2);
+                  $totalTTC += round($prixTTC - $prixHT,2);
 
                   $commande['produit'][$produit->getId()] = array('reference' => $produit->getTitre(),
                                                                   'quantite' => $panier[$produit->getId()],
@@ -130,6 +131,26 @@ class CommandesController extends Controller
             $session->remove('adresse');
             $session->remove('panier');
             $session->remove('commande');
+
+            //  Ici sera envoyé le mail indiquant qu'il y a des produits dans le panier
+            $message = \Swift_Message::newInstance()
+            // $message= (new \Swift_Message('Validation Commande'))
+                  // ->setSubject('Validation de votre commande')
+                  ->setFrom(array('mickael.lizeray@gmail.com' => "Raaaaats"))
+                  ->setTo($commande->getUser()->getEmailCanonical()) 
+                  // setTo à corriger
+                  ->setCharset('utf-8')
+                  // ->setContentType('text/html')
+                  ->setBody($this->renderView(
+                        '@MickwebEcommerce/SwiftLayout/produitsPanier.html.twig', array('utilisateur' => $commande->getUser())
+                        ),
+                        'text/html'
+                        );
+                  // @MickwebEcommerce/SwiftLayout/produitsPanier.html.twig
+
+            $this->get('mailer')->send($message);
+            // $mailer->send($message);
+            // *********************************************
             
             $this->get('session')->getFlashBag()->add('success','Votre commande est validée avec succès');
             // return $this->redirect($this->generateUrl('mickweb_ecommerce_homepage'));

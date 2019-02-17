@@ -10,3 +10,10 @@ mickweb_user_facturesPDF:
     path:     /profile/factures/pdf/{id}
     defaults:
         _controller: MickwebUserBundle:Users:facturePDF
+
+
+#################################################################
+#                            Admin Commandes 
+mickweb_usersAdmin:
+    resource: "@MickwebUserBundle/Resources/config/routing/routingUsersAdmin.yml"
+    prefix: /admin/utilisateurs

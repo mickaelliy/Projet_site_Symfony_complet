@@ -92,15 +92,15 @@ class PanierController extends Controller
       }
 
       // Ici sera envoyé le mail indiquant qu'il y a des produits dans le panier
-      $message = \Swift_Message::newInstance()
-                  ->setSubject('Vous avez des produits dans votre panier')
-                  ->setFrom(array('mickael.lizeray@gmail.com' => 'Raaaaats'))
-                  ->setTo('mickael.lizeray@gmail.com') 
-                  // setTo à corriger
-                  ->setContentType('text/html')
-                  ->setBody($this->renderView('SwiftLayout/produitsPanier.html.twig'));
+      // $message = \Swift_Message::newInstance()
+      //             ->setSubject('Vous avez des produits dans votre panier')
+      //             ->setFrom(array('mickael.lizeray@gmail.com' => 'Raaaaats'))
+      //             ->setTo('mickael.lizeray@gmail.com') 
+      //             // setTo à corriger
+      //             ->setContentType('text/html')
+      //             ->setBody($this->renderView('SwiftLayout/produitsPanier.html.twig'));
 
-      $this->get('mailer')->send($message);
+      // $this->get('mailer')->send($message);
       // 
       
       return $this->render('@MickwebEcommerce/Panier/livraison.html.twig', array(
@@ -199,9 +199,9 @@ class PanierController extends Controller
 
           if (array_key_exists($id, $panier)) {
                 unset($panier[$id]);
-                $session->set('panier', $panier);
+                $session->set('panier',$panier);
                 // permet d'afficher message de suppression
-                $session->getFlashBag()->add('warning', 'Article supprimé avec succès');
+                $this->get('session')->getFlashBag()->add('warning', 'Article supprimé avec succès');
           }
 
           return $this->redirect($this->generateUrl('mickweb_ecommerce_panier'));
