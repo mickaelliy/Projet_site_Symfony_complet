@@ -14,10 +14,11 @@
      {# <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" /> #}
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-      <link rel="stylesheet" href="css/style.css"/>
+      {# <link rel="stylesheet" href="css/style.css"/> #}
       <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Special+Elite|Dosis" rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     {% endstylesheets %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('ratioactive-icon.png') }}" />
 
   </head>
 
@@ -33,9 +34,7 @@
                 </button> #}
                 
                 <div navbar-header>
-                <a href="{{ path('mickweb_ecommerce_homepage') }}"> 
-                    <img src="../img/ratioactive-icon.png" alt="logos raaaaats" width="50" height="50">
-                </a>
+
                 
                 <a href="{{ path('fos_user_registration_register') }}"><i class="fas fa-sign-in-alt" style="color:white"></i></a>
                 
@@ -50,11 +49,16 @@
     </div>
 
     <div id="header" class="jumbotron text-center">
-            <h1> Raaaaats </h1>
-            <p>
-                Retrouvez toute la gamme de produits ratiZ... des produits de qualité faits par des passionnés.
-                Vous aimez les rats mignons et le metal brutal, welcome to the hell !
-            </p>
+        <div class="logoratio">
+            <a href="{{ path('mickweb_ecommerce_homepage') }}"> 
+                <img src="{{ asset('ratioactive-icon.png') }}" alt="logos raaaaats" width="60" height="60"></img>
+            </a>
+        </div>    
+        <h1> Raaaaats </h1>
+        <p>
+            Retrouvez toute la gamme de produits raaaaats... des produits de qualité faits par des passionnés.
+            Vous aimez les rats mignons et le metal brutal, welcome to hell !
+        </p>
     </div>
 
     {# ****************************************** #}
@@ -70,10 +74,52 @@
         <li><a href="{{ path('fos_user_security_login') }}"> Se connecter </a></li>
       </ul>
     </div>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+            </ul>
+            {# <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> #}
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li>Connecté en tant que {{ app.user.username }}</li>
+                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fas fa-power-off"></i></span> Déconnexion</a></li>
+                    <li><a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-log-in"></span> Moncompte</a></li>
+                </ul>
+              {% else %}
+              <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+              {% endif %}
+           
+        </div>
+    </nav> 
     {# ****************************************** #}
 
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;Menu</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+        </div>
+
+        <div id="main">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+    </div>
+
     {#Ce bloc permet d'afficher le bouton connexion, deconnexion#}
-    <div class="container">
+    {# <div class="container">
         <div class="row">
             <div class="col-md-3">
               {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -87,21 +133,21 @@
               {% endif %}
             </div>
         </div>
-    </div>
+    </div> #}
 
     <div class="container">
         <div class="row">
-            <div id="menu" class="col-md-3 menu">
+            {# <div id="menu" class="col-md-3 menu">
                 {#TEST INCLUDE barre de navigation#}
-                {% include '::modulesUsed/navigation.html.twig' %}
+                {# include '::modulesUsed/navigation.html.twig' %}
                 {#TEST menu panier#}
-                {{ render(controller('MickwebEcommerceBundle:panier:menu')) }}
+                {# render(controller('MickwebEcommerceBundle:panier:menu')) }}
 
                 <h3>Admin</h3>
                   <ul class="nav nav-pills nav-stacked">
                     <li><a href="{{ path('mickweb_ecommerce_homepage') }}">Accueil</a></li>
                     {# Cette condition permet d'afficher "ajouter un produit" seulement aux ADMIN  #}
-                  {% if is_granted('ROLE_ADMIN') %}
+                  {# if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('mickweb_ecommerce_ajout') }}">Ajouter un produit</a></li>
                   {% endif %}
                   </ul>
@@ -109,9 +155,9 @@
                 <h4>Derniers produits</h4>
                {# render(controller("MickwebEcommerceBundle:Product:menu", {'limit': 3})) #}
 
-            </div>
+            {# </div> #}
 
-            <div id="content" class="col-md-9">
+            <div id="content" class="col-md-12">
                 {% block body %}
                 {% endblock %}
             </div>
@@ -177,10 +223,46 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
     {% endjavascripts %}
     {# <script src="js/script.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/function.js"></script> #}
+
+    <script>
+            $(document).ready(function () {
+                /* à la sélection du classement on met à jour */
+                $(document).on("change", "#select-order", function () {
+                    updateOrder();
+                });
+                /* au chargement de la page on lance le classement */
+                updateOrder();
+            });
+
+            function updateOrder() {
+                var order = $("#select-order").val();
+                if (order == 'position' || order == 'prix' || order == 'name') {
+                    var divList = $(".card");
+                    if (order == 'position') { //tri numerique croissant
+                        divList.sort(function (a, b) {
+                            return  $(a).data(order) - $(b).data(order);
+                        });
+                    } else if (order == 'prix') {//tri numerique decroissant
+                        divList.sort(function (a, b) {
+                            return $(b).data(order) - $(a).data(order);
+                        });
+                    } else if (order == 'name') { //tri alphabetique
+                        divList.sort(function (a, b) {
+                            var compA = $(a).data(order).toUpperCase();
+                            var compB = $(b).data(order).toUpperCase();
+                            return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+                        });
+                    }
+                    $(".card-container").html(divList);
+                }
+            }
+    </script>
+
 
 
   </body>
