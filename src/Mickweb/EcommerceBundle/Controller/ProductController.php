@@ -25,6 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Mickweb\EcommerceBundle\Form\ProductType;
 use Mickweb\EcommerceBundle\Form\ProductModifierType;
 use Mickweb\EcommerceBundle\Form\RechercheType;
+use Mickweb\EcommerceBundle\Form\AvisType;
 
 class ProductController extends Controller
 {
@@ -82,18 +83,66 @@ class ProductController extends Controller
           else
             $panier = false;
 
+        // ajout d'un avis
+        $listAvis = new Avis();
+        // $form = $this->createForm('Mickweb\EcommerceBundle\Form\AvisType', $listAvis);
+        $form = $this->get('form.factory')->create(AvisType::class, $listAvis);
+        // $form->handleRequest($request);
+
+        // if ($form->isSubmitted() && $form->isValid()) {
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($listAvis);
+            $em->flush();
+
+            return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $listAvis->getId()));
+        }
+
         // je recupere la liste des avis de ce produit grace au findBy
-        //   $listAvis = $em
-        //     ->getRepository('MickwebEcommerceBundle:Avis')
-        //     ->findBy(array('product' => $product))
-        //   ;
+          $afficheAvis = $em
+            ->getRepository('MickwebEcommerceBundle:Avis')
+            ->findBy(array('product' => $product))
+          ;
 
         return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
             'product' => $product,
-            'categories' => $categories
-            // 'listAvis' => $listAvis
+            'categories' => $categories,
+            'form' => $form->createView(),
+            'afficheAvis' => $afficheAvis
         ));
     }
+
+    /******************************* Avis client ****************************************************************/
+    // public function avisProduitAction($id, Request $request)
+    // {
+       
+    //     // ajout d'un avis
+    //     $listAvis = new Avis();
+    //     // $form = $this->createForm('Mickweb\EcommerceBundle\Form\AvisType', $listAvis);
+    //     $form = $this->get('form.factory')->create(AvisType::class, $listAvis);
+    //     // $form->handleRequest($request);
+
+    //     // if ($form->isSubmitted() && $form->isValid()) {
+    //     if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+    //         $em = $this->getDoctrine()->getManager();
+    //         $em->persist($listAvis);
+    //         $em->flush();
+
+    //         return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $listAvis->getId()));
+    //     }
+
+    //     // je recupere la liste des avis de ce produit grace au findBy
+    //     //   $listAvis = $em
+    //     //     ->getRepository('MickwebEcommerceBundle:Avis')
+    //     //     ->findBy(array('product' => $product))
+    //     //   ;
+
+    //     return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
+    //         'form' => $form->createView(),
+    //         'listAvis' => $listAvis
+    //     ));
+    // }
+
 /*******************************AJOUT PRODUIT****************************************************************/
     // Cette annonation sert à accéder à la page Ajout seulement aux Admin
     // Je l'ai désactivé pour le moment

@@ -84,8 +84,8 @@
     <div>
       {# boucle foreach qui permet d'afficher les avis #}
         <ul>
-          {# {% for avis in listAvis %} #}
-            {# <li>
+          {% for avis in afficheAvis %} #}
+            <li>
               <p> {{ avis.commentaire }} </p>
               <p> note : {{ avis.note }} </p>
               <p> Date de publication : {{ avis.date|date('Y-m-d') }} </p>
@@ -93,7 +93,7 @@
             <hr>
           {% else %}
             <li>Aucun avis </li>
-          {% endfor %} #}
+          {% endfor %}
         </ul>
 
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -104,6 +104,60 @@
             mettre un avis
           </a>
         </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#avisModalCenter">
+          Ajouter un avis
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="avisModalCenter" tabindex="-1" role="dialog" aria-labelledby="avisModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="avisModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+               
+                      {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+                      {# Les erreurs générales du formulaire. #}
+                      {{ form_errors(form) }}
+
+                      {# Génération du label + error + widget pour un champ. #}
+                      {# {{ form_row(form.date) }} #}
+
+                      <hr>   
+
+                      <div class="form-group">
+                        <div class="col-sm-2"> </div> 
+                        <div class="col-sm-10">
+                          {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+                          {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                        </div>
+                      </div> 
+                    
+
+                      {# Génération automatique des champs pas encore écrits.
+                        Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+                        et tous les champs cachés (type « hidden »). #}
+                      {{ form_rest(form) }}
+
+                      {# Fermeture de la balise <form> du formulaire HTML #}
+                      {{ form_end(form) }}
+                    </div>
+              
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         {% endif %}
     </div>
   </div>

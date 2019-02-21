@@ -16,10 +16,11 @@
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
       {# <link rel="stylesheet" href="css/style.css"/> #}
       <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Special+Elite|Dosis" rel="stylesheet">
+      {# <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> #}
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     {% endstylesheets %}
     <link rel="icon" type="image/x-icon" href="{{ asset('ratioactive-icon.png') }}" />
-
+    
   </head>
 
   <body>
@@ -34,15 +35,7 @@
                 </button> #}
                 
                 <div navbar-header>
-
-                
-                <a href="{{ path('fos_user_registration_register') }}"><i class="fas fa-sign-in-alt" style="color:white"></i></a>
-                
-                <i class="fas fa-user" style="color:white" title="mon compte"></i>
-                <i class="fas fa-times" style="color:white"></i>
-                <i class="fas fa-shopping-basket" style="color:white" title="panier"></i>
-                {{ render(controller('MickwebEcommerceBundle:Product:recherche')) }}
-                    
+                    {{ render(controller('MickwebEcommerceBundle:Product:recherche')) }}  
                 </div>
             </div>
         </div>
@@ -84,6 +77,8 @@
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Page 1</a></li>
                 <li><a href="#">Page 2</a></li>
+                <li><a href=""><i class="fas fa-shopping-basket" style="color:white" title="panier"></i></a></li>
+
             </ul>
             {# <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
