@@ -23,12 +23,12 @@ class AvisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('note',        IntegerType::class)
+            ->add('note',            IntegerType::class)
             ->add('commentaire',     TextType::class)
-            ->add('date',  DateType::class)
-            ->add('product',            EntityType::class, array(
-                'class'         => 'MickwebEcommerceBundle:Product',
-            'choice_label'  => 'id'))
+            // ->add('date',            DateType::class)
+            // ->add('product',            EntityType::class, array(
+            //     'class'         => 'MickwebEcommerceBundle:Product',
+            // 'choice_label'  => 'id'))
             ->add('save',           SubmitType::class)
             ;
     }/**

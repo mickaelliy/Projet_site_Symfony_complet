@@ -3,12 +3,14 @@
 namespace Mickweb\EcommerceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Avis
  *
  * @ORM\Table(name="avis")
  * @ORM\Entity(repositoryClass="Mickweb\EcommerceBundle\Repository\AvisRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Avis
 {
@@ -39,6 +41,12 @@ class Avis
     /**
      * @var int
      *
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5,
+     *      minMessage = "Vous devez mettre au moins {{ limit }} pour valider votre commentaire",
+     *      maxMessage = "Vous ne pouvez pas mettre plus de {{ limit }} étoiles"
+     * )
      * @ORM\Column(name="note", type="integer")
      */
     private $note;
@@ -55,6 +63,14 @@ class Avis
         $this->date = new \Datetime();
     }
 
+    /**
+     * @ORM\PrePersist
+     *
+     */
+    public function datePrepersist()
+    {
+        $this->date = new \Datetime();
+    }
 
     /**
      * Get id.

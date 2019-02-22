@@ -70,6 +70,7 @@ class ProductController extends Controller
 
         // je recupere le produit l'id
         $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
+        // TODO: Revoir l'utilisation de categories
         $categories = $em->getRepository('MickwebEcommerceBundle:Category')->find($id);
 
         // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
@@ -91,11 +92,12 @@ class ProductController extends Controller
 
         // if ($form->isSubmitted() && $form->isValid()) {
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $listAvis->setProduct($product);
             $em = $this->getDoctrine()->getManager();
             $em->persist($listAvis);
             $em->flush();
 
-            return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $listAvis->getId()));
+            return $this->redirectToRoute('mickweb_ecommerce_fiche_produit', array('id' => $product->getId()));
         }
 
         // je recupere la liste des avis de ce produit grace au findBy

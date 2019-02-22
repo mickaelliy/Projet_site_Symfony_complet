@@ -49,75 +49,38 @@
       </div> 
   </div>
 
-   <div id="filters" class="button-group">  <button class="button is-checked" data-filter="*">show all</button>
-    <button class="button" data-filter=".metal">metal</button>
-    <button class="button" data-filter=".transition">transition</button>
-    <button class="button" data-filter=".alkali, .alkaline-earth">alkali and alkaline-earth</button>
-    <button class="button" data-filter=":not(.transition)">not transition</button>
-    <button class="button" data-filter=".metal:not(.transition)">metal but not transition</button>
-    <button class="button" data-filter="numberGreaterThan50">number > 50</button>
-    <button class="button" data-filter="ium">name ends with &ndash;ium</button>
-  </div>
+  {# Système de filtre prix #}
+  <div class="container col-sm-12">
+      <div class="row">
+        <div class="col-sm-4">
+          <p>
+            <label for="amount">Chercher un prix compris entre :</label>
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+          </p>
+          <div id="slider-range"></div>
+        </div>
 
+        <div class="col-sm-4">
+          <div class="form-group">
+              <label for="select-order">Trier les produits par :</label>
+              <select class="form-control" id="select-order">
+                  <option value="position">Prix le moins cher</option>
+                  <option value="prix">Prix le plus cher</option>
+                  <option value="name">Catégorie</option>
+              </select>
+          </div>
+        </div>
 
- {# <div class="container col-sm-12">
-    <div class="row">
-        <div class="col-sm-8">
-                 
-                            <div class="form-group">
-                                <label for="select-order">Classer par</label>
-                                <select class="form-control" id="select-order">
-                                    <option value="position">Position</option>
-                                    <option value="prix">Prix</option>
-                                    <option value="name">Nom</option>
-                                </select>
-                            </div>
-                            
-                                  {% for product in listProducts %}
-                                  <div class="card-container row">
-                                <div class="item col-md-4" data-position="1" data-prix="{{ product.prix }}" data-name="Paul">
-                                    <div class="card mb-3">
-                                            <div class="col-sm-4">
-                                              <div class="card-title">
-                                                <h4><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
-                                                {{ product.titre }}
-                                              </a></h4>
-                                                <div class="card-img-top">
-                                                {% if product.image %}
-                                                  <img 
-                                                    src="{{ asset(product.image.webPath) }}"
-                                                    alt="{{ product.image.alt }}"
-                                                    width="250" height="250"
-                                                  />
-                                                {% endif %}
-                                                </div>
-                                                <p>{{ product.prix }} €</p>
-                                                
-                                                <a class="button button5" href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">Plus d'infos</a>
-                                                {% if panier[product.id] is not defined %}
-                                                <a class="buttonBasket button6" href="{{ path('ajouter_panier', {'id': product.id}) }}">Ajouter au panier</a>
-                                                {% else %}
-                                                <p class="buttonBasket buttondeja">Déjà dans votre panier</p>
-                                                {% endif %}
-                                              </div>           
-                                            </div>
-                                            
-                                            {% else %} 
-                                            <p>Aucun produit disponible</p> 
-</div>
-                                </div>
-                            </div>
-                
-                                      {% endfor %}
-                                  
-                                    
-                   
-  </div>
+        <div class="col-sm-4">
+          <p>
+            <label for="amount">Price range:</label>
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+          </p>
+        </div>
       </div>
-  </div> #}
+  </div>
 
   <h2>Liste des produits</h2>
-
     <div class="container col-sm-12">
       <div class="row">
           {% for product in listProducts %} {# produits ou listProducts #}
