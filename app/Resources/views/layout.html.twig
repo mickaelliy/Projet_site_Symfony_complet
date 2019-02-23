@@ -216,7 +216,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    {% javascripts 'js/main.js' %}
+    {% javascripts 'js/main.js' 'js/slick.min.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -281,18 +281,19 @@
         } );
     </script>
 
+    <!------- Script permettant de faire fonctionner le slider du bloc "Tendandes" -------->
+    {# <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> #}
+    {# <script src="../js/slick.min.js" type="text/javascript" charset="utf-8"></script> #}
     <script type="text/javascript">
-    $(document).ready(function(){
-        $('.imageSlides').slick({
-            setting-name: setting-value
-        });
-        });
-
-        $('.multiple-items').slick({
+        $(document).on('ready', function() {
+        
+        $(".regular").slick({
+            dots: true,
             infinite: true,
             slidesToShow: 3,
             slidesToScroll: 3
-            });
+        });
+        });
     </script>
 
 

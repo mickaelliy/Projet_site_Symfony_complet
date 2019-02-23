@@ -1,0 +1,36 @@
+{% extends "MickwebEcommerceBundle::layout.html.twig" %}
+
+{% block title %}
+  Fiche produit - {{ parent() }}
+{% endblock %}
+
+{% block MickwebEcommerce_body %}
+
+<div class="container col-md-12">
+		<div class="row">
+			<h1> Bienvenue sur la page de contact </h1>
+			<div class="col-md-12">
+				<div id="contactForm" class="mt-4">
+					{{ form_start(form) }}
+					<div class="row">
+						<div class="col-sm-3"> {{ form_row(form.firstname) }} </div>
+						<div class="col-sm-3"> {{ form_row(form.lastname) }} </div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3"> {{ form_row(form.phone) }} </div>
+						<div class="col-sm-3"> {{ form_row(form.email) }} </div>
+					</div>
+					{{form_rest(form)}}
+					<div class="form-group">
+						<button class="btn recherche">Envoyer</button>
+					</div>
+
+					{{ form_end(form) }}
+				</div>
+                         
+			
+			</div>
+		</div>
+</div>
+
+{% endblock %}

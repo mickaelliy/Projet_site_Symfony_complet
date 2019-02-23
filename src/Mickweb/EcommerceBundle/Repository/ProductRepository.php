@@ -4,6 +4,8 @@ namespace Mickweb\EcommerceBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
+use Mickweb\EcommerceBundle\Entity\PropertySearch;
 
 /**
  * ProductRepository
@@ -20,6 +22,23 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                     ->getQuery()
                     ->getResult()
         ;
+    }
+
+    public function findAllVisibleQuery(PropertySearch $search): Query
+    {
+        $query = $this->findVisibleQuery();
+
+        if ($search->getMinPrice()) {
+            $query = $query->andWhere('u.prix >= :minprice');
+            $query->setParameter('minprice', $search->getMinPrice());
+        }
+
+        if ($search->getMaxPrice()) {
+            $query = $query->andWhere('u.prix <= :maxprice');
+            $query->setParameter('maxprice', $search->getMaxPrice());
+        }
+
+        return $query->getQuery();
     }
 
     public function byCategorie($categories)
@@ -53,4 +72,10 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                     ->setParameter('chaine', '%'.$chaine.'%');
         return $qb->getQuery()->getResult();
     }
+
+    private function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.disponible = 1');
+    } 
 }

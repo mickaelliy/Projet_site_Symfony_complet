@@ -5,3 +5,7 @@ mickweb_pages_adminPages:
 mickweb_pages_homepage:
     path:     /page/{id}
     defaults: { _controller: MickwebPagesBundle:Pages:page }
+
+mickweb_pages_contact:
+    path:     /page/contact
+    defaults: { _controller: MickwebPagesBundle:Pages:contactForm }

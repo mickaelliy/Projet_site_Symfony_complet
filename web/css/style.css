@@ -161,6 +161,104 @@ body {
     font-family: 'Dosis', cursive;
 }
 
+/* Bloc Tendances */
+.article3{
+    margin-bottom: 60px;
+}
+
+.article3 img{
+    width: 100%;
+}
+
+.article3 em{
+    font-weight: bold;
+    color: brown;
+}
+.article3 span{
+    font-weight: bold;
+}
+
+.bloc_tendances{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 10px;
+    position: relative;
+    text-align: center;
+    color:white;
+    left: 10%;
+}
+
+.img_accessoires, .img_tshirt, .img_pantalons, .img_chaussures, .img_lunettes, .img_vestes{
+    margin: 10px;
+}
+
+.img_accessoires, .img_tshirt, .img_pantalons, .img_chaussures, .img_vestes, .img_lunettes {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.texte_img_accessoires, .texte_img_tshirt, .texte_img_pantalons, .texte_img_chaussures, .texte_img_vestes, .texte_img_lunettes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em;
+    text-shadow: 1px 2px 3px rgba(0,0,0, 0.5);
+    font-size: 2em; 
+}
+
+/*slider dans la partie tendances*/
+    *{
+      box-sizing: border-box;
+    }
+
+    .slider {
+        width: 80%;
+        margin: 100px auto;
+        margin-top: 20px;
+    }
+
+    .slider a{
+        text-decoration: none;
+        border: none;
+    }
+    a:link 
+    { 
+        text-decoration:none; 
+    } 
+
+    .slick-slide {
+      margin: 0px 20px;
+    }
+
+    .slick-slide img {
+      width: 100%;
+      height: auto;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      color: black;
+    }
+
+    .slick-slide {
+      transition: all ease-in-out .3s;
+      opacity: .2;
+    }
+
+    .slick-active {
+      opacity: 1;
+    }
+
+    .slick-current {
+      opacity: 1;
+    }
+/*-----fin Tendances-----*/
+
 /**************************************************************************
 /*-----Pictos réassurance-----*/
 .reassurance{

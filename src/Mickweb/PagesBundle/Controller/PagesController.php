@@ -26,4 +26,14 @@ class PagesController extends Controller
 
         return $this->render('MickwebPagesBundle:Default:pages/layout/page.html.twig', array('page' => $page));
     }
+
+    public function contactFormAction(Product $product)
+    {
+        $contact = new Contact();
+        $contact = setProduct($product);
+        $form = $this->createForm(ContactType::class, $contact);
+
+        return $this->render('MickwebPagesBundle:Default:pages/layout/pagecontact.html.twig', array(
+            'form' => $form->createView()));
+    }
 }

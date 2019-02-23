@@ -8,6 +8,8 @@ use Mickweb\EcommerceBundle\Entity\Avis;
 use Mickweb\EcommerceBundle\Entity\Category;
 use Mickweb\EcommerceBundle\Entity\tva;
 use Mickweb\EcommerceBundle\Entity\Commande;
+use Mickweb\EcommerceBundle\Entity\PropertySearch;
+use Mickweb\EcommerceBundle\Entity\Contact;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -26,19 +28,27 @@ use Mickweb\EcommerceBundle\Form\ProductType;
 use Mickweb\EcommerceBundle\Form\ProductModifierType;
 use Mickweb\EcommerceBundle\Form\RechercheType;
 use Mickweb\EcommerceBundle\Form\AvisType;
+use Mickweb\EcommerceBundle\Form\PropertySearchType;
+use Mickweb\EcommerceBundle\Form\ContactType;
+use Mickweb\EcommerceBundle\Notification\ContactNotification;
 
 class ProductController extends Controller
 {
 /*******************************PAGE D'ACCUEIL DES PRODUITS****************************************************************/
     public function indexAction($page, Request $request, Category $categories = null)
     {
-          $session = $request->getSession();
+        $search = new PropertySearch();
+        $form = $this->createForm(PropertySearchType::class, $search);
+        $form->handleRequest($request);
+        
+        $session = $request->getSession();
           $em = $this->getDoctrine()->getManager();
 
           if ($categories != null)
             $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategory($categories);
           else 
-            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
+            // $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
+            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findAllVisibleQuery($search);
             // ->getRepository('MickwebEcommerceBundle:Product')
 
         //   $listProducts = $repository->myFindAll();
@@ -59,7 +69,8 @@ class ProductController extends Controller
 
           return $this->render('@MickwebEcommerce/Product/index.html.twig', array(
             'listProducts' => $listProducts,
-            'panier' => $panier
+            'panier' => $panier,
+            'form' => $form->createView()
           ));
     }
 /*******************************FICHE PRODUIT****************************************************************/
@@ -71,7 +82,7 @@ class ProductController extends Controller
         // je recupere le produit l'id
         $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
         // TODO: Revoir l'utilisation de categories
-        $categories = $em->getRepository('MickwebEcommerceBundle:Category')->find($id);
+        $categories = $em->getRepository('MickwebEcommerceBundle:Category')->findBy($id);
 
         // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
         // ou null si l'id $id n'existe pas
@@ -476,6 +487,23 @@ class ProductController extends Controller
         }
        
         return $this->render('@MickwebEcommerce/Product/index.html.twig', array('listProducts' => $listProducts));
+    }
+
+    public function contactFormAction(Request $request/*, ContactNotification $notification*/)
+    {
+        $contact = new Contact();
+        // $contact = setProduct($product);
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            // $notification->notify($contact);
+            $this->addFlash('success', 'Votre email a bien été envoyé');
+            $this->redirectToRoute('pageContacts');
+        }
+
+        return $this->render('@MickwebEcommerce/Product/pagecontact.html.twig', array(
+            'form' => $form->createView()));
     }
 
 }
