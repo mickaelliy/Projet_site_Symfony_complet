@@ -28,21 +28,31 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    {# <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
-                {# <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button> #}
-                
                 <div navbar-header>
                     {{ render(controller('MickwebEcommerceBundle:Product:recherche')) }}  
                 </div>
             </div>
         </div>
-    </div>
+    </div> #}
+    <header id="header" role="banner" class="main-header">
+	<div class="header-inner">
+ 
+		
+ 
+		<nav class="header-nav">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Our projects</a></li>
+				<li><a href="#">About us</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
+ 
+	</div>
+</header>
 
     <div id="header" class="jumbotron text-center">
         <div class="logoratio">
@@ -55,6 +65,9 @@
             Retrouvez toute la gamme de produits raaaaats... des produits de qualité faits par des passionnés.
             Vous aimez les rats mignons et le metal brutal, welcome to hell !
         </p>
+        <div>
+         {{ render(controller('MickwebEcommerceBundle:Product:recherche')) }}
+        </div>
     </div>
 
     {# ****************************************** #}

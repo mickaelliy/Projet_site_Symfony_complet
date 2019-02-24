@@ -47,8 +47,8 @@ class ProductController extends Controller
           if ($categories != null)
             $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategory($categories);
           else 
-            // $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
-            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findAllVisibleQuery($search);
+            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
+            // $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findAllVisibleQuery($search);
             // ->getRepository('MickwebEcommerceBundle:Product')
 
         //   $listProducts = $repository->myFindAll();
@@ -82,7 +82,7 @@ class ProductController extends Controller
         // je recupere le produit l'id
         $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
         // TODO: Revoir l'utilisation de categories
-        $categories = $em->getRepository('MickwebEcommerceBundle:Category')->findBy($id);
+        // $categories = $em->getRepository('MickwebEcommerceBundle:Category')->findBy($id);
 
         // $product est donc une instance de Mickweb\EcommerceBundle\Entity\Product
         // ou null si l'id $id n'existe pas
@@ -119,7 +119,7 @@ class ProductController extends Controller
 
         return $this->render('@MickwebEcommerce/Product/fiche_produit.html.twig', array(
             'product' => $product,
-            'categories' => $categories,
+            // 'categories' => $categories,
             'form' => $form->createView(),
             'afficheAvis' => $afficheAvis
         ));

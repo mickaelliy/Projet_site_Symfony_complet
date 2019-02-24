@@ -112,29 +112,49 @@
           {% for product in listProducts %} {# produits ou listProducts #}
                 <div class="col-sm-4">
                   <div>
-                    <h4><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
-                    {{ product.titre }}
-                  </a></h4>
-                    <div>
-                    {% if product.image %}
-                    {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
-                      <img 
-                        src="{{ asset(product.image.webPath) }}"
-                        alt="{{ product.image.alt }}"
-                        width="250" height="250"
-                      />
-                    {% endif %}
-                    </div>
-                    <p>{{ product.prix }} €</p>
-                    {# <p>{{ product.prix|tva(product.tva.multiplicate) }} €</p> #}
-                    <a class="button button5" href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">Plus d'infos</a>
-                    {% if panier[product.id] is not defined %}
-                    <a class="buttonBasket button6" href="{{ path('ajouter_panier', {'id': product.id}) }}">Ajouter au panier</a>
-                    {% else %}
-                     <p class="buttonBasket buttondeja">Déjà dans votre panier</p>
-                    {% endif %}
-                  </div>           
-                </div>
+                      <div class="product-image">
+                        {% if product.image %}
+                        {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
+                          <img 
+                            src="{{ asset(product.image.webPath) }}"
+                            alt="{{ product.image.alt }}"
+                            width="250" height="250"
+                          />
+                        {% endif %}
+                      </div>
+
+                      <div class="container col-sm-12 product-t-p">
+                          <div class="row">
+                              <div class="col-sm-6">
+                                <h4 class="product-titre"><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
+                                {{ product.titre }}
+                                </a></h4>
+                              </div>
+                              <div class="col-sm-6 product-prix">
+                                <p>{{ product.prix }} €</p>
+                                {# <p>{{ product.prix|tva(product.tva.multiplicate) }} €</p> #}
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="container col-sm-12 product-t-p">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <a class="button button5" href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">Plus d'infos</a>
+                            {% if panier[product.id] is not defined %}
+                          </div>
+                          <div class="col-sm-6">
+                            <a class="buttonBasket button6" href="{{ path('ajouter_panier', {'id': product.id}) }}">Ajouter au panier</a>
+                            {% else %}
+                            <p class="buttonBasket buttondeja">Déjà dans votre panier</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                        
+                  </div>
+                </div>           
+              
                 
                 {% else %} 
                 <p>Aucun produit disponible</p> 

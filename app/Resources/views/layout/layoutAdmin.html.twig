@@ -8,14 +8,27 @@
 
     <title>{% block title %} ML website{% endblock %}</title>
 
-    {% stylesheets 'css/style.css' %}
-     {# <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" /> #}
+    {# {% stylesheets 'css/style.css' %}
+      <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" /> 
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
       <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
       <link rel="stylesheet" href="css/style.css"/>
       <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Special+Elite" rel="stylesheet">
-     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  
+     endstylesheets #}
+
+    {% stylesheets 'css/style.css' %}
+     {# <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" /> #}
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+      {# <link rel="stylesheet" href="css/style.css"/> #}
+      <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Special+Elite|Dosis" rel="stylesheet">
+      {# <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> #}
+      {# jquery pour le systeme de filtre PRIX #}
+      
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% endstylesheets %}
 
   </head>
@@ -23,20 +36,36 @@
   <body>
 
     <div id="header" class="jumbotron text-center">
+        <div>
             <h1> ADMIN </h1>
             <p>
                 Vous êtes sur l'espace d'administration du site
             </p>
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;Fermer</a>
+            <a href="{{ path('adminProduct_index') }}">Produits</a>
+            <a href="{{ path('adminCategories_index') }}">Catégories</a>
+            <a href="{{ path('adminUsers_index') }}">Clients</a>
+            <a href="{{ path('adminCommandes_index') }}">Commandes</a>
+            <a href="{{ path('adminPages_index') }}">Pages</a>
+        </div>
+        <div id="main">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+        </div>
     </div>
+
+    
 
     <div class="container">
         <div class="row">
-            <div id="menu" class="col-md-3 menu">
+            {# <div id="menu" class="col-md-3 menu">
                 {#TEST INCLUDE barre de navigation#}
-                {% include '::modulesUsed/navigationAdmin.html.twig' %}
-            </div>
+                {# include '::modulesUsed/navigationAdmin.html.twig' }
+            </div> #}
 
-            <div id="content" class="col-md-9">
+            <div id="content" class="col-md-12">
                 {% block body %}
                 {% endblock %}
             </div>
@@ -75,12 +104,16 @@
 		</div>
 	</footer>	    
 
-    {% javascripts 'js/main.js' %}
+    {% javascripts 'js/main.js' 'js/slick.min.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+        {# jquery pour le systeme de filtre PRIX #}
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     {% endjavascripts %}
 
   </body>

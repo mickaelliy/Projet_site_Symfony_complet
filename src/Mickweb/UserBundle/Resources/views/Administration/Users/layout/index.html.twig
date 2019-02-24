@@ -1,10 +1,21 @@
 {% extends '::layout/layoutAdmin.html.twig' %}
 
 {% block body %}
-    <h1>Liste des clients</h1>
+    <br>
+    <div class="jumbotron-admin titre-admin">
+        <div>
+            <p>Liste des clients</p>
+        </div>
+    </div>
 
-    <table class="table table-striped table-hover">
-        <thead>
+    <div class="admin-chapo">
+        <div>
+            <p>Voici la liste des clients du site.</p>
+        </div>
+    </div>
+  
+    <table class="table table-border">
+        <thead class="thead thead-color">
             <tr>
                 <th>Nom</th>
                 <th>Actions</th>
@@ -19,14 +30,14 @@
                 <td>
                     {# Si l'utilisateur n'a pas d'adresse, on affiche rien #}
                     {% if user.adresses|length != 0 %}
-                     <a href="{{ path('adminAdressesUsers', { 'id': user.id }) }}" title="consulter les adresses"><i class="fas fa-map-signs"></i></a>
+                     <a href="{{ path('adminAdressesUsers', { 'id': user.id }) }}"><button class="btn-show"><i class="fas fa-map-marker-alt"></i> Adresses</button></a>
                     {% else %}
                      <p>Aucune adresse pour ce client</p>
                     {% endif %}
 
                     {# Si l'utilisateur n'a pas commandé, on n'affiche pas de factures #}
                     {% if user.commandes|length != 0 %}
-                     <a href="{{ path('adminFacturesUsers', { 'id': user.id }) }}" title="consulter les factures"><i class="fas fa-receipt"></i></a>
+                     <a href="{{ path('adminFacturesUsers', { 'id': user.id }) }}"><button class="btn-edit"><i class="fas fa-receipt"></i> Factures</button></a>
                     {% else %}
                      <p>Aucune facture pour ce client</p>
                     {% endif %} 
