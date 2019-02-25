@@ -45,7 +45,7 @@ class ProductController extends Controller
           $em = $this->getDoctrine()->getManager();
 
           if ($categories != null)
-            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategory($categories);
+            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategorie($categories);
           else 
             $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
             // $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findAllVisibleQuery($search);
@@ -81,6 +81,8 @@ class ProductController extends Controller
 
         // je recupere le produit l'id
         $product = $em->getRepository('MickwebEcommerceBundle:Product')->find($id);
+        $productAssoc = $em->getRepository('MickwebEcommerceBundle:Product')->byCategorie($product->getCategories());
+        dump($productAssoc);
         // TODO: Revoir l'utilisation de categories
         // $categories = $em->getRepository('MickwebEcommerceBundle:Category')->findBy($id);
 
@@ -121,7 +123,8 @@ class ProductController extends Controller
             'product' => $product,
             // 'categories' => $categories,
             'form' => $form->createView(),
-            'afficheAvis' => $afficheAvis
+            'afficheAvis' => $afficheAvis,
+            'productAssoc' => $productAssoc
         ));
     }
 

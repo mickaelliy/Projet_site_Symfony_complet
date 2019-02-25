@@ -460,11 +460,35 @@ h2{
 
 /*********************************/
 /*******************************/
+/* bouton formulaires */
+.btn-align-form
+{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+
+}
+
+/* espace mon compte */
+.mon-compte{
+    border-style: solid;
+    border-color: #CBA320;
+}
+
+.titre-compte{
+    color: #CBA320;
+}
+
+
+
+/*********************************/
+/*******************************/
 /* Affichage index Produits */
 .product-image{
     border-style: solid;
     border-width: 1px;
     border-color: rgb(218, 207, 207);
+    text-align: center;
 }
 
 .product-t-p{

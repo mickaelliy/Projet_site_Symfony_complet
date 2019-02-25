@@ -12,19 +12,23 @@
                     <li><a href="{{ path('fos_user_profile_edit') }}">Modifier mes infos</a></li>
                     <li><a href="{{ path('fos_user_change_password') }}">Changer de mot de passe</a></li>
                     <li><a href="adresses.php">Mes adresses</a></li>
-                     <li><a href="{{ path('mickweb_user_factures') }}">Mes factures</a></li>
+                    <li><a href="{{ path('mickweb_user_factures') }}">Mes factures</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">deconnexion</a></li>
                     <li>{{ render(controller('MickwebEcommerceBundle:Panier:menu')) }}</li>
                 </ul>
             </div>
         </nav>
-             
-        <div class="col-md-12">
-            <h2>Mes informations</h2>
-            <div id="collapseOne" class="accordion-body collapse in">
-                <div class="accordion-inner">
+
+        <div class="container mon-compte"> 
+            <div class="row">        
+                <div class="col-sm-12">
+                <h2 class="titre-compte">Mes informations</h2>
+               
                     
-                    <div class="col-md-4">
+            {# <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner"> #}
+                    
+                    {# <div class="col-md-4">
                         <h4>Modifier mes informations</h4>
                         <form>
                             <label>Nom d'utilisateur</label>
@@ -41,18 +45,18 @@
                             <br />
                             <button class="btn btn-primary">Modifier</button>
                         </form>
-                    </div>
-                    <div class="col-md-6 col-md-offset-2">
-                        <div class="fos_user_user_show">
-                            <h4>Mes infos actuelles</h4>
-                            <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-                            <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+                    </div> #}
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6 text-center">
+                            <div class="fos_user_user_show">
+                                    <h4>Mes infos actuelles</h4>
+                                    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+                                    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+                            </div>
                         </div>
-                    </div>
-
+                        <div class="col-sm-3"></div>
                 </div>
-            </div>
+             </div>   
         </div>
-
     </div>
 </div>

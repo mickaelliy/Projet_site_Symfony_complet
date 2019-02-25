@@ -71,7 +71,6 @@
                 <a href="{{ path('mickweb_ecommerce_panier') }}" class="btn btn-primary">Le produit est déjà dans votre panier</a>
               </div>
             {% endif %}
-
           </div>
 				</div>
         <hr/>
@@ -79,6 +78,48 @@
 		</div>
   </div>
 
+  {# produits complémentaires #}
+  <div class="container col-sm-12">
+      <div class="row">
+          {% for product in productAssoc %} {# produits ou listProducts #}
+                <div class="col-sm-4">
+                  <div>
+                      <div class="product-image">
+                        {% if product.image %}
+                        {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
+                          <img 
+                            src="{{ asset(product.image.webPath) }}"
+                            alt="{{ product.image.alt }}"
+                            width="250" height="250"
+                          />
+                        {% endif %}
+                      </div>
+
+                      <div class="container col-sm-12 product-t-p">
+                          <div class="row">
+                              <div class="col-sm-6">
+                                <h4 class="product-titre"><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
+                                {{ product.titre }}
+                                </a></h4>
+                              </div>
+                              <div class="col-sm-6 product-prix">
+                                <p>{{ product.prix }} €</p>
+                                {# <p>{{ product.prix|tva(product.tva.multiplicate) }} €</p> #}
+                              </div>
+                          </div>
+                      </div>
+                        
+                  </div>
+                </div>           
+              
+                {% else %} 
+                <p>Aucun produit disponible</p> 
+
+          {% endfor %}
+      </div>
+    </div>
+
+{# Avis clients #}
   <hr/>
   <div class="container col-sm-12">
     <h2>Avis sur le produit</h2>

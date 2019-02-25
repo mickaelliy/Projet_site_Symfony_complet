@@ -11,41 +11,25 @@
                     <li><a href="{{ path('fos_user_change_password') }}">Changer de mot de passe</a></li>
                     <li><a href="adresses.php">Mes adresses</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">deconnexion</a></li>
-                    <li><div class="well">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="icon-shopping-cart"></i>
-                                    3 item - 54,27 €
-                                    <b class="caret"></b></a>
-                                </a>
-                                <div class="dropdown-menu well" role="menu" aria-labelledby="dLabel">
-                                    <p>Item x 1 <span class="pull-right">18,09 €</span></p>
-                                    <p>Item x 1 <span class="pull-right">18,09 €</span></p>
-                                    <p>Item x 1 <span class="pull-right">18,09 €</span></p>
-                                    <a href="panier.php" class="btn btn-primary">Mon Panier</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    
                 </ul>
             </div>
         </nav>
         
-        <div class="col-md-12">
-            <h2>Mes informations</h2>
+        <div class="col-md-12 mon-compte">
+            <h2 class="titre-compte">Modifier mes informations</h2>
             <div id="collapseOne" class="accordion-body collapse in">
                 <div class="accordion-inner">
-                    
-                    <div class="col-md-4">
-                        <h4>Modifier mes informations</h4>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
                         {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
                             {{ form_widget(form) }}
-                            <div>
-                                <input class="btn btn-primary" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+                            <div class="btn-align-form">
+                                <input class="btn-recherche" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
                             </div>
-                        {{ form_end(form) }}
-                            
+                        {{ form_end(form) }} 
                     </div>
+                    <div class="col-md-3"></div>
                 </div>
             </div>
         </div>
