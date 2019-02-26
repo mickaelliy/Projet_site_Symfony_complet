@@ -79,32 +79,41 @@
   </div>
 
   {# produits complémentaires #}
-  <div class="container col-sm-12">
+  
+  <div class="container col-md-12">
+  <div class="jumbotron">
+  <h2>Ces produits peuvent vous intéresser<h2>
       <div class="row">
+      
           {% for product in productAssoc %} {# produits ou listProducts #}
-                <div class="col-sm-4">
-                  <div>
+                <div class="col-sm-3">
+                  <div class="pdts-compl">
                       <div class="product-image">
                         {% if product.image %}
                         {# <img src="{{ product.image.url }}" alt="{{ product.image.alt }}"> #}
                           <img 
                             src="{{ asset(product.image.webPath) }}"
                             alt="{{ product.image.alt }}"
-                            width="250" height="250"
+                            width="150" height="150"
                           />
                         {% endif %}
                       </div>
 
-                      <div class="container col-sm-12 product-t-p">
+                      <div class="container product-t-p">
                           <div class="row">
-                              <div class="col-sm-6">
+                              <div class="col-sm-12">
                                 <h4 class="product-titre"><a href="{{ path('mickweb_ecommerce_fiche_produit', {'id': product.id}) }}">
                                 {{ product.titre }}
                                 </a></h4>
                               </div>
-                              <div class="col-sm-6 product-prix">
+                              <div class="col-sm-12 product-prix">
                                 <p>{{ product.prix }} €</p>
                                 {# <p>{{ product.prix|tva(product.tva.multiplicate) }} €</p> #}
+                              </div>
+                              <div class="col-sm-12 product-prix">
+                                <button type="button" class="btn-recherche">
+                                  Ajouter au panier
+                                </button>
                               </div>
                           </div>
                       </div>
@@ -118,7 +127,7 @@
           {% endfor %}
       </div>
     </div>
-
+</div>
 {# Avis clients #}
   <hr/>
   <div class="container col-sm-12">
@@ -129,6 +138,15 @@
           {% for avis in afficheAvis %}
             <li>
               <p> {{ avis.commentaire }} </p>
+              {# {% for avis in valeur => afficheAvis %}
+                  {% if indice == 'note' %}
+                      $compteurEtoiles = 0;
+                      $noteFinale = '';
+
+                      while($compteurEtoiles < $valeur)                        
+                          $noteFinale = $noteFinale  . '&#9733';
+                          $compteurEtoiles++; #}
+
               <p> note : {{ avis.note }} </p>
               <p> Date de publication : {{ avis.date|date('Y-m-d') }} </p>
             </li>

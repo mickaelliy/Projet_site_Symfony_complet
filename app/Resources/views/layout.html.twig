@@ -92,7 +92,6 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
                 <li><a href=""><i class="fas fa-shopping-basket" style="color:white" title="panier"></i></a></li>
 
             </ul>
@@ -120,7 +119,7 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;Menu</a>
         <a href="#">About</a>
-        <a href="#">Services</a>
+        <a href="#">{{ render(controller('MickwebEcommerceBundle:Categories:menu'))  }}</a>
         <a href="#">Clients</a>
         <a href="#">Contact</a>
         </div>

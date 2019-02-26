@@ -486,16 +486,17 @@ h2{
 /* Affichage index Produits */
 .product-image{
     border-style: solid;
-    border-width: 1px;
-    border-color: rgb(218, 207, 207);
+    border-width: 6px;
+    border-color: white;
     text-align: center;
+    background-color: white;border-style: solid;
 }
 
 .product-t-p{
-    border-style: solid;
+    /* border-style: solid;
     border-width: 1px;
-    border-color: rgb(218, 207, 207);
-    background-color:  rgb(218, 207, 207);
+    border-color: rgb(218, 207, 207); */
+    /* background-color: #CBA320; */
 }
 
 .product-prix{
@@ -509,12 +510,91 @@ h2{
     text-decoration: none;
     color:black;
 }
+.pdts-compl{
+    border-color: #CBA320;
+    border-style: solid;
+    border-width: 1px;
+}
 
 .product-button
 {
     
 }
 
+/*  Menu  */
+li{
+    list-style-type: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    left: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content .header {
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.column {
+    float: left;
+    width: 30%;
+    padding: 10px;
+    background-color: white;
+}
+.column img{
+ width: 100%;
+}
+
+.column a {
+    float: none;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.column a:hover {
+    background-color: #ddd;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* ------Fin menu --------*/
 
 /*********************************/
 /*******************************/
