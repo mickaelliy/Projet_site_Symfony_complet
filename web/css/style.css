@@ -321,6 +321,45 @@ body {
     }
 /*-----fin Tendances-----*/
 
+/*-----Fiche produits-----*/
+.fa-facebook, .fa-linkedin, .fa-twitter-square, .fa-envelope-square {
+    font-size:30px;
+    padding-left: 10px;
+   
+    color: grey;
+}
+
+.fa-facebook:hover, .fa-linkedin:hover, .fa-twitter-square:hover, .fa-envelope-square:hover {
+    color: #CBA320;
+}
+
+rating {
+    /* direction: rtl; */
+ }
+ .rating i {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 2em;
+    transition: color .4s;
+ }
+ /* .rating i:hover,
+ .rating i:focus,
+ .rating i:hover ~ i,
+ .rating i:focus ~ i {
+    color: orange;
+    cursor: pointer;
+ } */
+ 
+ .classtar{
+   background-color: orange;
+ }
+ .rating .voted {
+   /* unicode-bidi: bidi-override; */
+   color: orange;
+   content: "\2605";
+ }
+ 
+
 /**************************************************************************
 /*-----Pictos réassurance-----*/
 .reassurance{

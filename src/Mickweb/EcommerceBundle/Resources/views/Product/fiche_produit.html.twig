@@ -45,33 +45,64 @@
              {#</div>#}
 					</div>
 
-					<div class="col-sm-6">
-						<h2>{{ product.titre }}</h2>
-						<h5>AB29837 Item Model</h5>
-						<p>{{ product.description }}</p>
-						<h4>{{ product.prix|tva(product.tva.multiplicate) }} €</h4>
-           
-            {% if panier[product.id] is not defined %}
-						<form action="{{ path('ajouter_panier', { 'id': product.id }) }}" method="get">
-							<select name="qte" class="span1">
-                {% for i in 1..10  %}
-								  <option value="{{ i }}"> {{ i }} </option>
-                {% endfor %}
-							</select>
-							<div>
-                  <a href="{{ path('ajouter_panier', {'id': product.id}) }}" class="btn btn-primary">
-                    <i class="glyphicon glyphicon-edit"></i>
-                    Ajouter au panier
-                  </a>
-							</div>
-						</form>
-            {# A verifier, mais cette condition ne fonctionne pas #}
-            {% else %}
-              <div>
-                <a href="{{ path('mickweb_ecommerce_panier') }}" class="btn btn-primary">Le produit est déjà dans votre panier</a>
+            <div class="col-sm-6">
+              <h2>{{ product.titre }}</h2>
+              <h5>AB29837 Item Model</h5>
+              <p>{{ product.description }}</p>
+              <div class="row">
+                  <div class="col-sm-6">
+                    {% if panier[product.id] is not defined %}
+                    <form action="{{ path('ajouter_panier', { 'id': product.id }) }}" method="get">
+                      <select name="qte" class="span1">
+                        {% for i in 1..10  %}
+                          <option value="{{ i }}"> {{ i }} article(s) </option>
+                        {% endfor %}
+                      </select>
+                    </form>
+                  </div>
+
+                  <div class="col-sm-6">  
+                    <div>
+                      <h4>{{ product.prix|tva(product.tva.multiplicate) }} €</h4>
+                    </div>
+                    <div>
+                        <a href="{{ path('ajouter_panier', {'id': product.id}) }}" class="btn-recherche">
+                          Ajouter au panier
+                        </a>
+                    </div>
+                  </div>
+
               </div>
-            {% endif %}
-          </div>
+              {# A verifier, mais cette condition ne fonctionne pas #}
+              {% else %}
+                <div>
+                  <a href="{{ path('mickweb_ecommerce_panier') }}" class="btn btn-primary">Le produit est déjà dans votre panier</a>
+                </div>
+              {% endif %}
+              <hr/>
+
+              <center>
+              <h3>Partagez cet article à votre entourage :</h3>
+                  <div>
+              <!-- Facebook -->
+                    <a target="_blank" title="Facebook" href="https://www.facebook.com/sharer.php?u=http://www.mickael-lizeray.fr/mmcommerce/index.html" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"><i class="fab fa-facebook" alt="Facebook"></i></a>
+              <!-- //Facebook -->
+
+              <!-- Twitter -->
+                      <a target="_blank" title="Twitter" href="https://twitter.com/share?url=https://bit.ly/2EfXBvi" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"><i class="fab fa-twitter-square" alt="Twitter"></i></a>
+              <!-- //Twitter -->
+
+              <!-- Linkedin -->
+                      <a target="_blank" title="Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http://www.mickael-lizeray.fr/mmcommerce/index.html" rel="nofollow" onclick="javascript:window.open(this.href, '','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><i class="fab fa-linkedin" alt="Linkedin"></i></a>
+              <!-- //Linkedin -->
+
+              <!-- Email -->
+                      <a target="_blank" title="Envoyer par mail" href="mailto:?Subject=Regarde ce super site !&amp;Body=regarde%20cet%20article%20c'est%20super !%20 http://www.mickael-lizeray.fr/mmcommerce/index.html" rel="nofollow"><i class="fas fa-envelope-square" alt="email"></i></a>
+              <!-- //Email -->
+                  </div>
+              </center>
+
+            </div>
 				</div>
         <hr/>
 			</div>
@@ -84,7 +115,6 @@
   <div class="jumbotron">
   <h2>Ces produits peuvent vous intéresser<h2>
       <div class="row">
-      
           {% for product in productAssoc %} {# produits ou listProducts #}
                 <div class="col-sm-3">
                   <div class="pdts-compl">
@@ -138,16 +168,16 @@
           {% for avis in afficheAvis %}
             <li>
               <p> {{ avis.commentaire }} </p>
-              {# {% for avis in valeur => afficheAvis %}
-                  {% if indice == 'note' %}
-                      $compteurEtoiles = 0;
-                      $noteFinale = '';
+              <div class="rating">
+                    {% for i in 1..5 %}
+                    {% set starClass = (avis.note >= i ? "star voted" : "star-empty")  %}
+                        <i class="{{ starClass }}">★</i>
+                          <!-- <p> note : {{ avis.note }}</p> -->
+                    {% endfor %}
+              </div>
 
-                      while($compteurEtoiles < $valeur)                        
-                          $noteFinale = $noteFinale  . '&#9733';
-                          $compteurEtoiles++; #}
 
-              <p> note : {{ avis.note }} </p>
+              {# <p> note : {{ avis.note }} </p> #}
               <p> Date de publication : {{ avis.date|date('Y-m-d') }} </p>
             </li>
             <hr>
