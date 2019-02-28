@@ -3,13 +3,14 @@
 {% extends "MickwebEcommerceBundle::layout.html.twig" %}
 
 {% block title %}
-  Accueil - {{ parent() }}
+  Catégories - {{ parent() }}
 {% endblock %}
 {% block description %} {# description à ajouter #} {% endblock %}
 
 {% block MickwebEcommerce_body %}
   
-  <h2> Vous êtes dans la catégorie : {{ categories.name }}</h2>
+  <h1> Vous êtes dans la catégorie : {{ categories.name }}</h1>
+  <hr>
 
     <div class="container col-sm-12">
       <div class="row">

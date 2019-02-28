@@ -47,8 +47,8 @@ class ProductController extends Controller
           if ($categories != null)
             $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->byCategorie($categories);
           else 
-            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
-            // $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findAllVisibleQuery($search);
+            // $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findBy(array('disponible' => 1));
+            $findProduits = $em->getRepository('MickwebEcommerceBundle:Product')->findAllVisibleQuery($search);
             // ->getRepository('MickwebEcommerceBundle:Product')
 
         //   $listProducts = $repository->myFindAll();
